@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -23,10 +26,8 @@ Route::get('/event/{slug}', [EventController::class, 'show'])->name('event');
 
 Route::get('/category/{slug}', [EventController::class, 'category'])->name('event_category');
 
-Route::get('login', function () {
-    return view('auth.login');
-})->name('login');
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
 
-Route::get('register', function() {
-    return view('auth.register');
-})->name('register');
+require __DIR__.'/auth.php';
