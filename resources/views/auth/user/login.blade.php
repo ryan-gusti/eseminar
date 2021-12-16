@@ -42,9 +42,9 @@
                             <center>
                                 <span>-Sign in with-</span>
                                 <div class="sign-in-google-log-btn">
-                                    <button class="btn focus-reset">
+                                    <a href="{{ route('user.login.google') }}" class="btn focus-reset">
                                         <i class="fab fa-google me-2"></i>
-                                    </button>
+                                    </a>
                                 </div>
                             </center>
                             <div class="create-new-acc-text text-center">
