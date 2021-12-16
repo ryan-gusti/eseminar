@@ -21,4 +21,10 @@ class Event extends Model
         'price',
         'status'
     ];
+
+    public function categories() 
+    {
+        return $this->belongsToMany('App\Models\Category');
+    }
+
 }

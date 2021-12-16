@@ -15,14 +15,46 @@ class CategoryEventSeeder extends Seeder
     public function run()
     {
         $categories = [
-            ['category_name' => 'Agama'],
-            ['category_name' => 'Bisnis'],
-            ['category_name' => 'Kesehatan'],
-            ['category_name' => 'Musik'],
-            ['category_name' => 'Pendidikan'],
-            ['category_name' => 'Seni & Hiburan'],
-            ['category_name' => 'Talk Show'],
-            ['category_name' => 'Teknologi']
+            [
+                'name' => 'Agama',
+                'slug' => 'agama',
+                'image' => 'agama.jpg'
+            ],
+            [
+                'name' => 'Bisnis',
+                'slug' => 'bisnis',
+                'image' => 'bisnis.jpg'
+            ],
+            [
+                'name' => 'Kesehatan',
+                'slug' => 'kesehatan',
+                'image' => 'kesehatan.jpg'
+            ],
+            [
+                'name' => 'Musik',
+                'slug' => 'musik',
+                'image' => 'musik.jpg'
+            ],
+            [
+                'name' => 'Pendidikan',
+                'slug' => 'pendidikan',
+                'image' => 'pendidikan.jpg'
+            ],
+            [
+                'name' => 'Seni & Hiburan',
+                'slug' => 'seni-hiburan',
+                'image' => 'seni-hiburan.jpg'
+            ],
+            [
+                'name' => 'Talk Show',
+                'slug' => 'talk-show',
+                'image' => 'talk-show.jpg'
+            ],
+            [
+                'name' => 'Teknologi',
+                'slug' => 'teknologi',
+                'image' => 'teknologi.jpg'
+            ]
         ];
 
         foreach ($categories as $category) {
