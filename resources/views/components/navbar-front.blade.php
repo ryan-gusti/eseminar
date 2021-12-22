@@ -35,7 +35,7 @@
                                 </a>
                                 <ul class="sub-menu" id="submenu-9">
                                     <li class="sub-menu--item">
-                                        <a href="about-us.html">My Profile</a>
+                                        <a href="{{ route('user.profile') }}">My Profile</a>
                                     </li>
                                     <li class="sub-menu--item">
                                         <a href="#"

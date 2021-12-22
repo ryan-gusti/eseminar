@@ -44,7 +44,7 @@ class EventController extends Controller
 
         $category = Category::where('slug', $slug)->get();
 
-        return view('home/events', [
+        return view('home/category', [
             'events' => $events,
             'category' => $category
         ]);

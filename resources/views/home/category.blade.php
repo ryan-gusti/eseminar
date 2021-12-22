@@ -1,14 +1,17 @@
 @extends('layouts.frontend.main')
 
 @section('content')
+    @extends('layouts.frontend.main')
+
+@section('content')
     <!-- Blog  Area -->
     <div class="inner-service-banner">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-xxl-7 col-xl-8 col-lg-10 col-md-10">
                     <div class="section-heading-14 text-center">
-                        {{-- <h3>Event Kategori {{ $category[0]->name }}</h3> --}}
-                        <h3>Semua Event</h3>
+                        <h3>Event Kategori {{ $category[0]->name }}</h3>
+                        {{-- <h3>Semua Event</h3> --}}
                     </div>
                 </div>
             </div>
@@ -87,4 +90,6 @@
             });
         });
     </script>
+@endsection
+
 @endsection

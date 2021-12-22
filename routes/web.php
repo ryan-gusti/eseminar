@@ -31,6 +31,8 @@ Route::get('/category/{slug}', [EventController::class, 'category'])->name('even
 Route::get('sign-in-google', [UserController::class,'google'])->name('user.login.google');
 Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
+Route::view('/user/profile', 'user.profile')->name('user.profile');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

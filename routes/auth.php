@@ -23,6 +23,7 @@ Route::post('/register', [RegisteredUserController::class, 'store'])
 //                 ->name('login');
 
 Route::get('/login', [UserController::class, 'login'])->middleware('guest')->name('login');
+Route::post('login_sipt', [UserController::class, 'login_sipt'])->middleware('guest');
 
 Route::get('/login/admin', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
