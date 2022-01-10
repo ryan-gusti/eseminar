@@ -18,8 +18,8 @@
                         <h4>Kontak Panitia</h4>
                     </div>
                 </div>
-                <div class="col-lg-5 col-md-9">
-                    <div class="project-info-area-pr-de-2" style="margin-top: 350px">
+                <div class="col-lg-5 col-md-9 mb-4">
+                    <div class="project-info-area-pr-de-2" style="margin-top: 50px">
                         <div class="port-details-1-content">
                             <h4>
                                 <i class="fas fa-info-circle me-2"></i> Informasi Event

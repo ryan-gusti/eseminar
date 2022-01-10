@@ -120,7 +120,8 @@
                     </a>
                 </li>
                 <li class="list-inline-item">
-                    <a href="javascript:void()" class="social-list-item bg-danger text-white border-danger">
+                    <a href="{{ route('user.login.google') }}"
+                        class="social-list-item bg-danger text-white border-danger">
                         <i class="mdi mdi-google"></i>
                     </a>
                 </li>

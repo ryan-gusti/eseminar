@@ -87,6 +87,22 @@
                                             <div class="row">
                                                 <div class="col-xl-2">
                                                     <div>
+                                                        <h5 class="font-size-14">QR Code :</h5>
+                                                    </div>
+                                                </div>
+                                                <div class="col-xl">
+                                                    <div class="text-muted">
+                                                        <p class="mb-2"><img
+                                                                src="https://v1.slashapi.com/solo/qr-code/7QtwLV8oHF?text={{ Auth::user()->email }}"
+                                                                width="100" height="100"></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="pb-3">
+                                            <div class="row">
+                                                <div class="col-xl-2">
+                                                    <div>
                                                         <h5 class="font-size-14">Alamat Email :</h5>
                                                     </div>
                                                 </div>
@@ -107,6 +123,9 @@
                                                 </div>
                                                 <div class="col-xl">
                                                     <div class="text-muted">
+                                                        @if (Auth::user()->phone == null)
+                                                            <p>Tidak ada Nomor</p>
+                                                        @endif
                                                         <p>{{ Auth::user()->phone }}</p>
                                                     </div>
                                                 </div>
