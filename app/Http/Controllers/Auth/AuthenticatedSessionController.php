@@ -7,6 +7,9 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -17,7 +20,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function create()
     {
-        return view('auth.login');
+        return view('auth.user.login');
     }
 
     /**
@@ -28,11 +31,58 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
-        $request->authenticate();
-
-        $request->session()->regenerate();
-
-        return redirect()->intended(RouteServiceProvider::HOME);
+        //ambil data dari request
+        $email = $request->email;
+        $password = $request->password;
+        //validasi
+        $credentials = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required'
+        ]);
+        //cek apakah mahasiswa ubp atau bukan
+        if (preg_match("/@mhs.ubpkarawang.ac.id/", $email)) {
+            //jika iya cek data apa sudah pernah login sebelumnya
+            $cek_data = User::where('email', $email)->first();
+            if ($cek_data != null) {
+                //jika sudah ada langsung auth
+                if(Auth::attempt($credentials)) {
+                    $request->session()->regenerate();
+                    return redirect()->intended('/user/profile');
+                }
+                return back()->with('loginError', 'Login Gagal!');
+            } else {
+                //jika tidak, request api dan simpan ke db dan auth
+                $response = Http::withHeaders([
+                            'authorization' => env('API_KEY_SIPT'),
+                        ])->post('http://api-gateway.ubpkarawang.ac.id/external/sertifikat/check-user', [
+                            'email' => $request->email,
+                            'password' => $request->password,
+                        ]);
+        
+                if($response->status() === 200) {
+                    $data_sipt = $response->json();
+                    $data = [
+                        'email' => $data_sipt['data']['email'],
+                        'name' => $data_sipt['data']['name'],
+                        'phone' => $data_sipt['data']['phone'],
+                        'email_verified_at' => now(),
+                        'password' => Hash::make($request->password),
+                    ];
+                    // dd($data);
+                    $user = User::firstOrCreate(['email' => $data['email']], $data);
+                    Auth::login($user, true);
+                    return redirect(route('home'));
+                } else {
+                    return 'email / password sipt salah';
+                }
+            }
+        } else {
+            $request->authenticate();
+    
+            $request->session()->regenerate();
+    
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 
     /**

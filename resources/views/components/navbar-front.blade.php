@@ -42,7 +42,7 @@
                                             onclick="event.preventDefault(); document.getElementById('logout-form').submit()">Log
                                             Out</a>
                                         <form id="logout-form" action="{{ route('logout') }}" method="post">
-                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            @csrf
                                         </form>
                                     </li>
                                 </ul>

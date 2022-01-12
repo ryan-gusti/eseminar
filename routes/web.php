@@ -33,8 +33,17 @@ Route::get('auth/google/callback', [UserController::class, 'handleProviderCallba
 
 Route::view('/user/profile', 'user.profile')->name('user.profile');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+    Route::view('/user/profile', 'user.profile')->name('user.profile');
+    Route::put('/user/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
+    Route::put('/user/password/update', [UserController::class, 'update_password'])->name('user.password.update');
+});
+
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

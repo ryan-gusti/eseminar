@@ -99,8 +99,11 @@
                         <button type="button" class="btn header-item bg-soft-light border-start border-end"
                             id="page-header-user-dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
                             aria-expanded="false">
-                            <img class="rounded-circle header-profile-user" src="{{ Auth::user()->picture }}"
-                                alt="Header Avatar">
+                            <img class="rounded-circle header-profile-user" src=@if (Auth::user()->picture == null)
+                            "https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
+                            @else
+                            "{{ Auth::user()->picture }}""
+                            @endif alt="Header Avatar">
                             <span class="d-none d-xl-inline-block ms-1 fw-medium">{{ Auth::user()->name }}</span>
                             <i class="mdi mdi-chevron-down d-none d-xl-inline-block"></i>
                         </button>
@@ -140,13 +143,6 @@
                                 <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboard"
                                     role="button">
                                     <i data-feather="home"></i><span data-key="t-dashboards">Event</span>
-                                </a>
-                            </li>
-
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle arrow-none" href="/" id="topnav-dashboard"
-                                    role="button">
-                                    <i data-feather="home"></i><span data-key="t-dashboards">Profile</span>
                                 </a>
                             </li>
 

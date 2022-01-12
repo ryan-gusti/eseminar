@@ -10,14 +10,6 @@
                 <div class="col-12">
                     <div class="page-title-box d-flex align-items-center justify-content-between">
                         <h4 class="page-title mb-0 font-size-18">Profile</h4>
-
-                        <div class="page-title-right">
-                            <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="javascript: void(0);">Contacts</a></li>
-                                <li class="breadcrumb-item active">Profile</li>
-                            </ol>
-                        </div>
-
                     </div>
                 </div>
             </div>
@@ -25,7 +17,7 @@
             <!-- end page title -->
 
             <div class="row">
-                <div class="col-xl-9 col-lg-8">
+                <div class="col-xl-6 col-lg-8">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
@@ -33,8 +25,11 @@
                                     <div class="d-flex align-items-start mt-3 mt-sm-0">
                                         <div class="flex-shrink-0">
                                             <div class="avatar-xl me-3">
-                                                <img src="{{ Auth::user()->picture }}" alt=""
-                                                    class="img-fluid rounded-circle d-block">
+                                                    <img class="img-fluid rounded-circle d-block" src=@if (Auth::user()->picture == null)
+                                                        "https://ui-avatars.com/api/?name={{ Auth::user()->name }}"
+                                                        @else
+                                                        "{{ Auth::user()->picture }}""
+                                                        @endif alt="Header Avatar">
                                             </div>
                                         </div>
                                         <div class="flex-grow-1">
@@ -82,6 +77,20 @@
                                     <h5 class="card-title mb-0">Overview</h5>
                                 </div>
                                 <div class="card-body">
+                                    @if(session()->has('message'))
+                                        <div class="alert alert-success">
+                                            <span>{{session('message')}}</span>
+                                        </div>
+                                    @endif
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
                                     <div>
                                         <div class="pb-3">
                                             <div class="row">
@@ -147,68 +156,27 @@
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <div class="pb-3">
-                                            <h5 class="font-size-15">Bio :</h5>
-                                            <div class="text-muted">
-                                                <p class="mb-2">Hi I'm Phyllis Gatlin, Lorem Ipsum is simply
-                                                    dummy text of the printing and typesetting industry. Lorem Ipsum has
-                                                    been the industry's standard dummy text ever since the 1500s, when an
-                                                    unknown printer took a galley of type and scrambled it to make a type
-                                                    specimen book. It has survived not only five centuries, but also the
-                                                    leap into electronic typesetting, remaining essentially unchanged. It
-                                                    was popularised in the 1960s with the release of Letraset sheets
-                                                    containing Lorem Ipsum passages</p>
-                                                <p class="mb-2">It is a long established fact that a reader will
-                                                    be distracted by the readable content of a page when looking at it has a
-                                                    more-or-less normal distribution of letters</p>
-                                                <p>It will be as simple as Occidental; in fact, it will be Occidental. To an
-                                                    English person, it will seem like simplified English, as a skeptical
-                                                    Cambridge friend of mine told me what Occidental is. The European
-                                                    languages are members of the same family. Their separate existence is a
-                                                    myth.</p>
-
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Donec
-                                                        vitae sapien ut libero venenatis faucibus</li>
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Quisque
-                                                        rutrum aenean imperdiet</li>
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Integer
-                                                        ante a consectetuer eget</li>
-                                                </ul>
+                                        <form method="POST" action="{{ route('user.profile.update') }}">
+                                            @method('PUT')
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="name" class="form-label">Ubah Nama</label>
+                                                <div class="col-6">
+                                                    <input class="form-control" type="text" value="{{Auth::user()->name}}" id="name" name="name">
+                                                </div>
                                             </div>
-                                        </div>
-
-                                        <div class="pt-3">
-                                            <h5 class="font-size-15">Experience :</h5>
-                                            <div class="text-muted">
-                                                <p>If several languages coalesce, the grammar of the resulting language is
-                                                    more simple and regular than that of the individual languages. The new
-                                                    common language will be more simple and regular than the existing
-                                                    European languages. It will be as simple as Occidental; in fact, it will
-                                                    be Occidental. To an English person, it will seem like simplified
-                                                    English, as a skeptical Cambridge friend of mine told me what Occidental
-                                                    is. The European languages are members of the same family. Their
-                                                    separate existence is a myth. For science, music, sport, etc</p>
-
-                                                <ul class="list-unstyled mb-0">
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Donec
-                                                        vitae sapien ut libero venenatis faucibus</li>
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Quisque
-                                                        rutrum aenean imperdiet</li>
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Integer
-                                                        ante a consectetuer eget</li>
-                                                    <li class="py-1"><i
-                                                            class="mdi mdi-circle-medium me-1 text-success align-middle"></i>Phasellus
-                                                        nec sem in justo pellentesque</li>
-                                                </ul>
+                                            <div class="mb-3">
+                                                <label for="phone" class="form-label">Ubah Nomor HP</label>
+                                                <div class="col-6">
+                                                    <input class="form-control" type="text" value="{{Auth::user()->phone}}" id="phone" name="phone" placeholder="08xxxxxx">
+                                                </div>
                                             </div>
-                                        </div>
+                                            <div class="mb-3">
+                                                <div class="col-6">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Simpan Profil</button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                                 <!-- end card body -->
@@ -220,220 +188,37 @@
                         <div class="tab-pane" id="post" role="tabpanel">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0">Post</h5>
+                                    <h5 class="card-title mb-0">Password</h5>
                                 </div>
                                 <div class="card-body">
                                     <div>
-                                        <div class="row justify-content-center">
-                                            <div class="col-xl-8">
-
-
-                                                <div class="mt-5">
-                                                    <div class="d-flex align-items-start">
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="font-size-14 text-truncate"><a href="#"
-                                                                    class="text-dark">Project discussion with team</a>
-                                                            </h5>
-                                                            <p class="font-size-13 text-muted mb-0">24 Mar, 2020</p>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-link text-muted font-size-16 p-1 py-0 dropdown-toggle shadow-none"
-                                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Another
-                                                                            action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Something else
-                                                                            here</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-
-                                                    <div class="pt-3">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i>
-                                                                    Development
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-comment-dots align-middle text-muted me-1"></i>
-                                                                    08 Comments
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="text-muted">At vero eos et accusamus et iusto odio
-                                                            dignissimos ducimus qui blanditiis praesentium voluptatum
-                                                            deleniti atque corrupti quos dolores</p>
-
-
-                                                    </div>
-                                                </div>
-                                                <!-- end post -->
-
-                                                <hr class="my-5">
-
-                                                <div>
-                                                    <div class="d-flex align-items-start">
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="font-size-14 text-truncate"><a href="#"
-                                                                    class="text-dark">Beautiful Day with Friends</a>
-                                                            </h5>
-                                                            <p class="font-size-13 text-muted mb-0">10 Apr, 2020</p>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-link text-muted font-size-16 p-1 py-0 dropdown-toggle shadow-none"
-                                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Another
-                                                                            action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Something else
-                                                                            here</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="position-relative mt-3">
-                                                        <img src="{{ asset('backend/images/small/img-3.jpg') }}" alt=""
-                                                            class="img-thumbnail">
-                                                    </div>
-
-                                                    <div class="pt-3">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i>
-                                                                    Project
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-comment-dots align-middle text-muted me-1"></i>
-                                                                    12 Comments
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="text-muted">Neque porro quisquam est, qui dolorem
-                                                            ipsum quia dolor sit amet, consectetur, adipisci velit, aliquam
-                                                            quaerat voluptatem. Ut enim ad minima veniam, quis</p>
-
-
-                                                    </div>
-                                                </div>
-                                                <!-- end post -->
-
-                                                <hr class="my-5">
-
-                                                <div>
-                                                    <div class="d-flex align-items-start">
-                                                        <div class="flex-grow-1 overflow-hidden">
-                                                            <h5 class="font-size-14 text-truncate"><a href="#"
-                                                                    class="text-dark">Drawing a sketch</a></h5>
-                                                            <p class="font-size-13 text-muted mb-0">20 Mar, 2020</p>
-                                                        </div>
-                                                        <div class="flex-shrink-0 ms-2">
-                                                            <div class="dropdown">
-                                                                <a class="btn btn-link text-muted font-size-16 p-1 py-0 dropdown-toggle shadow-none"
-                                                                    href="#" role="button" data-bs-toggle="dropdown"
-                                                                    aria-expanded="false">
-                                                                    <i class="bx bx-dots-horizontal-rounded"></i>
-                                                                </a>
-                                                                <ul class="dropdown-menu dropdown-menu-end">
-                                                                    <li><a class="dropdown-item" href="#">Action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Another
-                                                                            action</a></li>
-                                                                    <li><a class="dropdown-item" href="#">Something else
-                                                                            here</a></li>
-                                                                </ul>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="pt-3">
-                                                        <ul class="list-inline">
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-purchase-tag-alt align-middle text-muted me-1"></i>
-                                                                    Project
-                                                                </a>
-                                                            </li>
-                                                            <li class="list-inline-item me-3">
-                                                                <a href="javascript: void(0);" class="text-muted">
-                                                                    <i
-                                                                        class="bx bx-comment-dots align-middle text-muted me-1"></i>
-                                                                    12 Comments
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                        <p class="text-muted">Neque porro quisquam est, qui dolorem
-                                                            ipsum quia dolor sit amet, consectetur, adipisci velit, aliquam
-                                                            quaerat voluptatem. Ut enim ad minima veniam, quis</p>
-
-                                                    </div>
-                                                </div>
-                                                <!-- end post -->
-                                            </div>
-                                            <!-- end col -->
-
-                                        </div>
-                                        <!-- end row -->
-
-                                        <div class="row g-0 mt-4">
-                                            <div class="col-sm-6">
-                                                <div>
-                                                    <p class="mb-sm-0">Showing 1 to 10 of 57 entries</p>
+                                        <form action="{{ route('user.password.update') }}" method="POST">
+                                            @method('put')
+                                            @csrf
+                                            <div class="mb-3">
+                                                <label for="current_password" class="form-label">Password Sekarang </label>
+                                                <div class="col-6">
+                                                    <input class="form-control" type="password" id="current_password" name="current_password">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
-                                                <div class="float-sm-end">
-                                                    <ul class="pagination mb-sm-0">
-                                                        <li class="page-item disabled">
-                                                            <a href="#" class="page-link"><i
-                                                                    class="mdi mdi-chevron-left"></i></a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a href="#" class="page-link">1</a>
-                                                        </li>
-                                                        <li class="page-item active">
-                                                            <a href="#" class="page-link">2</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a href="#" class="page-link">3</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a href="#" class="page-link">4</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a href="#" class="page-link">5</a>
-                                                        </li>
-                                                        <li class="page-item">
-                                                            <a href="#" class="page-link"><i
-                                                                    class="mdi mdi-chevron-right"></i></a>
-                                                        </li>
-                                                    </ul>
+                                            <div class="mb-3">
+                                                <label for="password" class="form-label">Password Baru</label>
+                                                <div class="col-6">
+                                                    <input class="form-control" type="password" id="password" name="password">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <!-- end row -->
+                                            <div class="mb-3">
+                                                <label for="password_confirmation" class="form-label">Konfirmasi Password Baru</label>
+                                                <div class="col-6">
+                                                    <input class="form-control" type="password" id="password_confirmation" name="password_confirmation">
+                                                </div>
+                                            </div>
+                                            <div class="mb-3">
+                                                <div class="col-6">
+                                                    <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Ubah Password</button>
+                                                </div>
+                                            </div>
+                                         </form>
                                     </div>
                                 </div>
                                 <!-- end card body -->

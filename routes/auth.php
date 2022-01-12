@@ -18,12 +18,9 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
 
-// Route::get('/login', [AuthenticatedSessionController::class, 'create'])
-//                 ->middleware('guest')
-//                 ->name('login');
-
-Route::get('/login', [UserController::class, 'login'])->middleware('guest')->name('login');
-Route::post('login_sipt', [UserController::class, 'login_sipt'])->middleware('guest');
+Route::get('/login', [AuthenticatedSessionController::class, 'create'])
+                ->middleware('guest')
+                ->name('login');
 
 Route::get('/login/admin', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
