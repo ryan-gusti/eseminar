@@ -1,107 +1,140 @@
 @extends('layouts.backend.auth.main')
 
+@section('title', 'Daftar Akun')
+
 @section('content')
-    <div class="auth-content my-auto">
-        <div class="text-center">
-            <h5 class="mb-0">Daftar Akun ESeminar !</h5>
-            <p class="text-muted mt-2">Isi data berikut untuk mendaftar.</p>
-        </div>
-        @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        <form class="custom-form mt-4 pt-2" action="register" method="post">
-            @csrf
-            <div class="mb-3">
-                <label class="form-label">Nama Lengkap</label>
-                <input type="text" class="form-control" id="name" placeholder="Nama Lengkap" name="name">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="text" class="form-control" id="email" placeholder="email@domain.com" name="email">
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Nomor HP</label>
-                <input type="text" class="form-control" id="phone" placeholder="08xxxxx" name="phone">
-            </div>
-            <div class="mb-3">
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <label class="form-label">Password</label>
+    <!-- Register basic -->
+    <div class="card mb-0">
+        <div class="card-body">
+            <a href="index.html" class="brand-logo">
+                <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:xlink="http://www.w3.org/1999/xlink" height="28">
+                    <defs>
+                        <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
+                            <stop stop-color="#000000" offset="0%"></stop>
+                            <stop stop-color="#FFFFFF" offset="100%"></stop>
+                        </lineargradient>
+                        <lineargradient id="linearGradient-2" x1="64.0437835%" y1="46.3276743%" x2="37.373316%" y2="100%">
+                            <stop stop-color="#EEEEEE" stop-opacity="0" offset="0%"></stop>
+                            <stop stop-color="#FFFFFF" offset="100%"></stop>
+                        </lineargradient>
+                    </defs>
+                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                        <g id="Artboard" transform="translate(-400.000000, -178.000000)">
+                            <g id="Group" transform="translate(400.000000, 178.000000)">
+                                <path class="text-primary" id="Path"
+                                    d="M-5.68434189e-14,2.84217094e-14 L39.1816085,2.84217094e-14 L69.3453773,32.2519224 L101.428699,2.84217094e-14 L138.784583,2.84217094e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L6.71554594,44.4188507 C2.46876683,39.9813776 0.345377275,35.1089553 0.345377275,29.8015838 C0.345377275,24.4942122 0.230251516,14.560351 -5.68434189e-14,2.84217094e-14 Z"
+                                    style="fill: currentColor"></path>
+                                <path id="Path1"
+                                    d="M69.3453773,32.2519224 L101.428699,1.42108547e-14 L138.784583,1.42108547e-14 L138.784199,29.8015838 C137.958931,37.3510206 135.784352,42.5567762 132.260463,45.4188507 C128.736573,48.2809251 112.33867,64.5239941 83.0667527,94.1480575 L56.2750821,94.1480575 L32.8435758,70.5039241 L69.3453773,32.2519224 Z"
+                                    fill="url(#linearGradient-1)" opacity="0.2"></path>
+                                <polygon id="Path-2" fill="#000000" opacity="0.049999997"
+                                    points="69.3922914 32.4202615 32.8435758 70.5039241 54.0490008 16.1851325"></polygon>
+                                <polygon id="Path-21" fill="#000000" opacity="0.099999994"
+                                    points="69.3922914 32.4202615 32.8435758 70.5039241 58.3683556 20.7402338"></polygon>
+                                <polygon id="Path-3" fill="url(#linearGradient-2)" opacity="0.099999994"
+                                    points="101.428699 0 83.0667527 94.1480575 130.378721 47.0740288"></polygon>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+                <h2 class="brand-text text-primary ms-1">ESeminar</h2>
+            </a>
+
+            <h4 class="card-title mb-1">Daftar Akun 🚀</h4>
+            <p class="card-text mb-2">Isi data dibawah untuk mendaftar!</p>
+
+            {{-- Validasi Error --}}
+            @if ($errors->any())
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <h4 class="alert-heading d-flex align-items-center">Daftar Gagal!</h4>
+                    <div class="alert-body">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
                     </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            {{-- Validasi Error --}}
+
+            <form class="auth-register-form mt-2" action="{{ route('register') }}" method="POST">
+                @csrf
+                <div class="mb-1">
+                    <label for="register-username" class="form-label">Nama Lengkap</label>
+                    <input type="text" class="form-control" id="register-username" name="name" placeholder="Budi Budi"
+                        aria-describedby="register-username" tabindex="1" autofocus />
+                </div>
+                <div class="mb-1">
+                    <label for="register-email" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="register-email" name="email" placeholder="budi@contoh.com"
+                        aria-describedby="register-email" tabindex="2" />
+                </div>
+                <div class="mb-1">
+                    <label for="register-email" class="form-label">Nomor HP</label>
+                    <input type="text" class="form-control" id="register-email" name="phone" placeholder="08xxxxxx"
+                        aria-describedby="register-email" tabindex="2" />
                 </div>
 
-                <div class="input-group auth-pass-inputgroup">
-                    <input type="password" class="form-control" placeholder="Enter password" aria-label="Password"
-                        aria-describedby="password-addon" id="password" name="password">
-                    <button class="btn btn-light ms-0" type="button" id="password-addon"><i
-                            class="mdi mdi-eye-outline"></i></button>
-                </div>
-            </div>
-            <div class="mb-3">
-                <div class="d-flex align-items-start">
-                    <div class="flex-grow-1">
-                        <label class="form-label">Ulangi Password</label>
+                <div class="mb-1">
+                    <label for="register-password" class="form-label">Password</label>
+
+                    <div class="input-group input-group-merge form-password-toggle">
+                        <input type="password" class="form-control form-control-merge" id="register-password"
+                            name="password"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="register-password" tabindex="3" />
+                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
                     </div>
                 </div>
+                <div class="mb-1">
+                    <label for="register-password" class="form-label">Konfirmasi Password</label>
 
-                <div class="input-group auth-pass-inputgroup">
-                    <input type="password" class="form-control" placeholder="Enter password" aria-label="Password"
-                        aria-describedby="password-addon" id="password_confirmation" name="password_confirmation">
-                    <button class="btn btn-light ms-0" type="button" id="password-addon"><i
-                            class="mdi mdi-eye-outline"></i></button>
+                    <div class="input-group input-group-merge form-password-toggle">
+                        <input type="password" class="form-control form-control-merge" id="register-password"
+                            name="password_confirmation"
+                            placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
+                            aria-describedby="register-password" tabindex="3" />
+                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-4">
-                <div class="col">
+                <div class="mb-1">
                     <div class="form-check">
-                        <input class="form-check-input" type="checkbox" id="remember-check">
-                        <label class="form-check-label" for="remember-check">
-                            Remember me
+                        <input class="form-check-input" type="checkbox" id="register-privacy-policy" tabindex="4"
+                            required />
+                        <label class="form-check-label" for="register-privacy-policy">
+                            I agree to <a href="#">privacy policy & terms</a>
                         </label>
                     </div>
                 </div>
+                <button class="btn btn-primary w-100" tabindex="5">Daftar</button>
+            </form>
 
+            <p class="text-center mt-2">
+                <span>Sudah memiliki akun?</span>
+                <a href="{{ route('login') }}">
+                    <span>Masuk</span>
+                </a>
+            </p>
+
+            <div class="divider my-2">
+                <div class="divider-text">atau</div>
             </div>
-            <div class="mb-3">
-                <button class="btn btn-primary w-100 waves-effect waves-light" type="submit">Daftar</button>
+
+            <div class="auth-footer-btn d-flex justify-content-center">
+                {{-- <a href="#" class="btn btn-facebook">
+                    <i data-feather="facebook"></i>
+                </a>
+                <a href="#" class="btn btn-twitter white">
+                    <i data-feather="twitter"></i>
+                </a> --}}
+                <a href="{{ route('user.login.google') }}" class="btn btn-google">
+                    <i class="fab fa-google"></i>
+                </a>
             </div>
-        </form>
-
-        <div class="mt-4 pt-2 text-center">
-            <div class="signin-other-title">
-                <h5 class="font-size-14 mb-3 text-muted fw-medium">- Daftar melalui -</h5>
-            </div>
-
-            <ul class="list-inline mb-0">
-                {{-- <li class="list-inline-item">
-                    <a href="javascript:void()" class="social-list-item bg-primary text-white border-primary">
-                        <i class="mdi mdi-facebook"></i>
-                    </a>
-                </li> --}}
-                {{-- <li class="list-inline-item">
-                    <a href="javascript:void()" class="social-list-item bg-info text-white border-info">
-                        <i class="mdi mdi-twitter"></i>
-                    </a>
-                </li> --}}
-                <li class="list-inline-item">
-                    <a href="{{ route('user.login.google') }}"
-                        class="social-list-item bg-danger text-white border-danger">
-                        <i class="mdi mdi-google"></i>
-                    </a>
-                </li>
-            </ul>
-        </div>
-
-        <div class="mt-5 text-center">
-            <p class="text-muted mb-0">Sudah memiliki akun ? <a href="{{route('login')}}" class="text-primary fw-semibold">
-                    Masuk </a> </p>
         </div>
     </div>
-
+    <!-- /Register basic -->
 @endsection

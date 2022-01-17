@@ -49,7 +49,7 @@ class AuthenticatedSessionController extends Controller
                     $request->session()->regenerate();
                     return redirect()->intended('/user/profile');
                 }
-                return back()->with('loginError', 'Login Gagal!');
+                return back()->with('loginError', 'Cek Kembali Email atau Password Anda!');
             } else {
                 //jika tidak, request api dan simpan ke db dan auth
                 $response = Http::withHeaders([
@@ -59,6 +59,7 @@ class AuthenticatedSessionController extends Controller
                             'password' => $request->password,
                         ]);
         
+                // dd($response);
                 if($response->status() === 200) {
                     $data_sipt = $response->json();
                     $data = [
@@ -73,7 +74,7 @@ class AuthenticatedSessionController extends Controller
                     Auth::login($user, true);
                     return redirect(route('home'));
                 } else {
-                    return 'email / password sipt salah';
+                    return back()->with('loginError', 'Email atau Password SIPT Anda Salah!');
                 }
             }
         } else {

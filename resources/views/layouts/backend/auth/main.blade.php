@@ -1,196 +1,107 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
+    <meta name="description"
+        content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>@yield('title') | ESeminar</title>
+    <link rel="apple-touch-icon" href="{{ asset('backend/app-assets/images/ico/apple-icon-120.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/app-assets/images/ico/favicon.ico') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+        rel="stylesheet">
 
-    <meta charset="utf-8" />
-    <title>Login | Minia - Minimal Admin & Dashboard Template</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta content="Premium Multipurpose Admin & Dashboard Template" name="description" />
-    <meta content="Themesbrand" name="author" />
-    <!-- App favicon -->
-    <link rel="shortcut icon" href="{{ asset('backend/images/favicon.ico') }}">
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/vendors.min.css') }}">
+    <!-- END: Vendor CSS-->
 
-    <!-- preloader css -->
-    <link rel="stylesheet" href="{{ asset('backend/css/preloader.min.css') }}" type="text/css" />
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/bootstrap.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/bootstrap-extended.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/colors.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/components.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/themes/dark-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/themes/bordered-layout.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/themes/semi-dark-layout.css') }}">
 
-    <!-- Bootstrap Css -->
-    <link href="{{ asset('backend/css/bootstrap.min.css') }}" id="bootstrap-style" rel="stylesheet" type="text/css" />
-    <!-- Icons Css -->
-    <link href="{{ asset('backend/css/icons.min.css') }}" rel="stylesheet" type="text/css" />
-    <!-- App Css-->
-    <link href="{{ asset('backend/css/app.min.css') }}" id="app-style" rel="stylesheet" type="text/css" />
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/core/menu/menu-types/horizontal-menu.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/plugins/forms/form-validation.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/pages/authentication.css') }}">
+    <!-- END: Page CSS-->
+
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/style.css') }}">
+    <!-- END: Custom CSS-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     @yield('css')
+
 </head>
+<!-- END: Head-->
 
-<body>
-    <!-- <body data-layout="horizontal"> -->
-    <div class="auth-page">
-        <div class="container-fluid p-0">
-            <div class="row g-0">
-                <div class="col-xxl-3 col-lg-4 col-md-5">
-                    <div class="auth-full-page-content d-flex p-sm-5 p-4">
-                        <div class="w-100">
-                            <div class="d-flex flex-column h-100">
-                                <div class="mb-4 mb-md-5 text-center">
-                                    <a href="/" class="d-block auth-logo">
-                                        <img src="{{ asset('backend/images/logo-sm.svg') }}" alt="" height="28"> <span
-                                            class="logo-txt">Minia</span>
-                                    </a>
-                                </div>
-                                @yield('content')
-                                <div class="mt-4 mt-md-5 text-center">
-                                    <script>
-                                        document.write(new Date().getFullYear())
-                                    </script> Minia . Crafted with <i class="mdi mdi-heart text-danger"></i> by
-                                    Themesbrand</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- end auth full page content -->
-                </div>
-                <!-- end col -->
-                <div class="col-xxl-9 col-lg-8 col-md-7">
-                    <div class="auth-bg pt-md-5 p-4 d-flex">
-                        <div class="bg-overlay bg-primary"></div>
-                        <ul class="bg-bubbles">
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                        <!-- end bubble effect -->
-                        <div class="row justify-content-center align-items-center">
-                            <div class="col-xl-7">
-                                <div class="p-0 p-sm-4 px-xl-0">
-                                    <div id="reviewcarouselIndicators" class="carousel slide" data-bs-ride="carousel">
-                                        <div
-                                            class="carousel-indicators carousel-indicators-rounded justify-content-start ms-0 mb-0">
-                                            <button type="button" data-bs-target="#reviewcarouselIndicators"
-                                                data-bs-slide-to="0" class="active" aria-current="true"
-                                                aria-label="Slide 1"></button>
-                                            <button type="button" data-bs-target="#reviewcarouselIndicators"
-                                                data-bs-slide-to="1" aria-label="Slide 2"></button>
-                                            <button type="button" data-bs-target="#reviewcarouselIndicators"
-                                                data-bs-slide-to="2" aria-label="Slide 3"></button>
-                                        </div>
-                                        <!-- end carouselIndicators -->
-                                        <div class="carousel-inner">
-                                            <div class="carousel-item active">
-                                                <div class="testi-contain text-white">
-                                                    <i class="bx bxs-quote-alt-left text-success display-6"></i>
+<!-- BEGIN: Body-->
 
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“I feel confident
-                                                        imposing change
-                                                        on myself. It's a lot more progressing fun than looking back.
-                                                        That's why
-                                                        I ultricies enim
-                                                        at malesuada nibh diam on tortor neaded to throw curve balls.”
-                                                    </h4>
-                                                    <div class="mt-4 pt-3 pb-5">
-                                                        <div class="d-flex align-items-start">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="{{ asset('backend/images/users/avatar-1.jpg') }}"
-                                                                    class="avatar-md img-fluid rounded-circle"
-                                                                    alt="...">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Richard Drews
-                                                                </h5>
-                                                                <p class="mb-0 text-white-50">Web Designer</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="carousel-item">
-                                                <div class="testi-contain text-white">
-                                                    <i class="bx bxs-quote-alt-left text-success display-6"></i>
-
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“Our task must be to
-                                                        free ourselves by widening our circle of compassion to embrace
-                                                        all living
-                                                        creatures and
-                                                        the whole of quis consectetur nunc sit amet semper justo. nature
-                                                        and its beauty.”</h4>
-                                                    <div class="mt-4 pt-3 pb-5">
-                                                        <div class="d-flex align-items-start">
-                                                            <div class="flex-shrink-0">
-                                                                <img src="{{ asset('backend/images/users/avatar-2.jpg') }}"
-                                                                    class="avatar-md img-fluid rounded-circle"
-                                                                    alt="...">
-                                                            </div>
-                                                            <div class="flex-grow-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Rosanna French
-                                                                </h5>
-                                                                <p class="mb-0 text-white-50">Web Developer</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="carousel-item">
-                                                <div class="testi-contain text-white">
-                                                    <i class="bx bxs-quote-alt-left text-success display-6"></i>
-
-                                                    <h4 class="mt-4 fw-medium lh-base text-white">“I've learned that
-                                                        people will forget what you said, people will forget what you
-                                                        did,
-                                                        but people will never forget
-                                                        how donec in efficitur lectus, nec lobortis metus you made them
-                                                        feel.”</h4>
-                                                    <div class="mt-4 pt-3 pb-5">
-                                                        <div class="d-flex align-items-start">
-                                                            <img src="{{ asset('backend/images/users/avatar-3.jpg') }}"
-                                                                class="avatar-md img-fluid rounded-circle" alt="...">
-                                                            <div class="flex-1 ms-3 mb-4">
-                                                                <h5 class="font-size-18 text-white">Ilse R. Eaton</h5>
-                                                                <p class="mb-0 text-white-50">Manager
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end carousel-inner -->
-                                    </div>
-                                    <!-- end review carousel -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- end col -->
+<body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover"
+    data-menu="horizontal-menu" data-col="blank-page">
+    <!-- BEGIN: Content-->
+    <div class="app-content content ">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
             </div>
-            <!-- end row -->
+            <div class="content-body">
+                <div class="auth-wrapper auth-basic px-2">
+                    <div class="auth-inner my-2">
+                        @yield('content')
+                    </div>
+                </div>
+
+            </div>
         </div>
-        <!-- end container fluid -->
     </div>
+    <!-- END: Content-->
 
 
-    <!-- JAVASCRIPT -->
-    <script src="{{ asset('backend/libs/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('backend/libs/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('backend/libs/metismenu/metisMenu.min.js') }}"></script>
-    <script src="{{ asset('backend/libs/simplebar/simplebar.min.js') }}"></script>
-    <script src="{{ asset('backend/libs/node-waves/waves.min.js') }}"></script>
-    <script src="{{ asset('backend/libs/feather-icons/feather.min.js') }}"></script>
-    <!-- pace js -->
-    <script src="{{ asset('backend/libs/pace-js/pace.min.js') }}"></script>
-    <!-- password addon init -->
-    <script src="{{ asset('backend/js/pages/pass-addon.init.js') }}"></script>
+    <!-- BEGIN: Vendor JS-->
+    <script src="{{ asset('backend/app-assets/vendors/js/vendors.min.js') }}"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="{{ asset('backend/app-assets/vendors/js/ui/jquery.sticky.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="{{ asset('backend/app-assets/js/core/app-menu.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/js/core/app.js') }}"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="{{ asset('backend/app-assets/js/scripts/pages/auth-login.js') }}"></script>
+    <!-- END: Page JS-->
+
+    <script>
+        $(window).on('load', function() {
+            if (feather) {
+                feather.replace({
+                    width: 14,
+                    height: 14
+                });
+            }
+        })
+    </script>
     @yield('js')
-
 </body>
+<!-- END: Body-->
 
 </html>
