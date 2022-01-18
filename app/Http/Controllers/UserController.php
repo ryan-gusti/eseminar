@@ -31,6 +31,11 @@ class UserController extends Controller
         return redirect(route('home'));
     }
 
+    public function edit_profile()
+    {
+        return view('user.edit-profile');
+    }
+
     public function update_profile(Request $request) 
     {
         $data = $request->validate([
@@ -43,11 +48,16 @@ class UserController extends Controller
         return back()->with('message', 'Edit Profile Berhasil!');
     }
 
+    public function edit_password()
+    {
+        return view('user.edit-password');
+    }
+
     public function update_password(Request $request)
     {
         $request->validate([
             'current_password' => ['required'],
-            'password' => ['required', 'min:6', 'confirmed']
+            'password' => ['required', 'min:8', 'confirmed']
         ]);
 
         if (!Hash::check($request->current_password, auth()->user()->password)) {

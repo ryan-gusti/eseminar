@@ -38,7 +38,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return view('dashboard');
     })->name('dashboard');
     Route::view('/user/profile', 'user.profile')->name('user.profile');
+    Route::get('/user/profile/edit', [UserController::class, 'edit_profile'])->name('user.profile.edit');
     Route::put('/user/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
+    Route::get('/user/password/edit', [UserController::class, 'edit_password'])->name('user.password.edit');
     Route::put('/user/password/update', [UserController::class, 'update_password'])->name('user.password.update');
 });
 
