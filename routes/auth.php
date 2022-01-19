@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\Auth\AuthPartnerController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,16 +19,28 @@ Route::get('/register', [RegisteredUserController::class, 'create'])
 Route::post('/register', [RegisteredUserController::class, 'store'])
                 ->middleware('guest');
 
+// USER
 Route::get('/login', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
                 ->name('login');
+                
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+                ->middleware('guest');
+// USER
 
+// PARTNER
+Route::get('/partner/login', [AuthPartnerController::class, 'login'])
+                ->name('login.partner');
+                
+// Route::post('/login', [AuthenticatedSessionController::class, 'store'])
+//                 ->middleware('guest');
+// PARTNER
+
+// ADMIN
 Route::get('/login/admin', [AuthenticatedSessionController::class, 'create'])
                 ->middleware('guest')
                 ->name('login.admin');
 
-Route::post('/login', [AuthenticatedSessionController::class, 'store'])
-                ->middleware('guest');
 
 Route::get('/forgot-password', [PasswordResetLinkController::class, 'create'])
                 ->middleware('guest')

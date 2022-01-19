@@ -45,7 +45,7 @@
                 <h2 class="brand-text text-primary ms-1">ESeminar</h2>
             </a>
 
-            <h4 class="card-title mb-1">Selamat Datang di ESeminar! 👋</h4>
+            <h4 class="card-title mb-1">Masuk sebagai Partner ESeminar! 👋</h4>
             <p class="card-text mb-2">Silahkan untuk login terlebih dahulu ya!</p>
 
             @if (session()->has('status'))
@@ -114,35 +114,7 @@
                 <button class="btn btn-primary w-100" tabindex="4">Masuk</button>
             </form>
 
-            <p class="text-center mt-2">
-                <span>Belum memiliki akun?</span>
-                <a href="{{ route('register') }}">
-                    <span>Daftar Sekarang!</span>
-                </a>
-            </p>
-
-            <p class="text-center mt-2">
-                <span>Partner ESeminar?</span>
-                <a href="{{ route('login.partner') }}">
-                    <span>Masuk Disini!</span>
-                </a>
-            </p>
-
-            <div class="divider my-2">
-                <div class="divider-text">atau</div>
-            </div>
-
-            <div class="auth-footer-btn d-flex justify-content-center">
-                {{-- <a href="#" class="btn btn-facebook">
-                    <i data-feather="facebook"></i>
-                </a>
-                <a href="#" class="btn btn-twitter white">
-                    <i data-feather="twitter"></i>
-                </a> --}}
-                <a href="{{ route('user.login.google') }}" class="btn btn-google">
-                    <i class="fab fa-google"></i>
-                </a>
-            </div>
+            <a href="{{ route('login') }}" class="btn btn-secondary w-100 mt-1" tabindex="4">Kembali</a>
         </div>
     </div>
     <!-- /Login basic -->

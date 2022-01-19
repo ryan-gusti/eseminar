@@ -319,10 +319,10 @@
                                                 </li> --}}
                                             </ul>
                                             <!-- edit button -->
-                                            <button class="btn btn-primary">
+                                            <a href="{{ route('user.profile.edit') }}"><button class="btn btn-primary">
                                                 <i data-feather="edit" class="d-block d-md-none"></i>
                                                 <span class="fw-bold d-none d-md-block"><i data-feather="edit"></i> Ubah Profil</span>
-                                            </button>
+                                            </button></a>
                                         </div>
                                     </div>
                                     <!--/ collapse  -->
