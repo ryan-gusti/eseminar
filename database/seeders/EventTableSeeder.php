@@ -19,8 +19,9 @@ class EventTableSeeder extends Seeder
         $events = [
             [
                 'title' => 'Coba Event Offline',
+                'user_id' => 3,
                 'slug' => Str::slug('Coba Event Offline', '-'),
-                'description' => 'Ini deskripsi',
+                'description' => base64_encode('Ini Deskripsi'),
                 'banner' => 'banner-offline.png',
                 'quota' => 200,
                 'time' => date('Y-m-d H:i:s', time()),
@@ -30,8 +31,9 @@ class EventTableSeeder extends Seeder
             ],
             [
                 'title' => 'Coba Event Online',
+                'user_id' => 2,
                 'slug' => Str::slug('Coba Event Online', '-'),
-                'description' => 'Ini deskripsi',
+                'description' => base64_encode('Ini Deskripsi'),
                 'banner' => 'banner-online.png',
                 'quota' => 400,
                 'time' => date('Y-m-d H:i:s', time()),

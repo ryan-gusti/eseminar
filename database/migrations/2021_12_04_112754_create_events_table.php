@@ -16,6 +16,7 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->foreignId('user_id');
             $table->string('slug');
             $table->text('description');
             $table->string('banner');
@@ -24,7 +25,8 @@ class CreateEventsTable extends Migration
             $table->string('location')->nullable();
             $table->string('link')->nullable();
             $table->integer('price')->unsigned();
-            $table->enum('status', ['open', 'close']);
+            $table->enum('status', ['open','pending','rejected', 'close'])->default('pending');
+            $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

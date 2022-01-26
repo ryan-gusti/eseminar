@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EventTableSeeder::class,
             CategoryEventSeeder::class,
-            AdminUserSeeder::class
+            UserSeeder::class
         ]);
         \App\Models\Event::factory(10)->create();
     }

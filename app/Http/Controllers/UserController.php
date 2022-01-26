@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Alert;
 use Auth;
 
 class UserController extends Controller
@@ -28,12 +29,12 @@ class UserController extends Controller
         $user = User::firstOrCreate(['email' => $data['email']], $data);
         Auth::login($user, true);
 
-        return redirect(route('home'));
+        return redirect(route('user.dashboard'));
     }
 
     public function edit_profile()
     {
-        return view('user.edit-profile');
+        return view('menu.edit-profile');
     }
 
     public function update_profile(Request $request) 
@@ -44,13 +45,13 @@ class UserController extends Controller
         ]);
 
         Auth::user()->update($data);
-
-        return back()->with('message', 'Edit Profile Berhasil!');
+        Alert::success('Sukses!', 'Ubah Profil Berhasil!');
+        return back();
     }
 
     public function edit_password()
     {
-        return view('user.edit-password');
+        return view('menu.edit-password');
     }
 
     public function update_password(Request $request)
@@ -67,7 +68,8 @@ class UserController extends Controller
         }
 
         auth()->user()->update(['password' => Hash::make($request->password)]);
-        return back()->with('message', 'Password anda berhasil diubah!');
+        Alert::success('Sukses!', 'Ubah Password Berhasil!');
+        return back();
     }
 
 }

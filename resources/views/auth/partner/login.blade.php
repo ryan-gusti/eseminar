@@ -82,7 +82,7 @@
             @endif
             {{-- Validasi Error --}}
 
-            <form class="auth-login-form mt-2" action="{{ route('login') }}" method="POST">
+            <form class="auth-login-form mt-2" action="{{ route('login.partner') }}" method="POST">
                 @csrf
                 <div class="mb-1">
                     <label for="login-email" class="form-label">Email</label>

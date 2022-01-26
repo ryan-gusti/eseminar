@@ -4,6 +4,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthPartnerController;
+use App\Http\Controllers\PartnerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,10 +18,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [EventController::class, 'index'])->name('events');
@@ -32,17 +29,24 @@ Route::get('/category/{slug}', [EventController::class, 'category'])->name('even
 Route::get('sign-in-google', [UserController::class,'google'])->name('user.login.google');
 Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
-Route::view('/user/profile', 'user.profile')->name('user.profile');
-
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-    Route::view('/user/profile', 'user.profile')->name('user.profile');
-    Route::get('/user/profile/edit', [UserController::class, 'edit_profile'])->name('user.profile.edit');
-    Route::put('/user/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
-    Route::get('/user/password/edit', [UserController::class, 'edit_password'])->name('user.password.edit');
-    Route::put('/user/password/update', [UserController::class, 'update_password'])->name('user.password.update');
+    Route::view('/user/home', 'user.dashboard')->name('user.dashboard');
+    Route::view('/user/profile', 'menu.profile')->name('user.profile');
+    Route::get('/profile/edit', [UserController::class, 'edit_profile'])->name('user.profile.edit');
+    Route::put('/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
+    Route::get('/profile/password/edit', [UserController::class, 'edit_password'])->name('user.password.edit');
+    Route::put('/profile/password/update', [UserController::class, 'update_password'])->name('user.password.update');
+});
+
+Route::middleware(['auth', 'verified', 'is_partner'])->group(function () {
+    // Route::get('partner/dashboard', function () {
+    //     return 'ini dashboard';
+    // });
+    Route::view('/partner/home', 'partner.dashboard')->name('partner.dashboard');
+    Route::get('/partner/create-event', [EventController::class, 'create_event'])->name('partner.create-event');
+        Route::get('/partner/list-event', [EventController::class, 'list_event'])->name('partner.list-event');
+    Route::post('/partner/create-event', [EventController::class, 'store_event'])->name('partner.store-event');
+    Route::get('/partner/event/checkSlug', [EventController::class, 'checkSlug']);
 });
 
 // Route::get('/dashboard', function () {

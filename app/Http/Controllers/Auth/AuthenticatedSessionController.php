@@ -82,7 +82,7 @@ class AuthenticatedSessionController extends Controller
     
             $request->session()->regenerate();
     
-            return redirect()->intended(RouteServiceProvider::HOME);
+            return redirect()->intended(RouteServiceProvider::HOME)->with('greet', 'Selamat Datang '. auth()->user()->name.'!');
         }
     }
 

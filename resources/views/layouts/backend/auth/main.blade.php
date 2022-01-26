@@ -52,6 +52,7 @@
 
 <body class="horizontal-layout horizontal-menu blank-page navbar-floating footer-static  " data-open="hover"
     data-menu="horizontal-menu" data-col="blank-page">
+    @include('sweetalert::alert')
     <!-- BEGIN: Content-->
     <div class="app-content content ">
         <div class="content-overlay"></div>

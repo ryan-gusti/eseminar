@@ -15,8 +15,9 @@ class EventFactory extends Factory
     {
         return [
         'title' => $this->faker->sentence(),
+        'user_id' => $this->faker->numberBetween(2,4),
         'slug' => $this->faker->slug(),
-        'description' => $this->faker->paragraph(),
+        'description' => base64_encode($this->faker->paragraph()),
         'banner' => $this->faker->imageUrl(640, 480, 'events', true),
         'quota' => $this->faker->randomNumber(3, true),
         'time' => $this->faker-> dateTime(),

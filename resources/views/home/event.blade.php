@@ -13,9 +13,12 @@
                         </center>
                         <hr />
                         <h4>Deskripsi Event</h4>
-                        {!! $event->description !!}
+                        {!! $desc !!}
                         <hr />
                         <h4>Kontak Panitia</h4>
+                        <span>{{ $event->user->name }}</span>
+                        <span>{{ $event->user->phone }}</span>
+                        <span>{{ $event->user->email }}</span>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-9 mb-4">

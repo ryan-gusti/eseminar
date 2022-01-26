@@ -55,7 +55,7 @@
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                            href="{{ route('user.dashboard') }}"><i
+                            href="{{ route('partner.dashboard') }}"><i
                                 data-feather="home"></i><span>Dashboards</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
@@ -67,6 +67,20 @@
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="index.html"><i
                                 data-feather="credit-card"></i><span>Pembayaran</span></a>
                     </li>
+                    <li class="dropdown nav-item" data-menu="dropdown"><a
+                            class="dropdown-toggle nav-link d-flex align-items-center" href="#"
+                            data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Partner</span></a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('partner.create-event') }}"><i
+                                        data-feather="plus-circle"></i><span>Buat
+                                        Event</span></a>
+                            </li>
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('partner.list-event') }}"><i data-feather="list"></i><span>List
+                                        Event</span></a>
+                            </li>
+                        </ul>
                 </ul>
             </div>
         </div>

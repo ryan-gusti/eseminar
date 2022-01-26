@@ -30,7 +30,11 @@ Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 
 // PARTNER
 Route::get('/partner/login', [AuthPartnerController::class, 'login'])
+                ->middleware('guest')
                 ->name('login.partner');
+
+Route::post('/partner/login', [AuthPartnerController::class, 'auth'])
+                ->middleware('guest');
                 
 // Route::post('/login', [AuthenticatedSessionController::class, 'store'])
 //                 ->middleware('guest');

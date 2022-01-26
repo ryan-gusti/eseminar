@@ -48,6 +48,7 @@
 
 <body class="horizontal-layout horizontal-menu  navbar-floating footer-static  " data-open="hover"
     data-menu="horizontal-menu" data-col="">
+    @include('sweetalert::alert')
 
     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-lg navbar navbar-fixed align-items-center navbar-shadow navbar-brand-center"
@@ -121,14 +122,13 @@
                         aria-expanded="false">
                         <div class="user-nav d-sm-flex d-none"><span
                                 class="user-name fw-bolder">{{ auth()->user()->name }}</span><span
-                                class="user-status">Admin</span></div><span class="avatar"><img
-                                class="round"
-                                @if (Auth::user()->picture == null)
-                                src="https://ui-avatars.com/api/?size=128&name={{ Auth::user()->name }}"
-                                @else
-                                src="{{ Auth::user()->picture }}"
-                                @endif
-                                alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                                class="user-status text-capitalize">{{ Auth::user()->role }}</span></div><span
+                            class="avatar"><img class="round" @if (Auth::user()->picture == null)
+                            src="https://ui-avatars.com/api/?size=128&name={{ Auth::user()->name }}"
+                        @else
+                            src="{{ Auth::user()->picture }}"
+                            @endif
+                            alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a
                             class="dropdown-item" href="{{ route('user.profile') }}"><i class="me-50"
@@ -137,11 +137,12 @@
                             href="{{ route('user.profile.edit') }}"><i class="me-50"
                                 data-feather="settings"></i> Settings</a><a class="dropdown-item"
                             href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a><a
-                            class="dropdown-item" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><i class="me-50"
-                                data-feather="power"></i> Logout</a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="post">
-                                    @csrf
-                                </form>
+                            class="dropdown-item" href="#"
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><i
+                                class="me-50" data-feather="power"></i> Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="post">
+                            @csrf
+                        </form>
                     </div>
                 </li>
             </ul>
@@ -256,9 +257,14 @@
     </ul>
     <!-- END: Header-->
 
-
     <!-- BEGIN: Main Menu-->
-    @include('components.navbar-back')
+    @if (auth()->user()->role == 'admin')
+        @include('components.navbar-admin')
+    @elseif(auth()->user()->role == 'partner')
+        @include('components.navbar-partner')
+    @else
+        @include('components.navbar-back')
+    @endif
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
@@ -300,6 +306,7 @@
             }
         })
     </script>
+    @yield('js')
 </body>
 <!-- END: Body-->
 
