@@ -47,7 +47,7 @@ class AuthenticatedSessionController extends Controller
                 //jika sudah ada langsung auth
                 if(Auth::attempt($credentials)) {
                     $request->session()->regenerate();
-                    return redirect()->intended('/user/profile');
+                    return redirect()->intended('/user/home');
                 }
                 return back()->with('loginError', 'Cek Kembali Email atau Password Anda!');
             } else {
@@ -72,7 +72,7 @@ class AuthenticatedSessionController extends Controller
                     // dd($data);
                     $user = User::firstOrCreate(['email' => $data['email']], $data);
                     Auth::login($user, true);
-                    return redirect(route('home'));
+                    return redirect(route('user.dashboard'));
                 } else {
                     return back()->with('loginError', 'Email atau Password SIPT Anda Salah!');
                 }

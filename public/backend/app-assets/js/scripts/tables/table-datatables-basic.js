@@ -21,7 +21,7 @@ $(function () {
 
   if (dt_basic_table.length) {
     var dt_basic = dt_basic_table.DataTable({
-      ajax: assetPath + 'data/table-datatable.json',
+      ajax: 'https://eseminar.dev/backend/app-assets/data/table-datatable.json',
       columns: [
         { data: 'responsive_id' },
         { data: 'id' },

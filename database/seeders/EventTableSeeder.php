@@ -25,9 +25,10 @@ class EventTableSeeder extends Seeder
                 'banner' => 'banner-offline.png',
                 'quota' => 200,
                 'time' => date('Y-m-d H:i:s', time()),
-                'location' => 'Hotel Test',
+                'location_link' => 'Hotel Test',
                 'price' => 100000,
-                'status' => 'open'
+                'status' => 'open',
+                'type' => 'offline'
             ],
             [
                 'title' => 'Coba Event Online',
@@ -37,8 +38,9 @@ class EventTableSeeder extends Seeder
                 'banner' => 'banner-online.png',
                 'quota' => 400,
                 'time' => date('Y-m-d H:i:s', time()),
-                'link' => 'https://s.id/linkzoom',
+                'location_link' => 'https://s.id/linkzoom',
                 'price' => 50000,
+                'type' => 'online',
                 'status' => 'open'
             ]
         ];

@@ -55,17 +55,14 @@
                 <!-- include ../../../includes/mixins-->
                 <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                            href="{{ route('user.dashboard') }}"><i
+                            href="{{ route('admin.dashboard') }}"><i
                                 data-feather="home"></i><span>Dashboards</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                            href="{{ route('events') }}"><i data-feather="star"></i><span>Event</span></a>
+                            href="{{ route('admin.events.index') }}"><i data-feather="star"></i><span>Manage Event</span></a>
                     </li>
-                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="{{ route('user.tickets') }}"><i
-                                data-feather="printer"></i><span>Tiket</span></a>
-                    </li>
-                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="index.html"><i
-                                data-feather="credit-card"></i><span>Pembayaran</span></a>
+                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
+                        href="{{ route('admin.users.index') }}"><i data-feather="users"></i><span>Manage User</span></a>
                     </li>
                 </ul>
             </div>

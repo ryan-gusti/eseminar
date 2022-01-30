@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use App\Models\Transaction;
 use Alert;
 use Auth;
 
@@ -70,6 +71,14 @@ class UserController extends Controller
         auth()->user()->update(['password' => Hash::make($request->password)]);
         Alert::success('Sukses!', 'Ubah Password Berhasil!');
         return back();
+    }
+
+    public function my_tickets()
+    {
+        $tickets = Transaction::with('event')->where('user_id', Auth::id())->get();
+        return view('user.tickets', [
+            'tickets' => $tickets
+        ]);
     }
 
 }

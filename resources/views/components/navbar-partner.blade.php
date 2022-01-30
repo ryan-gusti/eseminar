@@ -41,7 +41,7 @@
                                         </g>
                                     </g>
                                 </svg></span>
-                            <h2 class="brand-text mb-0">Vuexy</h2>
+                            <h2 class="brand-text mb-0">ESeminar</h2>
                         </a></li>
                     <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0"
                             data-bs-toggle="collapse"><i
@@ -72,15 +72,16 @@
                             data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Partner</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
-                                    href="{{ route('partner.create-event') }}"><i
+                                    href="{{ route('partner.events.create') }}"><i
                                         data-feather="plus-circle"></i><span>Buat
                                         Event</span></a>
                             </li>
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
-                                    href="{{ route('partner.list-event') }}"><i data-feather="list"></i><span>List
+                                    href="{{ route('partner.events.index') }}"><i data-feather="list"></i><span>List
                                         Event</span></a>
                             </li>
                         </ul>
+                    </li>
                 </ul>
             </div>
         </div>

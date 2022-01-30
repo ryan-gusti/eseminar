@@ -6,7 +6,6 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Illuminate\Database\Eloquent\Builder;
-use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Alert;
 
 
@@ -16,7 +15,7 @@ class EventController extends Controller
 
         return view('home/events',[
             'title' => 'List All Events',
-            'events' => Event::all()
+            'events' => Event::all()->where('status', 'open')
         ]);
     }
 
@@ -55,14 +54,8 @@ class EventController extends Controller
         ]);
     }
 
-    public function list_event()
-    {
-        return view('partner.list-event');
-    }
-
     public function create_event() {
         $categories = Category::orderBy('name', 'asc')->get();
-        // return $categories;
         return view('partner.create-event', [
             'categories' => $categories
         ]);
@@ -70,7 +63,7 @@ class EventController extends Controller
 
     public function store_event(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events,slug',
@@ -99,14 +92,16 @@ class EventController extends Controller
         $event = Event::create($validatedData);
         $event->categories()->attach($validatedData['category_id']);
         Alert::success('Berhasil!', 'Sukses membuat event');
-        return redirect('/partner/home');
-
+        return redirect('/partner/list-event');
     }
 
-    public function checkSlug(Request $request)
+    public function edit_event(Event $event) 
     {
-        $slug = SlugService::createSlug(Event::class, 'slug', $request->title);
-        return response()->json(['slug' => $slug]);
+        return view('partner.edit-event', [
+            'event' => $event,
+            'categories' => Category::all()
+        ]);
     }
+
 
 }

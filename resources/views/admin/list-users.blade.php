@@ -1,13 +1,6 @@
 @extends('layouts.backend.main')
 
-@section('title', 'List Event')
-
-@section('vendor-css')
-<link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
-@endsection
+@section('title', 'List Users')
 
 @section('content')
 <div class="app-content content ">
@@ -18,12 +11,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Kelola Event</h2>
+                        <h2 class="content-header-title float-start mb-0">Kelola User</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List Event</a>
+                                <li class="breadcrumb-item"><a href="#">List User</a>
                                 </li>
                             </ol>
                         </div>
@@ -41,11 +34,11 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Judul</th>
-                                        <th>Kouta</th>
-                                        <th>Tanggal</th>
-                                        <th>Harga</th>
-                                        <th>Status</th>
+                                        <th>Nama</th>
+                                        <th>No HP</th>
+                                        <th>Email</th>
+                                        <th>Verified</th>
+                                        <th>Role</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,21 +51,6 @@
         </div>
     </div>
 </div>
-@endsection
-
-@section('vendor-js')
-<script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/jszip.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
 @endsection
 
 @section('js')
@@ -88,11 +66,11 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
-            { data: 'title', name: 'title'},
-            { data: 'quota', name: 'quota'},
-            { data: 'time', name: 'time'},
-            { data: 'price', name: 'price'},
-            { data: 'status', name: 'status'},
+            { data: 'name', name: 'name'},
+            { data: 'phone', name: 'phone'},
+            { data: 'email', name: 'email'},
+            { data: 'email_verified_at', name: 'email_verified_at'},
+            { data: 'role', name: 'role'},
             { 
                 data: 'action', 
                 name: 'action',
@@ -152,10 +130,10 @@
             }
             },
             {
-            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
+            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Users',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('partner.events.create') }}';
+                window.location = '{{ route('admin.events.create') }}';
             }     
             }
         ],
@@ -199,7 +177,7 @@
             }
         }
     });
-    $('div.head-label').html('<h6 class="mb-0">List Event</h6>');
+    $('div.head-label').html('<h6 class="mb-0">List Users</h6>');
 
     </script>
 @endsection

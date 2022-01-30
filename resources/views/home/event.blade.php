@@ -61,7 +61,7 @@
                                         <span>Rp {{ $event->price }}</span>
                                     </li>
                                 </ul>
-                                <a href="#" class="btn"><i class="fas fa-ticket-alt me-2"></i> Beli Tiket</a>
+                                <a href="{{ route('checkout.create', $event->slug) }}" class="btn"><i class="fas fa-ticket-alt me-2"></i> Beli Tiket</a>
                             </div>
                         </div>
                     </div>

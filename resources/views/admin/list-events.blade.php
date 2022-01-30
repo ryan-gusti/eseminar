@@ -21,9 +21,9 @@
                         <h2 class="content-header-title float-start mb-0">Kelola Event</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
+                                <li class="breadcrumb-item"><a href="index.html">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List Event</a>
+                                <li class="breadcrumb-item"><a href="#">List Events</a>
                                 </li>
                             </ol>
                         </div>
@@ -44,7 +44,7 @@
                                         <th>Judul</th>
                                         <th>Kouta</th>
                                         <th>Tanggal</th>
-                                        <th>Harga</th>
+                                        <th>Partner</th>
                                         <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
@@ -91,7 +91,7 @@
             { data: 'title', name: 'title'},
             { data: 'quota', name: 'quota'},
             { data: 'time', name: 'time'},
-            { data: 'price', name: 'price'},
+            { data: 'user_id', name: 'user_id'},
             { data: 'status', name: 'status'},
             { 
                 data: 'action', 
@@ -155,7 +155,7 @@
             text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('partner.events.create') }}';
+                window.location = '{{ route('admin.events.create') }}';
             }     
             }
         ],

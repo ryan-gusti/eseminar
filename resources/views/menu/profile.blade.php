@@ -2,6 +2,10 @@
 
 @section('title', 'Profile')
 
+@section('css')
+<link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/pages/page-profile.css') }}">
+@endsection
+
 @section('content')
     @if (session()->has('greet'))
         @php

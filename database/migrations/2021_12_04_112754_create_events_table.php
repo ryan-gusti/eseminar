@@ -22,9 +22,9 @@ class CreateEventsTable extends Migration
             $table->string('banner');
             $table->integer('quota');
             $table->dateTime('time');
-            $table->string('location')->nullable();
-            $table->string('link')->nullable();
-            $table->integer('price')->unsigned();
+            $table->text('location_link');
+            $table->unsignedInteger('price');
+            $table->enum('type', ['offline', 'online']);
             $table->enum('status', ['open','pending','rejected', 'close'])->default('pending');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
+use App\Models\Transaction;
+use Auth;
 
 class Event extends Model
 {
@@ -13,16 +15,31 @@ class Event extends Model
 
     protected $fillable = [
         'title',
+        'slug',
         'user_id',
         'description',
         'banner',
         'quota',
         'time',
-        'location',
-        'link',
+        'location_link',
         'price',
+        'type',
         'status'
     ];
+
+    public function getIsRegisteredAttribute()
+    {
+        if (!Auth::check()) {
+            return false;
+        }
+
+        return Transaction::where('event_id', $this->id)->where('user_id', Auth::id())->exists();
+    }
+
+    public function getCategoryIdAttribute()
+    {
+        return $this->categories->pluck('id');
+    }
 
     public function categories() 
     {
@@ -40,7 +57,12 @@ class Event extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
 }

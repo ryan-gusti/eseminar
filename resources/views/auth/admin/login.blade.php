@@ -1,7 +1,7 @@
 @extends('layouts.backend.auth.main')
 
 
-@section('title', 'Partner Login')
+@section('title', 'Admin Login')
 
 @section('content')
     <!-- Login basic -->
@@ -45,7 +45,7 @@
                 <h2 class="brand-text text-primary ms-1">ESeminar</h2>
             </a>
 
-            <h4 class="card-title mb-1">Masuk sebagai Partner ESeminar! 👋</h4>
+            <h4 class="card-title mb-1">Masuk sebagai Admin ESeminar! 👋</h4>
             <p class="card-text mb-2">Silahkan untuk login terlebih dahulu ya!</p>
 
             @if (session()->has('status'))
@@ -82,7 +82,7 @@
             @endif
             {{-- Validasi Error --}}
 
-            <form class="auth-login-form mt-2" action="{{ route('login.partner') }}" method="POST">
+            <form class="auth-login-form mt-2" action="{{ route('login.admin') }}" method="POST">
                 @csrf
                 <div class="mb-1">
                     <label for="login-email" class="form-label">Email</label>
