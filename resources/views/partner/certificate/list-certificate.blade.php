@@ -1,12 +1,14 @@
 @extends('layouts.backend.main')
 
-@section('title', 'List Event')
+@section('title', 'Atur Sertifikat Event')
 
 @section('vendor-css')
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/fancybox.css') }}">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/> --}}
 @endsection
 
 @section('content')
@@ -18,7 +20,7 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Kelola Event</h2>
+                        <h2 class="content-header-title float-start mb-0">Atur Sertifikat {{ $event->title }}</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
@@ -41,12 +43,11 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Judul</th>
-                                        <th>Kouta</th>
-                                        <th>Tanggal</th>
-                                        <th>Harga</th>
-                                        <th>Status</th>
-                                        <th>Menu</th>
+                                        <th>Ketua Pelaksana</th>
+                                        <th>TTD Pelaksana</th>
+                                        <th>Pemateri</th>
+                                        <th>TTD Pemateri</th>
+                                        <th>Logo</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -58,6 +59,7 @@
             <!--/ Basic table -->
         </div>
     </div>
+</div>
 </div>
 @endsection
 
@@ -74,12 +76,17 @@
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 @endsection
 
 @section('js')
     <script src="https://kit.fontawesome.com/d0d9b5d9c4.js" crossorigin="anonymous"></script>
     {{-- <script src="{{ asset('backend/app-assets/js/scripts/tables/table-datatables-basic.js') }}"></script> --}}
+    
     <script type="text/javascript">
+    Fancybox.bind('[data-fancybox="sertifikat-preview"]', {
+        groupAttr: false,
+        });
     var datatable = $('.datatables-basic').DataTable({
         processing: true,
         serverSide: true,
@@ -89,17 +96,11 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
-            { data: 'title', name: 'title'},
-            { data: 'quota', name: 'quota'},
-            { data: 'time', name: 'time'},
-            { data: 'price', name: 'price'},
-            { data: 'status', name: 'status'},
-            { 
-                data: 'menu', 
-                name: 'menu',
-                orderable: false,
-                searchable: false,
-            },
+            { data: 'ketua_pelaksana', name: 'ketua_pelaksana'},
+            { data: 'ttd_pelaksana', name: 'ttd_pelaksana'},
+            { data: 'pemateri', name: 'pemateri'},
+            { data: 'ttd_pemateri', name: 'ttd_pemateri'},
+            { data: 'logo', name: 'logo'},
             { 
                 data: 'action', 
                 name: 'action',
@@ -159,11 +160,16 @@
             }
             },
             {
-            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
+            @if(!$event->certificate)
+            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Sertifikat',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('partner.events.create') }}';
-            }     
+                window.location = '{{ route('partner.events.certificate.create', $event->slug) }}';
+            }
+            @else
+            text: feather.icons['x-circle'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Sertifikat',
+            className: 'create-new btn btn-danger',
+            @endif
             }
         ],
         responsive: {

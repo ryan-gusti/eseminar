@@ -28,7 +28,7 @@ class ManageUsersController extends Controller
                                             <a href="'.route('admin.users.edit', $item->id).'" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                             <form action="'.route('admin.users.destroy', $item->id).'" method="POST" class="btn-group">
                                             '. method_field('delete'). csrf_field().'
-                                            <button class="btn btn-danger"><i class="fas fa-trash" onclick="return confirm(\'Anda Yakin?\')"></i></button>
+                                            <button class="btn btn-danger" onclick="return confirm(\'Anda Yakin?\')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     ';

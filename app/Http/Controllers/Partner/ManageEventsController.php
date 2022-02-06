@@ -17,7 +17,8 @@ use Alert;
 
 class ManageEventsController extends Controller
 {
-    public function __construct() {
+    public function __construct() 
+    {
         // untuk validasi tanggal
         $this->dateValidation = Carbon::today()->toDateString();
     }
@@ -33,6 +34,14 @@ class ManageEventsController extends Controller
             $query = Event::query()->where('user_id', Auth::user()->id);
             return Datatables::of($query)
                                 ->addIndexColumn()
+                                ->addColumn('menu', function($item){
+                                    return '
+                                        <div class="btn-group" role="group" aria-label="Basic example">
+                                            <a href="'.route('partner.events.certificate.index', $item->slug).'" class="btn btn-primary"><i class="fas fa-award"></i> Sertifikat</a>
+                                            <a href="'.route('partner.events.transaction.index', $item->slug).'" class="btn btn-secondary"><i class="fas fa-users"></i> Peserta</a>
+                                        </div>
+                                    ';
+                                })
                                 ->addColumn('action', function($item){
                                     return '
                                         <div class="btn-group" role="group" aria-label="Basic example">
@@ -40,7 +49,7 @@ class ManageEventsController extends Controller
                                             <a href="'.route('partner.events.edit', $item->slug).'" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                             <form action="'.route('partner.events.destroy', $item->slug).'" method="POST" class="btn-group">
                                             '. method_field('delete'). csrf_field().'
-                                            <button class="btn btn-danger"><i class="fas fa-trash" onclick="return confirm(\'Anda Yakin?\')"></i></button>
+                                            <button class="btn btn-danger" onclick="return confirm(\'Anda Yakin?\')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     ';
@@ -58,7 +67,7 @@ class ManageEventsController extends Controller
                                 ->editColumn('quota', function($item){
                                     return $item->quota.' Peserta';
                                 })
-                                ->rawColumns(['status', 'action'])
+                                ->rawColumns(['status', 'action', 'menu'])
                                 ->make(true);
         }
 
@@ -130,6 +139,11 @@ class ManageEventsController extends Controller
      */
     public function edit(Event $event)
     {
+        if($event->user_id !== Auth::user()->id) {
+            Alert::error('Forbidden!', 'Anda tidak memiliki akses!');
+            return redirect(route('partner.events.index'));
+        }
+       
         $decode = base64_decode($event->description);
         return view('partner.edit-event', [
             'event' => $event,
@@ -152,7 +166,7 @@ class ManageEventsController extends Controller
             'title' => 'required|max:255',
             'slug' => 'required|unique:events,slug,'.$event->id,
             'description' => 'required',
-            // 'banner' => 'required|image',
+            'banner' => 'image',
             'quota' => 'required|numeric',
             'time' => 'required|after_or_equal:'.$this->dateValidation,
             'price' => 'required|numeric',

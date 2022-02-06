@@ -14,11 +14,17 @@ class Transaction extends Model
     protected $fillable = [
         'event_id',
         'user_id',
-        'is_paid'
+        'is_paid',
+        'item_price'
     ];
 
     public function event(): BelongsTo
     {
-        return $this->belongsTo(Event::class)->withTrashed();
+        return $this->belongsTo(Event::class, 'event_id', 'id')->withTrashed();
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -8,7 +8,10 @@ use App\Http\Controllers\Admin\ManageUsersController as AdminManageUsers;
 use App\Http\Controllers\Admin\ManageEventsController as AdminManageEvents;
 use App\Http\Controllers\Admin\ManageCategoriesController as AdminManageCategories;
 //PARTNER CONTROLLER
+use App\Http\Controllers\Partner\DashboardPartnerController;
 use App\Http\Controllers\Partner\ManageEventsController as PartnerManageEvents;
+use App\Http\Controllers\Partner\ManageEventCertificateController as PartnerManageCertificate;
+use App\Http\Controllers\Partner\TransactionController;
 //USER CONTROLLER
 use App\Http\Controllers\User\CheckoutController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +42,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('/user/home', 'user.dashboard')->name('user.dashboard');
     Route::view('/user/profile', 'menu.profile')->name('user.profile');
     Route::get('/user/ticket', [UserController::class, 'my_tickets'])->name('user.tickets');
+    Route::get('/user/ticket/{event}/certificate', [UserController::class, 'my_certificate'])->name('user.certificate');
     Route::get('/profile/edit', [UserController::class, 'edit_profile'])->name('user.profile.edit');
     Route::put('/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
     Route::get('/profile/password/edit', [UserController::class, 'edit_password'])->name('user.password.edit');
@@ -48,9 +52,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'verified', 'is_partner'])->name('partner.')->prefix('partner')->group(function () {
-    Route::view('home', 'partner.dashboard')->name('dashboard');
+    // Route::view('home', 'partner.dashboard')->name('dashboard');
+    Route::get('/home', [DashboardPartnerController::class, 'index'])->name('dashboard');
     Route::get('/events/checkSlug', [PartnerManageEvents::class, 'checkSlug'])->name('checkslug');
     Route::resource('events', PartnerManageEvents::class);
+    Route::resource('events.certificate', PartnerManageCertificate::class)->shallow();
+    Route::resource('events.transaction', TransactionController::class)->shallow();
 });
 
 Route::middleware(['auth', 'verified', 'is_admin'])->name('admin.')->prefix('admin')->group(function () {

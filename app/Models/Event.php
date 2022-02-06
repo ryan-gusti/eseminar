@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use App\Models\Transaction;
+use App\Models\EventCertificate;
 use Auth;
 
 class Event extends Model
@@ -32,7 +33,7 @@ class Event extends Model
         if (!Auth::check()) {
             return false;
         }
-
+        
         return Transaction::where('event_id', $this->id)->where('user_id', Auth::id())->exists();
     }
 
@@ -41,7 +42,7 @@ class Event extends Model
         return $this->categories->pluck('id');
     }
 
-    public function categories() 
+    public function categories()
     {
         return $this->belongsToMany('App\Models\Category');
     }
@@ -58,6 +59,16 @@ class Event extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function certificate()
+    {
+        return $this->hasOne(EventCertificate::class, 'event_id');
     }
 
     public function getRouteKeyName()

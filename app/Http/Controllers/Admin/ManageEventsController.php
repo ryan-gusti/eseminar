@@ -41,7 +41,7 @@ class ManageEventsController extends Controller
                                             <a href="'.route('admin.events.edit', $item->slug).'" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                             <form action="'.route('admin.events.destroy', $item->slug).'" method="POST" class="btn-group">
                                             '. method_field('delete'). csrf_field().'
-                                            <button class="btn btn-danger"><i class="fas fa-trash" onclick="return confirm(\'Anda Yakin?\')"></i></button>
+                                            <button class="btn btn-danger" onclick="return confirm(\'Anda Yakin?\')"><i class="fas fa-trash"></i></button>
                                             </form>
                                         </div>
                                     ';

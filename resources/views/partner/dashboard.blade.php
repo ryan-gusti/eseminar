@@ -37,43 +37,73 @@
                         </div>
                         <!-- Greetings Card ends -->
 
-                        <!-- Subscribers Chart Card starts -->
-                        <!-- <div class="col-lg-3 col-sm-6 col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header flex-column align-items-start pb-0">
-                                                                        <div class="avatar bg-light-primary p-50 m-0">
-                                                                            <div class="avatar-content">
-                                                                                <i data-feather="users" class="font-medium-5"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <h2 class="fw-bolder mt-1">92.6k</h2>
-                                                                        <p class="card-text">Subscribers Gained</p>
-                                                                    </div>
-                                                                    <div id="gained-chart"></div>
-                                                                </div>
-                                                            </div> -->
-                        <!-- Subscribers Chart Card ends -->
-
-                        <!-- Orders Chart Card starts -->
-                        <!-- <div class="col-lg-3 col-sm-6 col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header flex-column align-items-start pb-0">
-                                                                        <div class="avatar bg-light-warning p-50 m-0">
-                                                                            <div class="avatar-content">
-                                                                                <i data-feather="package" class="font-medium-5"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <h2 class="fw-bolder mt-1">38.4K</h2>
-                                                                        <p class="card-text">Orders Received</p>
-                                                                    </div>
-                                                                    <div id="order-chart"></div>
-                                                                </div>
-                                                            </div> -->
-                        <!-- Orders Chart Card ends -->
                     </div>
 
                     <div class="row match-height">
-                        <div class="col-lg-8 col-12">
+                        <div class="col-lg-6 col-12">
+                            <div class="card card-statistics">
+                                <div class="card-header">
+                                    <h4 class="card-title">Statistik Akun</h4>
+                                </div>
+                                <div class="card-body statistics-body">
+                                    <div class="row">
+                                        <div class="col-md-4 col-sm-6 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="award" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $totalEvent }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Event</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-sm-6 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-info me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="users" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $totalPeserta }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Peserta</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-3 col-sm-6 col-12 mb-2 mb-sm-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-danger me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="box" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">1.423k</h4>
+                                                    <p class="card-text font-small-3 mb-0">Products</p>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        <div class="col-md-3 col-sm-6 col-12">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-success me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="dollar-sign" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">Rp{{ $totalSaldo }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Saldo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-12">
                             <div class="card card-user-timeline">
                                 <div class="card-header">
                                     <div class="d-flex align-items-center">

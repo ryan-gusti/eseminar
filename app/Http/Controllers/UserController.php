@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
+use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use App\Models\Transaction;
 use Alert;
 use Auth;
+use Image;
 
 class UserController extends Controller
 {
@@ -79,6 +81,28 @@ class UserController extends Controller
         return view('user.tickets', [
             'tickets' => $tickets
         ]);
+    }
+
+    public function my_certificate(Event $event)
+    {
+        $certificate = Transaction::with('event')->where('user_id', Auth::id())->where('event_id', $event->id)->first();
+        if(!$certificate) {
+            Alert::error('Gagal!', 'Anda tidak memiliki akses!');
+            return redirect(route('user.tickets'));
+        }
+       
+        $path = base_path('public/storage/certificate-event/');
+        $img = Image::make($path.$event->slug.'/sertifikat.jpg');
+        $img->text(Auth::user()->name, 950, 590, function($font) {
+            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
+            $font->size(60);
+            $font->color('#ffffff');
+            $font->align('center');
+            $font->valign('top');
+        });
+        // return $img->response('jpg');
+        // $img->save(base_path('public/storage/certificate-event/'.$event->slug.'/sertifikat.jpg'), 100);
+        return $img->response('jpg');
     }
 
 }

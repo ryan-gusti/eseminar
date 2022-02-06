@@ -25,19 +25,12 @@
                     </div>
                 </div>
             </div>
-            <div class="content-header-right text-md-end col-md-3 col-12 d-md-block d-none">
-                <div class="mb-1 breadcrumb-right">
-                    <div class="dropdown">
-                        <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i data-feather="grid"></i></button>
-                        <div class="dropdown-menu dropdown-menu-end"><a class="dropdown-item" href="app-todo.html"><i class="me-1" data-feather="check-square"></i><span class="align-middle">Todo</span></a><a class="dropdown-item" href="app-chat.html"><i class="me-1" data-feather="message-square"></i><span class="align-middle">Chat</span></a><a class="dropdown-item" href="app-email.html"><i class="me-1" data-feather="mail"></i><span class="align-middle">Email</span></a><a class="dropdown-item" href="app-calendar.html"><i class="me-1" data-feather="calendar"></i><span class="align-middle">Calendar</span></a></div>
-                    </div>
-                </div>
-            </div>
         </div>
         <div class="content-body">
             <!-- Card Advance -->
             <div class="row match-height">
                 @forelse ($tickets as $ticket)
+                {{-- {{ dd($ticket->event->certificate->sertifikat) }} --}}
                 <!-- Developer Meetup Card -->
                 <div class="col-lg-4 col-md-6 col-12">
                     <div class="card card-developer-meetup">
@@ -78,10 +71,16 @@
                                     </div>
                                 </div>
                                 <div class="content-body">
-                                    <h6 class="mb-0">Central Park</h6>
-                                    <small>Manhattan, New york City</small>
+                                    <h6 class="mb-0">{{ $ticket->event->location_link }}</h6>
+                                    <small class="text-capitalize">{{ $ticket->event->type }}</small>
                                 </div>
                             </div>
+                            <div class="d-grid col-lg-12 col-md-12 mb-1 mt-1 mb-lg-0">
+                                <a href="{{ route('user.certificate', $ticket->event->slug) }}"><button type="button" class="btn btn-primary">
+                                    <i data-feather="award" class="me-25"></i>
+                                    <span>E-Sertifikat</span>
+                                </button></a>
+                            </div>                            
                         </div>
                     </div>
                 </div>

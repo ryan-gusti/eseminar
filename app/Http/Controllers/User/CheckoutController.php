@@ -52,7 +52,8 @@ class CheckoutController extends Controller
 
         $data = [
             'user_id' => Auth::id(),
-            'event_id' => $event->id
+            'event_id' => $event->id,
+            'item_price' => $event->price
         ];
         $checkout = Transaction::create($data);
         Alert::success('Sukses!', 'Transaksi Berhasil!');

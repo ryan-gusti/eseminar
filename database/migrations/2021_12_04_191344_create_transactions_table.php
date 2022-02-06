@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->boolean('is_paid')->default(false);
+            $table->bigInteger('item_price');
             $table->timestamps();
             $table->softDeletes();
         });

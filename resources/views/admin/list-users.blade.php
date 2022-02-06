@@ -2,6 +2,15 @@
 
 @section('title', 'List Users')
 
+@section('vendor-css')
+<link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/fancybox.css') }}">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/> --}}
+@endsection
+
 @section('content')
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -51,6 +60,22 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('vendor-js')
+<script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/jszip.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 @endsection
 
 @section('js')
@@ -133,7 +158,7 @@
             text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Users',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('admin.events.create') }}';
+                window.location = '{{ route('admin.users.create') }}';
             }     
             }
         ],
