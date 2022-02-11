@@ -6,21 +6,28 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=0,minimal-ui">
-    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
-    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="description"
+        content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords"
+        content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>@yield('title') | ESeminar</title>
     <link rel="apple-touch-icon" href="{{ asset('backend/app-assets/images/ico/apple-icon-120.png') }}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('backend/app-assets/images/ico/favicon.ico') }}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600"
+        rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/vendors.min.css') }}">
     @yield('vendor-css')
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/forms/select/select2.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/forms/wizard/bs-stepper.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/extensions/toastr.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/vendors/css/forms/select/select2.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/vendors/css/forms/wizard/bs-stepper.min.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/vendors/css/extensions/toastr.min.css') }}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -33,13 +40,18 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/themes/semi-dark-layout.css') }}">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/core/menu/menu-types/horizontal-menu.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/core/menu/menu-types/horizontal-menu.css') }}">
     @yield('page-css')
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/pages/app-ecommerce.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/plugins/forms/pickers/form-pickadate.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/plugins/forms/form-wizard.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/plugins/extensions/ext-component-toastr.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/css/plugins/forms/form-number-input.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/plugins/forms/pickers/form-pickadate.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/plugins/forms/form-wizard.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/plugins/extensions/ext-component-toastr.css') }}">
+    <link rel="stylesheet" type="text/css"
+        href="{{ asset('backend/app-assets/css/plugins/forms/form-number-input.css') }}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -61,8 +73,8 @@
         data-nav="brand-center">
         <div class="navbar-header d-xl-block d-none">
             <ul class="nav navbar-nav">
-                <li class="nav-item"><a class="navbar-brand"
-                        href="../../../html/ltr/horizontal-menu-template/index.html"><span class="brand-logo">
+                <li class="nav-item"><a class="navbar-brand" href="{{ route('home') }}"><span
+                            class="brand-logo">
                             <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg"
                                 xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
                                 <defs>
@@ -116,50 +128,70 @@
                 <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"
                             data-feather="search"></i></a>
                     <div class="search-input">
-                        <div class="search-input-icon"><i data-feather="search"></i></div>
-                        <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1"
-                            data-search="search">
-                        <div class="search-input-close"><i data-feather="x"></i></div>
-                        <ul class="search-list search-list-main"></ul>
-                    </div>
-                </li>
-                <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link"
-                        id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <div class="user-nav d-sm-flex d-none"><span
-                                class="user-name fw-bolder">{{ auth()->user()->name }}</span><span
-                                class="user-status text-capitalize">{{ Auth::user()->role }}</span></div><span
-                            class="avatar"><img class="round" @if (Auth::user()->picture == null)
-                            src="https://ui-avatars.com/api/?size=128&name={{ Auth::user()->name }}"
-                        @else
-                            src="{{ Auth::user()->picture }}"
-                            @endif
-                            alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a
-                            class="dropdown-item" href="{{ route('user.profile') }}"><i class="me-50"
-                                data-feather="user"></i> Profile</a>
-                        <div class="dropdown-divider"></div><a class="dropdown-item"
-                            href="{{ route('user.profile.edit') }}"><i class="me-50"
-                                data-feather="settings"></i> Settings</a><a class="dropdown-item"
-                            href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a><a
-                            class="dropdown-item" href="#"
-                            onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><i
-                                class="me-50" data-feather="power"></i> Logout</a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="post">
-                            @csrf
+                        <form method="get" action="/">
+                            <div class="search-input-icon"><i data-feather="search"></i></div>
+                            <input class="form-control input" type="text" placeholder="Cari Event ..." tabindex="-1"
+                                data-search="search" name="search">
+                            <div class="search-input-close"><i data-feather="x"></i></div>
                         </form>
+                        {{-- <ul class="search-list search-list-main"></ul> --}}
                     </div>
                 </li>
+                @if (!Auth::user())
+                    <li class="nav-item mx-1">
+                        <a href="{{ route('login') }}" class="btn btn-block btn-primary"><i
+                                data-feather='log-in'></i> Masuk</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{ route('register') }}" class="btn btn-block btn-success"><i
+                                data-feather='user-plus'></i> Daftar</a>
+                    </li>
+                @else
+                    <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link"
+                            id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <div class="user-nav d-sm-flex d-none"><span
+                                    class="user-name fw-bolder">{{ auth()->user()->name }}</span><span
+                                    class="user-status text-capitalize">{{ Auth::user()->role }}</span></div><span
+                                class="avatar">
+                                @if (Auth::user()->picture)
+                                    <img class="round" src="{{ asset('storage/user-image/' . Auth::user()->picture) }}" alt="avatar"
+                                        height="40" width="40">
+                                @else
+                                    <img class="round" src="{{ asset('storage/user-image/avatar.png') }}"
+                                        alt="avatar" height="40" width="40">
+                                @endif
+                                <span class="avatar-status-online"></span>
+                            </span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a
+                                class="dropdown-item" href="{{ route('user.profile') }}"><i class="me-50"
+                                    data-feather="user"></i>
+                                Profile</a>
+                            <div class="dropdown-divider"></div><a class="dropdown-item"
+                                href="{{ route('user.profile.edit') }}"><i class="me-50"
+                                    data-feather="settings"></i> Settings</a><a class="dropdown-item"
+                                href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a><a
+                                class="dropdown-item" href="#"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit()"><i
+                                    class="me-50" data-feather="power"></i> Logout</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="post">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endif
             </ul>
         </div>
     </nav>
     <!-- END: Header-->
 
     <!-- BEGIN: Main Menu-->
-    @if (auth()->user()->role == 'admin')
+    @if (!Auth::user())
+        @include('components.navbar-front')
+    @elseif (Auth::user()->role == 'admin')
         @include('components.navbar-admin')
-    @elseif(auth()->user()->role == 'partner')
+    @elseif (Auth::user()->role == 'partner')
         @include('components.navbar-partner')
     @else
         @include('components.navbar-back')

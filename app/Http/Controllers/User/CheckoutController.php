@@ -45,14 +45,21 @@ class CheckoutController extends Controller
      */
     public function store(Request $request, Event $event)
     {
-        // $data = $request->all();
-        // $data['user_id'] = Auth::id();
-        // $data['event_id'] = $event->id;
-        // return $data;
+        // validasi qouta event
+        // get value qouta event
+        $quota = $event->quota;
+        // count total peserta yang terdaftar
+        $total = Transaction::where('event_id', $event->id)->count();
+        // cek apakah masih tersedia dengan compare kedua value trsb
+        if ($total === $quota) {
+            Alert::error('Gagal', 'Kouta event ini sudah penuh!');
+            return redirect(route('events'));
+        }
 
         $data = [
             'user_id' => Auth::id(),
             'event_id' => $event->id,
+            'is_paid' => 1,
             'item_price' => $event->price
         ];
         $checkout = Transaction::create($data);

@@ -59,6 +59,8 @@ class ManageEventsController extends Controller
                                         return '<span class="badge badge-glow bg-success">Open</span>';
                                     } elseif ($item->status == 'pending') {
                                         return '<span class="badge badge-glow bg-warning">Pending</span>';
+                                    } else {
+                                        return '<span class="badge badge-glow bg-danger">Closed</span>';
                                     }
                                 })
                                 ->editColumn('price', function($item){
@@ -81,7 +83,7 @@ class ManageEventsController extends Controller
      */
     public function create()
     {
-        $categories = Category::orderBy('name', 'asc')->get();
+        $categories = Category::orderBy('title', 'asc')->get();
         return view('partner.create-event', [
             'categories' => $categories
         ]);
@@ -95,6 +97,13 @@ class ManageEventsController extends Controller
      */
     public function store(Request $request)
     {
+        // cek kondisi untuk harga gratis
+        if ($request->price == null) {
+            $price = 0;
+        } else {
+            $price = $request->price;
+        }
+        // return $price;
         $validatedData = $request->validate([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events,slug',
@@ -102,14 +111,14 @@ class ManageEventsController extends Controller
             'banner' => 'required|image',
             'quota' => 'required|numeric',
             'time' => 'required|after_or_equal:'.$this->dateValidation,
-            'price' => 'required|numeric',
+            // 'price' => 'required|numeric',
             'location_link' => 'required|string',
             'type' => 'required|string',
             'category_id' => 'required|array'
         ]);
 
         $decode = base64_encode($request->description);
-
+        $validatedData['price'] = $price;
         $validatedData['description'] = $decode;
         $validatedData['user_id'] = auth()->user()->id;
         $validatedData['banner'] = $request->file('banner')->store('banner-event');
@@ -175,6 +184,7 @@ class ManageEventsController extends Controller
 
         //menyimpan ke dalam variabel data
         $data = $request->validate($rules);
+        $data['status'] = $request->status;
         $data['description'] = base64_encode($request->description);
         if($request->file('banner')) {
             if($event->banner) {

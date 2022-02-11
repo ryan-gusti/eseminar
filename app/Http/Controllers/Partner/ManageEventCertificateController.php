@@ -26,14 +26,13 @@ class ManageEventCertificateController extends Controller
             return redirect(route('partner.events.index'));
         }
         if($request->ajax()) {
-            $query = EventCertificate::query()->where('event_id', $event->id);
+            $query = EventCertificate::query()->where('event_id', $event->id)->with('event');
             return Datatables::of($query)
                                 ->addIndexColumn()
                                 ->addColumn('action', function($item){
-                                    $path = 'http://eseminar.dev/storage/certificate-event/';
                                     return '
                                         <div class="btn-group" role="group" aria-label="Basic example">
-                                            <a class="btn-group" data-fancybox="sertifikat-preview" data-src='.$path.$item->event->slug.'/sertifikat.jpg>
+                                            <a class="btn-group" data-fancybox="sertifikat-preview" data-src="'.url('storage/certificate-event/'.$item->event->slug.'/'.$item->sertifikat).'">
                                             <button type="button" class="btn btn-info"><i class="fas fa-eye"></i></button></a>
                                             <a href="'.route('partner.certificate.edit', $item->id).'" class="btn btn-warning"><i class="far fa-edit"></i></a>
                                             <form action="'.route('partner.certificate.destroy', $item->id).'" method="POST" class="btn-group">
@@ -44,21 +43,18 @@ class ManageEventCertificateController extends Controller
                                     ';
                                 })
                                 ->editColumn('ttd_pelaksana', function($item){
-                                    $url = 'https://eseminar.dev/storage/';
                                     return '
-                                    <img src='.$url.''.$item->ttd_pelaksana.' height="100">
+                                    <img src='.url('storage/certificate-event/'.$item->event->slug.'/'.$item->ttd_pelaksana).' height="50">
                                     ';
                                 })
                                 ->editColumn('ttd_pemateri', function($item){
-                                    $url = 'https://eseminar.dev/storage/';
                                     return '
-                                    <img src='.$url.''.$item->ttd_pemateri.' height="100">
+                                   <img src='.url('storage/certificate-event/'.$item->event->slug.'/'.$item->ttd_pemateri).' height="50">
                                     ';
                                 })
                                 ->editColumn('logo', function($item){
-                                    $url = 'https://eseminar.dev/storage/';
                                     return '
-                                    <img src='.$url.''.$item->logo.' height="100">
+                                    <img src='.url('storage/certificate-event/'.$item->event->slug.'/'.$item->logo).' height="50">
                                     ';
                                 })
                                 ->rawColumns(['action', 'ttd_pelaksana','ttd_pemateri', 'logo'])
@@ -99,55 +95,76 @@ class ManageEventCertificateController extends Controller
     public function store(Request $request, Event $event)
     {
         $time = date("d F Y", strtotime($event->time));
-        $path = base_path('public/storage/');
-
+        $cert = 'certificate-event/';
+        $path = base_path('public/storage/certificate-event/');
+        //ttd width 362px height 150px  png
+        //logo width 150px height 87px png
         $validatedData = $request->validate([
             'ketua_pelaksana' => 'required|string',
-            'ttd_pelaksana' => 'required|image',
+            'ttd_pelaksana' => 'required|image|mimes:png|dimensions:max_width=362,max_height=150',
             'pemateri' => 'required|string',
-            'ttd_pemateri' => 'required|image',
-            'logo' => 'required|image'
+            'ttd_pemateri' => 'required|image|mimes:png|dimensions:max_width=362,max_height=150',
+            'no_certificate' => 'required|string',
+            'logo' => 'image|mimes:png|dimensions:max_width=150,max_height=87'
         ]);
 
         $validatedData['event_id'] = $event->id;
-        $validatedData['ttd_pelaksana'] = $request->file('ttd_pelaksana')->store('certificate-event/'.$event->slug);
-        $validatedData['ttd_pemateri'] = $request->file('ttd_pemateri')->store('certificate-event/'.$event->slug);
-        $validatedData['logo'] = $request->file('logo')->store('certificate-event/'.$event->slug);
 
-        $img = Image::make($path.'certificate-event/master.jpg');
-        $img->insert($path.$validatedData['ttd_pelaksana'], 'center', -400, 455);
-        $img->insert($path.$validatedData['ttd_pemateri'], 'center', 550, 455);
-        $img->text($validatedData['ketua_pelaksana'], 510, 1215, function($font) {
+        $ttdPelaksana = $request->file('ttd_pelaksana');
+        $ttdPelaksana->store($cert.$event->slug);
+        $validatedData['ttd_pelaksana'] = $ttdPelaksana->hashName();
+
+        $ttdPemateri = $request->file('ttd_pemateri');
+        $ttdPemateri->store($cert.$event->slug);
+        $validatedData['ttd_pemateri'] = $ttdPemateri->hashName();
+
+        $logo = $request->file('logo');
+        $logo->store($cert.$event->slug);
+        $validatedData['logo'] = $logo->hashName();
+
+        $img = Image::make($path.'master.jpg');
+        $img->insert($path.$event->slug.'/'.$validatedData['ttd_pelaksana'], 'center', -250, 380);
+        $img->insert($path.$event->slug.'/'.$validatedData['ttd_pemateri'], 'center', 270, 380);
+        $img->insert($path.$event->slug.'/'.$validatedData['logo'], 'center', 570, -500);
+        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(25);
             $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['pemateri'], 1500, 1215, function($font) {
+        $img->text($validatedData['pemateri'], 1250, 1115, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(25);
             $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($time, 1100, 830, function($font) {
+        $img->text('"'. $event->title .'"', 960, 700, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(40);
-            $font->color('#ffffff');
+            $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($event->title, 1320, 780, function($font) {
+        $img->text($time, 960, 800, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
-            $font->size(40);
-            $font->color('#ffffff');
-            $font->align('right');
+            $font->size(30);
+            $font->color('#000000');
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->text($validatedData['no_certificate'], 960, 230, function($font) {
+            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
+            $font->size(30);
+            $font->color('#000000');
+            $font->align('center');
             $font->valign('top');
         });
         // return $img->response('jpg');
-        $img->save(base_path('public/storage/certificate-event/'.$event->slug.'/sertifikat.jpg'), 100);
-        $validatedData['sertifikat'] = 'certificate-event/'.$event->slug.'/sertifikat.jpg';
+        $sertifikat_name = time().'.jpg';
+        $img->save(base_path('public/storage/certificate-event/'.$event->slug.'/'.$sertifikat_name), 100);
+        $validatedData['sertifikat'] = $sertifikat_name;
 
         $event = EventCertificate::create($validatedData);
         Alert::success('Berhasil!', 'Sukses membuat certificate!');
@@ -195,73 +212,95 @@ class ManageEventCertificateController extends Controller
     {
         //inisialisasi varible certificate
         $eventCertificate = EventCertificate::where('id',$id)->with('event')->first();
+        $slug = $eventCertificate->event->slug.'/';
+        $cert = 'certificate-event/';
         $time = date("d F Y", strtotime($eventCertificate->event->time));
-        $path = base_path('public/storage/');
+        $path = base_path('public/storage/certificate-event/');
 
         //validasi rule
         $rules = [
             'ketua_pelaksana' => 'required|string',
+            'ttd_pelaksana' => 'image|mimes:png|dimensions:max_width=362,max_height=150',
             'pemateri' => 'required|string',
-            'ttd_pelaksana' => 'image',
-            'ttd_pemateri' => 'image',
-            'logo' => 'image'
+            'ttd_pemateri' => 'image|mimes:png|dimensions:max_width=362,max_height=150',
+            'no_certificate' => 'required|string',
+            'logo' => 'image|mimes:png|dimensions:max_width=150,max_height=87'
         ];
 
         $validatedData = $request->validate($rules);
 
-        $img = Image::make($path.'certificate-event/master.jpg');
+        $img = Image::make($path.'master.jpg');
 
+        // jika terdapat ada user upload pengganti gambar
         if($request->file('ttd_pelaksana')) {
-            Storage::delete($eventCertificate->ttd_pelaksana);
-            $validatedData['ttd_pelaksana'] = $request->file('ttd_pelaksana')->store('certificate-event/'.$eventCertificate->event->slug);
-            $img->insert($path.$validatedData['ttd_pelaksana'], 'center', -400, 455);
+            Storage::delete($cert.$slug.$eventCertificate->ttd_pelaksana);
+            $ttdPelaksana = $request->file('ttd_pelaksana');
+            $ttdPelaksana->store($cert.$slug);
+            $validatedData['ttd_pelaksana'] = $ttdPelaksana->hashName();
+            $img->insert($path.$slug.$validatedData['ttd_pelaksana'], 'center', -250, 380);
         } else {
-            $img->insert($path.$eventCertificate->ttd_pelaksana, 'center', -400, 455);
+            $img->insert($path.$slug.$eventCertificate->ttd_pelaksana, 'center', -250, 380);
         }
         if($request->file('ttd_pemateri')) {
-            Storage::delete($eventCertificate->ttd_pemateri);
-            $validatedData['ttd_pemateri'] = $request->file('ttd_pemateri')->store('certificate-event/'.$eventCertificate->event->slug);
-            $img->insert($path.$validatedData['ttd_pemateri'], 'center', 550, 455);
+            Storage::delete($cert.$slug.$eventCertificate->ttd_pemateri);
+            $ttdPemateri = $request->file('ttd_pemateri');
+            $ttdPemateri->store($cert.$slug);
+            $validatedData['ttd_pemateri'] = $ttdPemateri->hashName();
+            $img->insert($path.$slug.$validatedData['ttd_pemateri'], 'center', 270, 380);
         } else {
-            $img->insert($path.$eventCertificate->ttd_pemateri, 'center', 550, 455);
+            $img->insert($path.$slug.$eventCertificate->ttd_pemateri, 'center', 270, 380);
         }
         if($request->file('logo')) {
-            Storage::delete($eventCertificate->logo);
-            $validatedData['logo'] = $request->file('logo')->store('certificate-event/'.$eventCertificate->event->slug);
+            Storage::delete($cert.$slug.$eventCertificate->logo);
+            $logo = $request->file('logo');
+            $logo->store($cert.$slug);
+            $validatedData['logo'] = $logo->hashName();
+            $img->insert($path.$slug.$validatedData['logo'], 'center', 570, -500);
+        } else {
+            $img->insert($path.$slug.$eventCertificate->logo, 'center', 570, -500);
         }
         
-        $img->text($validatedData['ketua_pelaksana'], 510, 1215, function($font) {
+        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(25);
             $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['pemateri'], 1500, 1215, function($font) {
+        $img->text($validatedData['pemateri'], 1250, 1115, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(25);
             $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($time, 1100, 830, function($font) {
+        $img->text('"'.$eventCertificate->event->title .'"', 960, 700, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(40);
-            $font->color('#ffffff');
+            $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($eventCertificate->event->title, 1320, 780, function($font) {
+        $img->text($time, 960, 800, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
-            $font->size(40);
-            $font->color('#ffffff');
-            $font->align('right');
+            $font->size(30);
+            $font->color('#000000');
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->text($validatedData['no_certificate'], 960, 230, function($font) {
+            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
+            $font->size(30);
+            $font->color('#000000');
+            $font->align('center');
             $font->valign('top');
         });
 
+        Storage::delete($cert.$slug.$eventCertificate->sertifikat);
         //menyimpan hasil pembuatan diatas
-        $img->save(base_path('public/storage/certificate-event/'.$eventCertificate->event->slug.'/sertifikat.jpg'), 100);
-        $validatedData['sertifikat'] = 'certificate-event/'.$eventCertificate->event->slug.'/sertifikat.jpg';
+        $sertifikat_name = time().'.jpg';
+        $img->save($path.$slug.$sertifikat_name, 100);
+        $validatedData['sertifikat'] = $sertifikat_name;
 
         //update database dan redirect
         EventCertificate::where('id', $id)->update($validatedData);

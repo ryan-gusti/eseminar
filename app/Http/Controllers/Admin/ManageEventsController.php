@@ -169,7 +169,19 @@ class ManageEventsController extends Controller
      */
     public function destroy(Event $event)
     {
-        //
+         // delete pivot category
+        $event->categories()->detach($event->category_id);
+        // delete image di storage dan set default deleted image
+        if($event->banner) {
+            Storage::delete($event->banner);
+        }
+        $data['banner'] = 'banner-event/deleted-event.png';
+        $event->update($data);
+        // soft delete event
+        $event->delete();
+        // kirim alert dan redirect
+        Alert::success('Berhasil!', 'Event telah dihapus!');
+        return redirect(route('admin.events.index'));
     }
 
     public function checkSlug(Request $request)

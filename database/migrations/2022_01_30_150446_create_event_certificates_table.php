@@ -16,11 +16,12 @@ class CreateEventCertificatesTable extends Migration
         Schema::create('event_certificates', function (Blueprint $table) {
             $table->id();
             $table->foreignId('event_id')->unique();
+            $table->string('no_certificate');
             $table->string('ketua_pelaksana');
             $table->string('ttd_pelaksana');
             $table->string('pemateri');
             $table->string('ttd_pemateri');
-            $table->string('logo');
+            $table->string('logo')->nullable();
             $table->string('text')->nullable();
             $table->string('sertifikat')->nullable();
             $table->timestamps();

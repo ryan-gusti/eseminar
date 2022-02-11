@@ -35,66 +35,159 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Greetings Card ends -->
-
-                        <!-- Subscribers Chart Card starts -->
-                        <!-- <div class="col-lg-3 col-sm-6 col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header flex-column align-items-start pb-0">
-                                                                        <div class="avatar bg-light-primary p-50 m-0">
-                                                                            <div class="avatar-content">
-                                                                                <i data-feather="users" class="font-medium-5"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <h2 class="fw-bolder mt-1">92.6k</h2>
-                                                                        <p class="card-text">Subscribers Gained</p>
-                                                                    </div>
-                                                                    <div id="gained-chart"></div>
-                                                                </div>
-                                                            </div> -->
-                        <!-- Subscribers Chart Card ends -->
-
-                        <!-- Orders Chart Card starts -->
-                        <!-- <div class="col-lg-3 col-sm-6 col-12">
-                                                                <div class="card">
-                                                                    <div class="card-header flex-column align-items-start pb-0">
-                                                                        <div class="avatar bg-light-warning p-50 m-0">
-                                                                            <div class="avatar-content">
-                                                                                <i data-feather="package" class="font-medium-5"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                        <h2 class="fw-bolder mt-1">38.4K</h2>
-                                                                        <p class="card-text">Orders Received</p>
-                                                                    </div>
-                                                                    <div id="order-chart"></div>
-                                                                </div>
-                                                            </div> -->
-                        <!-- Orders Chart Card ends -->
                     </div>
-
                     <div class="row match-height">
-                        <div class="col-lg-8 col-12">
-                            <div class="card card-user-timeline">
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-statistics">
                                 <div class="card-header">
-                                    <div class="d-flex align-items-center">
-                                        <i data-feather="radio" class="user-timeline-title-icon"></i>
-                                        <h4 class="card-title">Informasi Terbaru</h4>
-                                    </div>
-                                    <i data-feather="more-vertical" class="font-medium-3 cursor-pointer"></i>
+                                    <h4 class="card-title">Statistik Event</h4>
                                 </div>
-                                <div class="card-body">
-                                    <ul class="timeline ms-50">
-                                        <li class="timeline-item">
-                                            <span class="timeline-point timeline-point-indicator"></span>
-                                            <div class="timeline-event">
-                                                <div
-                                                    class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                                    <h6>Belum ada informasi terbaru</h6>
+                                <div class="card-body statistics-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="star" class="avatar-icon"></i>
+                                                    </div>
                                                 </div>
-                                                <p>-</p>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[0] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Event</p>
+                                                </div>
                                             </div>
-                                        </li>
-                                    </ul>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-success me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="check-circle" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[1] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Event Aktif</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-warning me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="help-circle" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[2] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Event Pending</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-danger me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="x-circle" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[3] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Event Rejected</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-secondary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="lock" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[4] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Event Closed</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row match-height">
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-statistics">
+                                <div class="card-header">
+                                    <h4 class="card-title">Statistik Pengguna</h4>
+                                </div>
+                                <div class="card-body statistics-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="users" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataPengguna[0] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Pengguna</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-success me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="user" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataPengguna[1] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">User</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-warning me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="user-check" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataPengguna[2] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Partner</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-danger me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="shield" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataPengguna[3] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Admin</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {{-- <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-secondary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="lock" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataEvent[4] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Event Closed</p>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                    </div>
                                 </div>
                             </div>
                         </div>

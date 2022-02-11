@@ -16,42 +16,42 @@ class CategoryEventSeeder extends Seeder
     {
         $categories = [
             [
-                'name' => 'Agama',
+                'title' => 'Agama',
                 'slug' => 'agama',
                 'image' => 'agama.jpg'
             ],
             [
-                'name' => 'Bisnis',
+                'title' => 'Bisnis',
                 'slug' => 'bisnis',
                 'image' => 'bisnis.jpg'
             ],
             [
-                'name' => 'Kesehatan',
+                'title' => 'Kesehatan',
                 'slug' => 'kesehatan',
                 'image' => 'kesehatan.jpg'
             ],
             [
-                'name' => 'Musik',
+                'title' => 'Musik',
                 'slug' => 'musik',
                 'image' => 'musik.jpg'
             ],
             [
-                'name' => 'Pendidikan',
+                'title' => 'Pendidikan',
                 'slug' => 'pendidikan',
                 'image' => 'pendidikan.jpg'
             ],
             [
-                'name' => 'Seni & Hiburan',
+                'title' => 'Seni & Hiburan',
                 'slug' => 'seni-hiburan',
                 'image' => 'seni-hiburan.jpg'
             ],
             [
-                'name' => 'Talk Show',
+                'title' => 'Talk Show',
                 'slug' => 'talk-show',
                 'image' => 'talk-show.jpg'
             ],
             [
-                'name' => 'Teknologi',
+                'title' => 'Teknologi',
                 'slug' => 'teknologi',
                 'image' => 'teknologi.jpg'
             ]

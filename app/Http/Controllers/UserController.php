@@ -12,6 +12,7 @@ use App\Models\Transaction;
 use Alert;
 use Auth;
 use Image;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -37,15 +38,26 @@ class UserController extends Controller
 
     public function edit_profile()
     {
-        return view('menu.edit-profile');
+        return view('pages.edit-profile');
     }
 
     public function update_profile(Request $request) 
     {
         $data = $request->validate([
             'name' => ['string', 'required', 'max:255'],
-            'phone' => ['numeric', 'required', 'unique:users,phone,'. auth()->id()]
+            'phone' => ['numeric', 'required', 'unique:users,phone,'. auth()->id()],
+            'picture' => ['image']
         ]);
+
+
+        if ($request->file('picture')) {
+            if(Auth::user()->picture) {
+            Storage::delete('user-image/'.Auth::user()->picture);
+            }
+            $image = $request->file('picture');
+            $image->store('user-image');
+            $data['picture'] = $image->hashName();
+        }
 
         Auth::user()->update($data);
         Alert::success('Sukses!', 'Ubah Profil Berhasil!');
@@ -54,7 +66,7 @@ class UserController extends Controller
 
     public function edit_password()
     {
-        return view('menu.edit-password');
+        return view('pages.edit-password');
     }
 
     public function update_password(Request $request)
@@ -85,23 +97,23 @@ class UserController extends Controller
 
     public function my_certificate(Event $event)
     {
+        // cek apakah user tersebut benar sudah terdaftar di table transaksi
         $certificate = Transaction::with('event')->where('user_id', Auth::id())->where('event_id', $event->id)->first();
         if(!$certificate) {
             Alert::error('Gagal!', 'Anda tidak memiliki akses!');
             return redirect(route('user.tickets'));
         }
-       
+        // get file sertifikat dan cetak
+        $imgCertificate = Event::with('certificate')->where('slug', $event->slug)->first();
         $path = base_path('public/storage/certificate-event/');
-        $img = Image::make($path.$event->slug.'/sertifikat.jpg');
-        $img->text(Auth::user()->name, 950, 590, function($font) {
+        $img = Image::make($path.$event->slug.'/'.$imgCertificate->certificate->sertifikat);
+        $img->text(Auth::user()->name, 950, 450, function($font) {
             $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
             $font->size(60);
-            $font->color('#ffffff');
+            $font->color('#000000');
             $font->align('center');
             $font->valign('top');
         });
-        // return $img->response('jpg');
-        // $img->save(base_path('public/storage/certificate-event/'.$event->slug.'/sertifikat.jpg'), 100);
         return $img->response('jpg');
     }
 

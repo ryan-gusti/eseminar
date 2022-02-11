@@ -13,6 +13,7 @@ class EventCertificate extends Model
 
     protected $fillable = [
         'event_id',
+        'no_certificate',
         'ketua_pelaksana',
         'ttd_pelaksana',
         'pemateri',

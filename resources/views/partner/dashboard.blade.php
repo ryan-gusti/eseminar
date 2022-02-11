@@ -3,6 +3,7 @@
 @section('title', 'Dashboard Partner')
 
 @section('content')
+    {{-- {{ dd($announcements) }} --}}
     <div class="app-content content ">
         <div class="content-overlay"></div>
         <div class="header-navbar-shadow"></div>
@@ -39,7 +40,7 @@
 
                     </div>
 
-                    <div class="row match-height">
+                    <div class="row">
                         <div class="col-lg-6 col-12">
                             <div class="card card-statistics">
                                 <div class="card-header">
@@ -73,20 +74,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        {{-- <div class="col-md-3 col-sm-6 col-12 mb-2 mb-sm-0">
-                                            <div class="d-flex flex-row">
-                                                <div class="avatar bg-light-danger me-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="box" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">1.423k</h4>
-                                                    <p class="card-text font-small-3 mb-0">Products</p>
-                                                </div>
-                                            </div>
-                                        </div> --}}
-                                        <div class="col-md-3 col-sm-6 col-12">
+                                        <div class="col-md-4 col-sm-6 col-12 mb-md-0">
                                             <div class="d-flex flex-row">
                                                 <div class="avatar bg-light-success me-2">
                                                     <div class="avatar-content">
@@ -114,16 +102,32 @@
                                 </div>
                                 <div class="card-body">
                                     <ul class="timeline ms-50">
-                                        <li class="timeline-item">
-                                            <span class="timeline-point timeline-point-indicator"></span>
-                                            <div class="timeline-event">
-                                                <div
-                                                    class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
-                                                    <h6>Belum ada informasi terbaru</h6>
+                                        @forelse($announcements as $announcement)
+                                            <li class="timeline-item">
+                                                <span class="timeline-point timeline-point-indicator"></span>
+                                                <div class="timeline-event">
+                                                    <div
+                                                        class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                        <h6>{{ $announcement->title }}</h6>
+                                                    </div>
+                                                    <p>{{ $announcement->body }}</p>
+                                                    <footer class="blockquote-footer text-end">
+                                                        {{ date('l d F Y', strtotime($announcement->created_at)) }}
+                                                    </footer>
                                                 </div>
-                                                <p>-</p>
-                                            </div>
-                                        </li>
+                                            </li>
+                                        @empty
+                                            <li class="timeline-item">
+                                                <span class="timeline-point timeline-point-indicator"></span>
+                                                <div class="timeline-event">
+                                                    <div
+                                                        class="d-flex justify-content-between flex-sm-row flex-column mb-sm-0 mb-1">
+                                                        <h6>Belum ada informasi terbaru</h6>
+                                                    </div>
+                                                    <p>-</p>
+                                                </div>
+                                            </li>
+                                        @endforelse
                                     </ul>
                                 </div>
                             </div>

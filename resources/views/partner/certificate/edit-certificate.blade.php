@@ -31,14 +31,14 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Tambah Sertifikat Event</h2>
+                            <h2 class="content-header-title float-start mb-0">Edit Sertifikat Event</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
                                     </li>
                                     <li class="breadcrumb-item"><a href="{{ route('partner.events.index') }}">List Event</a>
                                     </li>
-                                    <li class="breadcrumb-item active">Buat Event
+                                    <li class="breadcrumb-item active">Edit Sertifikat
                                     </li>
                                 </ol>
                             </div>
@@ -72,18 +72,25 @@
                                         @method('put')
                                         @csrf
                                         <div class="row">
-                                            <div class="col-md-6 col-12 mb-1">
+                                            <div class="col-md-4 col-12 mb-1">
                                                 <label class="form-label" for="ketua_pelaksana">Ketua Pelaksana</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="edit-2"></i></span>
                                                     <input type="text" id="ketua_pelaksana" class="form-control" name="ketua_pelaksana" value="{{ old('ketua_pelaksana', $eventCertificate->ketua_pelaksana) }}" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12 mb-1">
+                                            <div class="col-md-4 col-12 mb-1">
                                                 <label class="form-label" for="pemateri">Pemateri</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="edit-2"></i></span>
                                                     <input type="text" id="pemateri" class="form-control" name="pemateri" value="{{ old('pemateri', $eventCertificate->pemateri) }}"/>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 col-12 mb-1">
+                                                <label class="form-label" for="pemateri">Nomor Sertifikat</label>
+                                                <div class="input-group input-group-merge">
+                                                    <span class="input-group-text"><i data-feather="edit-2"></i></span>
+                                                    <input type="text" id="no_certificate" class="form-control" name="no_certificate" value="{{ old('no_certificate', $eventCertificate->no_certificate) }}"/>
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 mb-1">
@@ -91,13 +98,13 @@
                                                 <input id="text" type="hidden" name="text" value="{{ old('text') }}">
                                                 <trix-editor input="text"></trix-editor>
                                             </div>
-                                            <div class="col-4 mb-2">
+                                            <div class="col-12 mb-2">
                                                 <div class="border rounded p-2">
                                                     <h6 class="mb-1"><i data-feather='image'></i> TTD Ketua Pelaksana</h6>
                                                     <div class="d-flex flex-column flex-md-row">
-                                                        <a id="pelaksana-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/'.$eventCertificate->ttd_pelaksana.'') }}"><img src="{{ asset('storage/'.$eventCertificate->ttd_pelaksana.'') }}" id="pelaksana-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
+                                                        <a id="pelaksana-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->ttd_pelaksana.'') }}"><img src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->ttd_pelaksana.'') }}" id="pelaksana-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
                                                         <div class="featured-info">
-                                                            <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
+                                                            <small class="text-muted">Format file hanya .png dengan lebar max 362px dan tinggi max 150px</small>
                                                             <p class="my-50">
                                                                 <a href="#" id="blog-image-text">*klik gambar untuk memperbesar*</a>
                                                             </p>
@@ -108,13 +115,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4 mb-2">
+                                            <div class="col-12 mb-2">
                                                 <div class="border rounded p-2">
                                                     <h6 class="mb-1"><i data-feather='image'></i> TTD Pemateri</h6>
                                                     <div class="d-flex flex-column flex-md-row">
-                                                        <a id="pemateri-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/'.$eventCertificate->ttd_pemateri.'') }}"><img src="{{ asset('storage/'.$eventCertificate->ttd_pemateri.'') }}" id="pemateri-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
+                                                        <a id="pemateri-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->ttd_pemateri.'') }}"><img src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->ttd_pemateri.'') }}" id="pemateri-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
                                                         <div class="featured-info">
-                                                            <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
+                                                            <small class="text-muted">Format file hanya .png dengan lebar max 362px dan tinggi max 150px</small>
                                                             <p class="my-50">
                                                                 <a href="#" id="blog-image-text">*klik gambar untuk memperbesar*</a>
                                                             </p>
@@ -125,13 +132,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-4 mb-2">
+                                            <div class="col-12 mb-2">
                                                 <div class="border rounded p-2">
                                                     <h6 class="mb-1"><i data-feather='image'></i> Upload Logo</h6>
                                                     <div class="d-flex flex-column flex-md-row">
-                                                        <a id="logo-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/'.$eventCertificate->logo.'') }}"><img src="{{ asset('storage/'.$eventCertificate->logo.'') }}" id="logo-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
+                                                        <a id="logo-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->logo.'') }}"><img src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->logo.'') }}" id="logo-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
                                                         <div class="featured-info">
-                                                            <small class="text-muted">Required image resolution 800x400, image size 10mb.</small>
+                                                            <small class="text-muted">Format file hanya .png dengan lebar max 150px dan tinggi max 87px.</small>
                                                             <p class="my-50">
                                                                 <a href="#" id="blog-image-text">*klik gambar untuk memperbesar*</a>
                                                             </p>

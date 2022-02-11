@@ -7,6 +7,7 @@ use App\Models\Transaction;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Yajra\DataTables\Facades\DataTables;
+use Alert;
 
 class TransactionController extends Controller
 {
@@ -35,7 +36,7 @@ class TransactionController extends Controller
                                 })
                                 ->addColumn('action', function($item){
                                     return '
-                                            <form action="'.route('partner.certificate.destroy', $item->id).'" method="POST">
+                                            <form action="'.route('partner.transaction.destroy', $item->id).'" method="POST">
                                             '. method_field('delete'). csrf_field().'
                                             <button class="btn btn-danger" onclick="return confirm(\'Anda Yakin?\')"><i class="fas fa-trash"></i> Hapus Peserta</button>
                                             </form>
@@ -111,6 +112,13 @@ class TransactionController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        // get slug for redirect
+        $data = $transaction->where('id', $transaction->id)->with('event:id,slug')->get();
+        $slug = $data[0]['event']['slug'];
+        //delete peserta
+        $transaction->delete();
+        // kirim alert dan redirect
+        Alert::success('Berhasil!', 'Peserta telah dihapus!');
+        return redirect()->route('partner.events.transaction.index', $slug);
     }
 }

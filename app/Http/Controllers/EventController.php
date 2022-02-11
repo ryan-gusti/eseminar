@@ -12,10 +12,10 @@ use Alert;
 class EventController extends Controller
 {
     public function index() {
-
+        // return Event::where('status', 'open')->latest()->get();
         return view('home/events',[
             'title' => 'List All Events',
-            'events' => Event::all()->where('status', 'open')
+            'events' => Event::where('status', 'open')->orWhere('status', 'close')->latest()->get()
         ]);
     }
 
@@ -28,7 +28,7 @@ class EventController extends Controller
 
     public function show($slug) 
     {
-        $event = Event::with('categories:slug,name')->where('slug', $slug)->firstOrFail();
+        $event = Event::with('categories:slug,title')->where('slug', $slug)->firstOrFail();
         $desc = base64_decode($event->description);
 
         return view('home/event', [
@@ -40,7 +40,7 @@ class EventController extends Controller
 
     public function category($slug)
     {
-        $events = Event::with('categories:slug,name')
+        $events = Event::with('categories:slug,title')
         ->whereHas('categories', function (Builder $query) use ($slug) {
             $query->where('slug', $slug);
         }) 
@@ -53,55 +53,5 @@ class EventController extends Controller
             'category' => $category
         ]);
     }
-
-    public function create_event() {
-        $categories = Category::orderBy('name', 'asc')->get();
-        return view('partner.create-event', [
-            'categories' => $categories
-        ]);
-    }
-
-    public function store_event(Request $request)
-    {
-        // dd($request->all());
-        $validatedData = $request->validate([
-            'title' => 'required|max:255',
-            'slug' => 'required|unique:events,slug',
-            'description' => 'required',
-            'banner' => 'required|image',
-            'quota' => 'required|numeric',
-            'time' => 'required',
-            'price' => 'required|numeric',
-            'category_id' => 'required|array',
-        ]);
-
-        $decode = base64_encode($request->description);
-
-        // $validatedData = [
-        //     'description' => $decode,
-        //     'user_id' => auth()->user()->id,
-        //     'banner' => $request->file('banner')->store('banner-event'),
-
-        // ];
-        $validatedData['description'] = $decode;
-        $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['banner'] = $request->file('banner')->store('banner-event');
-        $validatedData['location'] = $request->location;
-        $validatedData['link'] = $request->link;
-
-        $event = Event::create($validatedData);
-        $event->categories()->attach($validatedData['category_id']);
-        Alert::success('Berhasil!', 'Sukses membuat event');
-        return redirect('/partner/list-event');
-    }
-
-    public function edit_event(Event $event) 
-    {
-        return view('partner.edit-event', [
-            'event' => $event,
-            'categories' => Category::all()
-        ]);
-    }
-
 
 }

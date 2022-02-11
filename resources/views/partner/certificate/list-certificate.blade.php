@@ -25,7 +25,9 @@
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List Event</a>
+                                <li class="breadcrumb-item"><a href="{{ route('partner.events.index') }}">List Event</a>
+                                </li>
+                                <li class="breadcrumb-item"><a href="#">Sertifikat</a>
                                 </li>
                             </ol>
                         </div>
@@ -43,6 +45,7 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
+                                        <th>No Sertifikat</th>
                                         <th>Ketua Pelaksana</th>
                                         <th>TTD Pelaksana</th>
                                         <th>Pemateri</th>
@@ -96,6 +99,7 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
+            { data: 'no_certificate', name: 'no_certificate'},
             { data: 'ketua_pelaksana', name: 'ketua_pelaksana'},
             { data: 'ttd_pelaksana', name: 'ttd_pelaksana'},
             { data: 'pemateri', name: 'pemateri'},
@@ -115,50 +119,6 @@
         displayLength: 10,
         lengthMenu: [10, 25, 50, 75, 100],
         buttons: [
-            {
-            extend: 'collection',
-            className: 'btn btn-outline-secondary dropdown-toggle me-2',
-            text: feather.icons['share'].toSvg({ class: 'font-small-4 me-50' }) + 'Export',
-            buttons: [
-                {
-                extend: 'print',
-                text: feather.icons['printer'].toSvg({ class: 'font-small-4 me-50' }) + 'Print',
-                className: 'dropdown-item',
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
-                },
-                {
-                extend: 'csv',
-                text: feather.icons['file-text'].toSvg({ class: 'font-small-4 me-50' }) + 'Csv',
-                className: 'dropdown-item',
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
-                },
-                {
-                extend: 'excel',
-                text: feather.icons['file'].toSvg({ class: 'font-small-4 me-50' }) + 'Excel',
-                className: 'dropdown-item',
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
-                },
-                {
-                extend: 'pdf',
-                text: feather.icons['clipboard'].toSvg({ class: 'font-small-4 me-50' }) + 'Pdf',
-                className: 'dropdown-item',
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
-                },
-                {
-                extend: 'copy',
-                text: feather.icons['copy'].toSvg({ class: 'font-small-4 me-50' }) + 'Copy',
-                className: 'dropdown-item',
-                exportOptions: { columns: [0, 1, 2, 3, 4, 5] }
-                }
-            ],
-            init: function (api, node, config) {
-                $(node).removeClass('btn-secondary');
-                $(node).parent().removeClass('btn-group');
-                setTimeout(function () {
-                $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
-                }, 50);
-            }
-            },
             {
             @if(!$event->certificate)
             text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Sertifikat',

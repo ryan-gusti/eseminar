@@ -59,10 +59,32 @@
                                 data-feather="home"></i><span>Dashboards</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                            href="{{ route('admin.events.index') }}"><i data-feather="star"></i><span>Manage Event</span></a>
+                            href="{{ route('admin.categories.index') }}"><i
+                                data-feather="align-justify"></i><span>Manage
+                                Kategori</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                        href="{{ route('admin.users.index') }}"><i data-feather="users"></i><span>Manage User</span></a>
+                            href="{{ route('admin.events.index') }}"><i data-feather="star"></i><span>Manage
+                                Event</span></a>
+                    </li>
+                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
+                            href="{{ route('admin.users.index') }}"><i data-feather="users"></i><span>Manage
+                                User</span></a>
+                    </li>
+                    <li class="dropdown nav-item" data-menu="dropdown"><a
+                            class="dropdown-toggle nav-link d-flex align-items-center" href="#"
+                            data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Manage Website</span></a>
+                        <ul class="dropdown-menu" data-bs-popper="none">
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('partner.events.create') }}"><i data-feather="award"></i><span>Atur
+                                        Master Sertifikat</span></a>
+                            </li>
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('admin.announcements.index') }}"><i
+                                        data-feather="list"></i><span>Atur
+                                        Informasi</span></a>
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </div>

@@ -20,7 +20,7 @@ class EventFactory extends Factory
         'description' => base64_encode($this->faker->paragraph()),
         'banner' => $this->faker->imageUrl(640, 480, 'events', true),
         'quota' => $this->faker->randomNumber(3, true),
-        'time' => $this->faker->dateTime(),
+        'time' => $this->faker->dateTimeBetween('+2 day', '+1 week'),
         'location_link' => $this->faker->url(),
         'price' => $this->faker->randomNumber(5, true),
         'type' => 'online',
