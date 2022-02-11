@@ -23,25 +23,14 @@
                                 </div>
                                 <div class="text-center">
                                     <h1 class="mb-1 text-white">Event dengan Kategori {{ $category[0]->title }}</h1>
-                                    {{-- <p class="card-text m-auto w-75">
-                                        Kamu bisa mengikuti lebih dari <strong>361</strong> event yang telah kami sediakan.
-                                    </p> --}}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- create form search event -->
-                        <div class="col-lg-12">
-                            <div class="input-group mb-2">
-                                <input type="text" class="form-control" placeholder="Cari eventmu disini">
-                                <div class="input-group-append ms-1">
-                                    <button class="btn btn-primary" type="button">
-                                        <i data-feather="search"></i>
-                                    </button>
+                                    <p class="card-text m-auto w-75">
+                                        Total ada <strong>{{ $events->count() }}</strong> event dengan kategori ini.
+                                    </p>
                                 </div>
                             </div>
                         </div>
                         <div class="row" id="list-event">
-                            @foreach ($events as $event)
+                            @forelse ($events as $event)
                                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="card h-100">
                                         <img class="card-img-top"
@@ -57,7 +46,14 @@
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="misc-inner p-2 p-sm-3 mt-0">
+                                    <div class="w-100 text-center">
+                                        <h2>Belum ada event dengan kategori ini nih! 🕵🏻‍♀️</h2>
+                                        <img src="{{ asset('storage/not-found.png') }}" class="img-fluid"><br>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>

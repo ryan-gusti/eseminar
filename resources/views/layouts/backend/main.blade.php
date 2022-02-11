@@ -128,10 +128,10 @@
                 <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon"
                             data-feather="search"></i></a>
                     <div class="search-input">
-                        <form method="get" action="/">
+                        <form method="get" action="/events">
                             <div class="search-input-icon"><i data-feather="search"></i></div>
                             <input class="form-control input" type="text" placeholder="Cari Event ..." tabindex="-1"
-                                data-search="search" name="search">
+                                data-search="search" name="search" value="{{ request('search') }}">
                             <div class="search-input-close"><i data-feather="x"></i></div>
                         </form>
                         {{-- <ul class="search-list search-list-main"></ul> --}}

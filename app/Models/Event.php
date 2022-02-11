@@ -28,6 +28,11 @@ class Event extends Model
         'status'
     ];
 
+    public function scopeOpenClose($query)
+    {
+        return $query->whereIn('status', ['open', 'close']);
+    }
+
     public function getIsRegisteredAttribute()
     {
         if (!Auth::check()) {

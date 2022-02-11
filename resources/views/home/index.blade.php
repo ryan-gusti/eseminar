@@ -84,7 +84,7 @@
                                     Berikut pencapaian kami selama membuka event.
                                 </p>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-4 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header flex-column align-items-center">
                                         <div class="avatar bg-light-primary p-50 m-0">
@@ -92,12 +92,12 @@
                                                 <i data-feather="users" class="font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h1 class="display-6 fw-bolder mt-1">8242</h1>
+                                        <h1 class="display-6 fw-bolder mt-1">{{ $totalUsers }}</h1>
                                         <p class="h4 card-text">Total Pengguna</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-4 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header flex-column align-items-center">
                                         <div class="avatar bg-light-primary p-50 m-0">
@@ -105,25 +105,12 @@
                                                 <i data-feather="box" class="font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h1 class="display-6 fw-bolder mt-1">363</h1>
-                                        <p class="h4 card-text">Event</p>
+                                        <h1 class="display-6 fw-bolder mt-1">{{ $totalEvents }}</h1>
+                                        <p class="h4 card-text">Total Event</p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
-                                <div class="card">
-                                    <div class="card-header flex-column align-items-center">
-                                        <div class="avatar bg-light-primary p-50 m-0">
-                                            <div class="avatar-content">
-                                                <i data-feather="star" class="font-medium-5"></i>
-                                            </div>
-                                        </div>
-                                        <h1 class="display-6 fw-bolder mt-1">6512</h1>
-                                        <p class="h4 card-text">5 Star Reviews</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-3 col-sm-6 col-12">
+                            <div class="col-lg-4 col-sm-6 col-12">
                                 <div class="card">
                                     <div class="card-header flex-column align-items-center">
                                         <div class="avatar bg-light-primary p-50 m-0">
@@ -131,7 +118,7 @@
                                                 <i data-feather="trello" class="font-medium-5"></i>
                                             </div>
                                         </div>
-                                        <h1 class="display-6 fw-bolder mt-1">92.6k</h1>
+                                        <h1 class="display-6 fw-bolder mt-1">{{ $totalTransactions }}</h1>
                                         <p class="h4 card-text">Tiket Terjual</p>
                                     </div>
                                 </div>

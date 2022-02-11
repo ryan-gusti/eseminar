@@ -65,11 +65,11 @@
                             <i data-feather="star"></i><span>Events</span>
                         </a>
                     </li>
-                    <li class="">
+                    {{-- <li class="">
                         <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
                             <i data-feather="award"></i><span>Cek Sertifikat</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </div>
         </div>

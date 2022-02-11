@@ -12,10 +12,14 @@ use Alert;
 class EventController extends Controller
 {
     public function index() {
-        // return Event::where('status', 'open')->latest()->get();
+        $events = Event::openclose()->latest();
+
+        if(request('search')) {
+            $events->where('title', 'like', '%'.request('search').'%');
+        }
+
         return view('home/events',[
-            'title' => 'List All Events',
-            'events' => Event::where('status', 'open')->orWhere('status', 'close')->latest()->get()
+            'events' => $events->get()
         ]);
     }
 

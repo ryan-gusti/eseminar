@@ -24,40 +24,38 @@
                                 <div class="text-center">
                                     <h1 class="mb-1 text-white">Ikuti event yang kamu sukai!</h1>
                                     <p class="card-text m-auto w-75">
-                                        Kamu bisa mengikuti lebih dari <strong>361</strong> event yang telah kami sediakan.
+                                        Kamu bisa mengikuti lebih dari <strong>{{ $events->count() }}</strong> event yang telah kami sediakan.
                                     </p>
                                 </div>
                             </div>
                         </div>
-                        <!-- create form search event -->
-                        <div class="col-lg-12">
-                            <div class="input-group mb-2">
-                                <input type="text" class="form-control" placeholder="Cari eventmu disini">
-                                <div class="input-group-append ms-1">
-                                    <button class="btn btn-primary" type="button">
-                                        <i data-feather="search"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
                         <div class="row" id="list-event">
-                            @foreach ($events as $event)
+                            @forelse ($events as $event)
                                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="card h-100">
                                         <img class="card-img-top"
                                             src="{{ asset('backend/app-assets/images/slider/01.jpg') }}"
                                             alt="Card image cap">
                                         <div class="card-body pb-0 text-center">
-                                            <h3 class="card-title">{{ $event->title }}</h3>
+                                            <h3 class="card-title" style="height: 50px;">{{ $event->title }}</h3>
+                                            <div class="mb-0">
                                             <button
                                                 class="btn btn-outline-success">{{ date('d F Y', strtotime($event->time)) }}</button>
                                             <a class="btn btn-outline-primary"
                                                 href="{{ route('event', $slug = $event->slug) }}">Detail
                                                 Event</a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            @endforeach
+                            @empty
+                                <div class="misc-inner p-2 p-sm-3 mt-0">
+                                    <div class="w-100 text-center">
+                                        <h2>Event yang kamu cari ga ditemukan nih! 🕵🏻‍♀️</h2>
+                                        <img src="{{ asset('storage/not-found.png') }}" class="img-fluid"><br>
+                                    </div>
+                                </div>
+                            @endforelse
                         </div>
                     </div>
                 </div>
