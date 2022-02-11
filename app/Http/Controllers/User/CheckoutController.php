@@ -62,9 +62,10 @@ class CheckoutController extends Controller
             'is_paid' => 1,
             'item_price' => $event->price
         ];
-        $checkout = Transaction::create($data);
-        Alert::success('Sukses!', 'Transaksi Berhasil!');
-        return redirect(route('user.tickets'));
+        Transaction::create($data);
+        return view('user.success-checkout', [
+            'event' => $event
+        ]);
     }
 
     /**

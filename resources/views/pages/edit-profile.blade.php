@@ -73,13 +73,12 @@
                                         @if (Auth::user()->picture)
                                             <img src="{{ asset('storage/user-image/' . Auth::user()->picture) }}"
                                                 id="account-upload-img" class="uploadedAvatar rounded me-50"
-                                                alt="profile image" height="100" width="100" />
+                                                alt="profile image" height="100" width="100"/>
                                         @else
                                             <img src="{{ asset('storage/user-image/avatar.png') }}"
                                                 id="account-upload-img" class="uploadedAvatar rounded me-50"
                                                 alt="profile image" height="100" width="100" />
                                         @endif
-
                                     </a>
                                     <!-- upload and reset button -->
                                     <div class="d-flex align-items-end mt-75 ms-1">
@@ -139,4 +138,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('page-js')
+        <script src="{{ asset('backend/app-assets/js/scripts/pages/page-profile-edit.js') }}"></script>
 @endsection

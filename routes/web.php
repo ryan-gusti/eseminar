@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::view('/success', 'user.success-checkout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [EventController::class, 'index'])->name('events');

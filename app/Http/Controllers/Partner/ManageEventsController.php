@@ -8,7 +8,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Auth;
 use Carbon\Carbon;
@@ -31,7 +30,7 @@ class ManageEventsController extends Controller
     public function index(Request $request)
     {
         if($request->ajax()) {
-            $query = Event::query()->where('user_id', Auth::user()->id);
+            $query = Event::query()->where('user_id', Auth::user()->id)->with('transactions');
             return Datatables::of($query)
                                 ->addIndexColumn()
                                 ->addColumn('menu', function($item){
@@ -67,7 +66,7 @@ class ManageEventsController extends Controller
                                     return 'Rp '.number_format($item->price);
                                 })
                                 ->editColumn('quota', function($item){
-                                    return $item->quota.' Peserta';
+                                    return $item->transactions->count().'/'. $item->quota.' Peserta';
                                 })
                                 ->rawColumns(['status', 'action', 'menu'])
                                 ->make(true);
