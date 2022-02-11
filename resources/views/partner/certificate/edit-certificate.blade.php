@@ -138,7 +138,7 @@
                                                     <div class="d-flex flex-column flex-md-row">
                                                         <a id="logo-preview-image" data-fancybox="banner-preview" data-src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->logo.'') }}"><img src="{{ asset('storage/certificate-event/'.$eventCertificate->event->slug.'/'.$eventCertificate->logo.'') }}" id="logo-feature-image" class="rounded me-2 mb-1 mb-md-0" width="170" height="110" alt="Blog Featured Image" /></a>
                                                         <div class="featured-info">
-                                                            <small class="text-muted">Format file hanya .png dengan lebar max 150px dan tinggi max 87px.</small>
+                                                            <small class="text-muted">Format file hanya .png dengan lebar max 150px dan tinggi max 87px</small>
                                                             <p class="my-50">
                                                                 <a href="#" id="blog-image-text">*klik gambar untuk memperbesar*</a>
                                                             </p>
