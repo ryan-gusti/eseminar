@@ -150,14 +150,14 @@
                 $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
                 }, 50);
             }
-            }
-            {{-- {
+            },
+            {
             text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
                 window.location = '{{ route('admin.events.create') }}';
             }     
-            } --}}
+            }
         ],
         responsive: {
             details: {

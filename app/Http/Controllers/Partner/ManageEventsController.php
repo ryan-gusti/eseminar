@@ -172,7 +172,6 @@ class ManageEventsController extends Controller
      */
     public function update(Request $request, Event $event)
     {
-        $timeValidation = Carbon::today()->toDateString();
         $rules = ([
             'title' => 'required|max:255',
             'slug' => 'required|unique:events,slug,'.$event->id,
@@ -182,6 +181,7 @@ class ManageEventsController extends Controller
             'time' => 'required|after_or_equal:'.$this->dateValidation,
             'price' => 'required|numeric',
             'category_id' => 'required|array',
+            'status' => 'required|'
         ]);
 
         //menyimpan ke dalam variabel data
@@ -190,7 +190,7 @@ class ManageEventsController extends Controller
         $data['description'] = base64_encode($request->description);
         if($request->file('banner')) {
             if($event->banner) {
-                Storage::delete($event->banner);
+                Storage::delete('banner-event/'.$event->banner);
             }
             $image = $request->file('banner');
             $image->store('banner-event');
@@ -217,7 +217,7 @@ class ManageEventsController extends Controller
         $event->categories()->detach($event->category_id);
         // delete image di storage dan set default deleted image
         if($event->banner) {
-            Storage::delete($event->banner);
+            Storage::delete('banner-event/'.$event->banner);
         }
         $data['banner'] = 'banner-event/deleted-event.png';
         $event->update($data);

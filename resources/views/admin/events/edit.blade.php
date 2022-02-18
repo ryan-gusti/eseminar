@@ -240,6 +240,7 @@
     <script src="{{ asset('backend/app-assets/js/scripts/forms/pickers/form-pickers.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/forms/select/select2.full.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/js/scripts/forms/form-select2.js') }}"></script>
+    <script src="{{ asset('backend/app-assets/js/scripts/pages/page-blog-edit.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 @endsection
 

@@ -24,7 +24,7 @@
     </style>
 @endsection
 
-@section('title', 'Edit Event')
+@section('title', 'Buat Event')
 
 @section('content')
     <div class="app-content content ">
@@ -38,10 +38,9 @@
                             <h2 class="content-header-title float-start mb-0">Edit Event</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('partner.events.index') }}">List
-                                            Event</a>
+                                    <li class="breadcrumb-item"><a href="#">List Event</a>
                                     </li>
                                     <li class="breadcrumb-item active">Edit Event
                                     </li>
@@ -71,21 +70,18 @@
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <form class="form"
-                                        action="{{ route('partner.events.update', $event->slug) }}" method="POST"
-                                        enctype="multipart/form-data">
-                                        @method('PUT')
+                                    <form class="form" action="{{ route('admin.events.store') }}"
+                                        method="POST" enctype="multipart/form-data">
                                         @csrf
-                                        <input type="hidden" value="{{ $event->status }}" name="status"/>
                                         <label class="form-label" for="type_event">Jenis Event</label><br />
                                         <div class="form-check form-check-inline mb-1">
                                             <input class="form-check-input" type="radio" name="type" id="type_event"
-                                                value="offline" {{ $event->type == 'offline' ? 'checked' : '' }} />
+                                                value="offline" />
                                             <label class="form-check-label">Offline</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="type" id="type_event"
-                                                value="online" {{ $event->type == 'online' ? 'checked' : '' }} />
+                                                value="online" />
                                             <label class="form-check-label">Online</label>
                                         </div>
                                         <div class="row">
@@ -94,7 +90,7 @@
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="edit-2"></i></span>
                                                     <input type="text" id="title" class="form-control" name="title"
-                                                        value="{{ old('title', $event->title) }}" />
+                                                        value="{{ old('title') }}" />
                                                 </div>
                                             </div>
                                             <div class="col-md-6 col-12 mb-1">
@@ -102,13 +98,13 @@
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text"><i data-feather="hash"></i></span>
                                                     <input type="text" id="slug" class="form-control" name="slug"
-                                                        value="{{ old('slug', $event->slug) }}" readonly />
+                                                        value="{{ old('slug') }}" readonly />
                                                 </div>
                                             </div>
                                             <div class="col-sm-12 mb-1">
                                                 <label class="form-label" for="modern-email">Deskripsi</label>
                                                 <input id="description" type="hidden" name="description"
-                                                    value="{{ old('description', $description) }}">
+                                                    value="{{ old('description') }}">
                                                 <trix-editor input="description"></trix-editor>
                                             </div>
                                             <div class="col-12 mb-2">
@@ -117,8 +113,8 @@
                                                     </h6>
                                                     <div class="d-flex flex-column flex-md-row">
                                                         <a id="banner-preview-image" data-fancybox="banner-preview"
-                                                            data-src="{{ asset('storage/banner-event/' . $event->banner) }}"><img
-                                                                src="{{ asset('storage/banner-event/' . $event->banner) }}"
+                                                            data-src="{{ asset('storage/banner-event/banner-event.png') }}"><img
+                                                                src="{{ asset('storage/banner-event/banner-event.png') }}"
                                                                 id="blog-feature-image"
                                                                 class="rounded me-2 mb-1 mb-md-0 img-fluid" width="170"
                                                                 height="110" alt="Blog Featured Image" /></a>
@@ -137,19 +133,29 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 col-12 mb-1">
+                                            <div class="col-md-4 col-12 mb-1">
                                                 <label class="form-label" for="quota">Kouta Peserta</label>
                                                 <div class="input-group input-group-merge">
                                                     <input type="text" id="quota" class="form-control" name="quota"
-                                                        value="{{ old('quota', $event->quota) }}" />
+                                                        value="{{ old('quota') }}" />
                                                     <span class="input-group-text">Peserta</span>
                                                 </div>
                                             </div>
-                                            <div class="col-md-6 mb-1">
+                                            <div class="col-md-4 mb-1">
                                                 <label class="form-label" for="time">Tanggal & Jam</label>
                                                 <input type="text" id="time" class="form-control flatpickr-date-time"
-                                                    value="{{ old('time', $event->time) }}"
+                                                    value="{{ old('time') }}"
                                                     placeholder="YYYY-MM-DD HH:MM" name="time" />
+                                            </div>
+                                            <div class="col-md-4 mb-1">
+                                                <label class="form-label" for="select2-basic">Partner</label>
+                                                <select class="select2 form-select" id="select2-basic"
+                                                    name="user_id">
+                                                    <option></option>
+                                                    @foreach ($users as $user)
+                                                        <option value="{{ $user->id }}">{{ $user->name }}
+                                                    @endforeach
+                                                </select>
                                             </div>
                                             <div class="col-md-12 col-12 mb-1" id="alamatForm">
                                                 <label class="form-label" for="location_link">Alamat Lokasi / Link
@@ -158,17 +164,15 @@
                                                     <span class="input-group-text"><i data-feather="map-pin"></i></span>
                                                     <input type="text" class="form-control" id="location_link"
                                                         name="location_link"
-                                                        value="{{ old('location_link', $event->location_link) }}" />
+                                                        value="{{ old('location_link') }}" />
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 mb-1" id="kategori">
+                                            <div class="col-md-4 mb-1">
                                                 <label class="form-label" for="select2-multiple">Kategori</label>
                                                 <select class="select2 form-select" id="select2-multiple" multiple
                                                     name="category_id[]">
                                                     @foreach ($categories as $category)
-                                                        <option value="{{ $category->id }}"
-                                                            {{ $event->category_id->contains($category->id) ? 'selected' : '' }}>
-                                                            {{ $category->title }}</option>
+                                                        <option value="{{ $category->id }}">{{ $category->title }}
                                                     @endforeach
                                                 </select>
                                             </div>
@@ -176,26 +180,23 @@
                                                 <label class="form-label" for="price">Harga Tiket</label>
                                                 <div class="input-group input-group-merge">
                                                     <span class="input-group-text">Rp</span>
-                                                    <input type="text" id="price" class="form-control" name="price"
-                                                        value="{{ old('price', $event->price) }}" />
+                                                    <input type="text" id="price" class="form-control" name="price" placeholder="Kosongkan jika ingin Gratis"
+                                                        value="{{ old('price') }}" />
                                                 </div>
                                             </div>
-                                            @if ($event->status == 'open' || $event->status == 'close')
                                             <div class="col-md-4 col-12 mb-1">
                                                 <label class="form-label" for="select2-icons">Status</label>
                                                 <select data-placeholder="Pilih Status.." class="select2-icons form-select"
                                                     id="select2-icons" name="status">
                                                     <optgroup label="Pilih Status">
-                                                        <option value="open" data-icon="check-circle"
-                                                            {{ $event->status == 'open' ? 'selected' : '' }}>OPEN
-                                                        </option>
-                                                        <option value="close" data-icon="x-circle"
-                                                            {{ $event->status == 'close' ? 'selected' : '' }}>CLOSED
+                                                        <option value="open" data-icon="check-circle">OPEN</option>
+                                                        <option value="pending" data-icon="help-circle">PENDING</option>
+                                                        <option value="rejected" data-icon="frown">REJECTED</option>
+                                                        <option value="close" data-icon="x-circle">CLOSED
                                                         </option>
                                                     </optgroup>
                                                 </select>
                                             </div>
-                                            @endif
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary me-1">Submit</button>
                                                 <button type="reset" class="btn btn-outline-secondary">Reset</button>
@@ -229,18 +230,22 @@
 @endsection
 
 @section('js')
-    @if ($event->status == 'pending')
     <script>
-        document.getElementById("kategori").classList.add('col-md-8');
-        document.getElementById("kategori").classList.remove('col-md-4');
+        $("#select2-multiple").select2({
+            placeholder: "Pilih Kategori",
+            allowClear: true
+        });
+        $("#select2-basic").select2({
+            placeholder: "Pilih Partner"
+        });
     </script>
-    @endif
     <script>
+    
         const title = document.querySelector('#title');
         const slug = document.querySelector('#slug');
 
         title.addEventListener('change', function() {
-            fetch('{{ route('partner.checkslug') }}?title=' + title.value)
+            fetch('{{ route('admin.checkslug') }}?title=' + title.value)
                 .then(response => response.json())
                 .then(data => slug.value = data.slug)
         });

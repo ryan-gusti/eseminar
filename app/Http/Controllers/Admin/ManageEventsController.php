@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use \Cviebrock\EloquentSluggable\Services\SlugService;
 use Carbon\Carbon;
+use App\Models\User;
 use Alert;
 use Auth;
 
@@ -77,7 +78,12 @@ class ManageEventsController extends Controller
      */
     public function create()
     {
-        //
+        $users = User::where('role', 'partner')->get();
+        $categories = Category::orderBy('title', 'asc')->get();
+        return view('admin.events.create', [
+            'users' => $users,
+            'categories' => $categories
+        ]);
     }
 
     /**
@@ -88,7 +94,37 @@ class ManageEventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // cek kondisi untuk harga gratis
+        if ($request->price == null) {
+            $price = 0;
+        } else {
+            $price = $request->price;
+        }
+        $validatedData = $request->validate([
+            'title' => 'required|max:255',
+            'slug' => 'required|unique:events,slug',
+            'description' => 'required',
+            'banner' => 'required|image',
+            'quota' => 'required|numeric',
+            'time' => 'required|after_or_equal:'.$this->dateValidation,
+            'user_id' => 'required|numeric',
+            'location_link' => 'required|string',
+            'type' => 'required|string',
+            'category_id' => 'required|array'
+        ]);
+
+        $decode = base64_encode($request->description);
+        $validatedData['price'] = $price;
+        $validatedData['description'] = $decode;
+
+        $image = $request->file('banner');
+        $image->store('banner-event');
+        $validatedData['banner'] = $image->hashName();
+
+        $event = Event::create($validatedData);
+        $event->categories()->attach($validatedData['category_id']);
+        Alert::success('Berhasil!', 'Sukses membuat event');
+        return redirect(route('admin.events.index'));
     }
 
     /**
@@ -148,9 +184,11 @@ class ManageEventsController extends Controller
         $data['description'] = base64_encode($request->description);
         if($request->file('banner')) {
             if($event->banner) {
-                Storage::delete($event->banner);
+                Storage::delete('banner-event/'.$event->banner);
             }
-            $data['banner'] = $request->file('banner')->store('banner-event');
+            $image = $request->file('banner');
+            $image->store('banner-event');
+            $data['banner'] = $image->hashName();
         }
         $event->update($data);
 
@@ -173,7 +211,7 @@ class ManageEventsController extends Controller
         $event->categories()->detach($event->category_id);
         // delete image di storage dan set default deleted image
         if($event->banner) {
-            Storage::delete($event->banner);
+            Storage::delete('banner-event/'.$event->banner);
         }
         $data['banner'] = 'banner-event/deleted-event.png';
         $event->update($data);
