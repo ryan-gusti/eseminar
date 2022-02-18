@@ -16,10 +16,10 @@ class DashboardPartnerController extends Controller
         $events = Event::where('user_id', Auth::user()->id);
         $totalEvent = $events->count();
         $totalTransaksi = Transaction::whereHas('event', function ($query) {
-            return $query->where('user_id', '=', Auth::user()->id);
+            return $query->where('user_id', '=', Auth::user()->id)->where('payment_status', 'paid');
         })->sum('item_price');
         $totalPeserta = Transaction::whereHas('event', function ($query) {
-            return $query->where('user_id', '=', Auth::user()->id);
+            return $query->where('user_id', '=', Auth::user()->id)->where('payment_status', 'paid');
         })->count();
         // announcements
         return view('partner.dashboard', [

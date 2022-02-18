@@ -40,6 +40,58 @@
                         <div class="col-lg-12 col-12">
                             <div class="card card-statistics">
                                 <div class="card-header">
+                                    <h4 class="card-title">Statistik Transaksi</h4>
+                                </div>
+                                <div class="card-body statistics-body">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="dollar-sign" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataTransaksi[0] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Transaksi</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-success me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="check-circle" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataTransaksi[1] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Transaksi Berhasil</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-2 col-12 mb-2 mb-md-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-warning me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="clock" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $dataTransaksi[2] }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Transaksi Waiting</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row match-height">
+                        <div class="col-lg-12 col-12">
+                            <div class="card card-statistics">
+                                <div class="card-header">
                                     <h4 class="card-title">Statistik Event</h4>
                                 </div>
                                 <div class="card-body statistics-body">

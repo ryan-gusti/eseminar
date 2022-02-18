@@ -58,8 +58,6 @@ class AuthenticatedSessionController extends Controller
                             'email' => $request->email,
                             'password' => $request->password,
                         ]);
-        
-                // dd($response);
                 if($response->status() === 200) {
                     $data_sipt = $response->json();
                     $data = [

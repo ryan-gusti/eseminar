@@ -129,8 +129,8 @@
                                                     </h6>
                                                     <div class="d-flex flex-column flex-md-row">
                                                         <a id="banner-preview-image" data-fancybox="banner-preview"
-                                                            data-src="{{ asset('storage/' . $event->banner) }}"><img
-                                                                src="{{ asset('storage/' . $event->banner) }}"
+                                                            data-src="{{ asset('storage/banner-event/' . $event->banner) }}"><img
+                                                                src="{{ asset('storage/banner-event/' . $event->banner) }}"
                                                                 id="blog-feature-image"
                                                                 class="rounded me-2 mb-1 mb-md-0 img-fluid" width="170"
                                                                 height="110" alt="Blog Featured Image" /></a>

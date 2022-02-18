@@ -45,7 +45,7 @@
                         <div class="card ecommerce-card">
                             <div class="item-img">
                                 <a href="app-ecommerce-details.html">
-                                    <img src="{{ asset('storage/' . $event->banner) }}" alt="img-placeholder" />
+                                    <img src="{{ asset('storage/banner-event/' . $event->banner) }}" alt="img-placeholder" />
                                 </a>
                             </div>
                             <div class="card-body">

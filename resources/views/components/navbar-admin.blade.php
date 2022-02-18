@@ -59,9 +59,9 @@
                                 data-feather="home"></i><span>Dashboards</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
-                            href="{{ route('admin.categories.index') }}"><i
-                                data-feather="align-justify"></i><span>Manage
-                                Kategori</span></a>
+                            href="{{ route('admin.transactions.index') }}"><i
+                                data-feather="dollar-sign"></i><span>Manage
+                                Transaksi</span></a>
                     </li>
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
                             href="{{ route('admin.events.index') }}"><i data-feather="star"></i><span>Manage
@@ -76,13 +76,18 @@
                             data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Manage Website</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
-                                    href="{{ route('partner.events.create') }}"><i data-feather="award"></i><span>Atur
+                                    href="{{ route('partner.events.create') }}"><i data-feather="award"></i><span>Manage
                                         Master Sertifikat</span></a>
                             </li>
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
                                     href="{{ route('admin.announcements.index') }}"><i
-                                        data-feather="list"></i><span>Atur
+                                        data-feather="info"></i><span>Manage
                                         Informasi</span></a>
+                            </li>
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('admin.categories.index') }}"><i
+                                        data-feather="list"></i><span>Manage
+                                        Kategori</span></a>
                             </li>
                         </ul>
                     </li>

@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Transaction;
 use Alert;
 use Auth;
+use Illuminate\Support\Facades\Redis;
 use Image;
 use Illuminate\Support\Facades\Storage;
 
@@ -89,7 +90,7 @@ class UserController extends Controller
 
     public function my_tickets()
     {
-        $tickets = Transaction::with('event')->where('user_id', Auth::id())->get();
+        $tickets = Transaction::with('event')->where('user_id', Auth::id())->where('payment_status', 'paid')->get();
         return view('user.tickets', [
             'tickets' => $tickets
         ]);
@@ -115,6 +116,25 @@ class UserController extends Controller
             $font->valign('top');
         });
         return $img->response('jpg');
+    }
+
+    public function my_transactions()
+    {
+        $transaction = Transaction::with('event')->where('user_id', Auth::id())->get();
+        // return $transaction;
+        return view('user.transactions', [
+            'transactions' => $transaction
+        ]);
+    }
+
+    public function delete_transaction($id)
+    {
+        // cek apakah ini benar transaksi dari user tsb
+        $transaction = Transaction::findorFail($id);
+        $transaction->payment_status = 'failed';
+        $transaction->save();
+        Alert::error('Dibatalkan!', 'Transaksi ini telah dibatalkan');
+        return redirect(route('user.transactions'));
     }
 
 }

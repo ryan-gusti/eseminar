@@ -22,10 +22,10 @@ class EventTableSeeder extends Seeder
                 'user_id' => 3,
                 'slug' => Str::slug('Coba Event Offline', '-'),
                 'description' => base64_encode('Ini Deskripsi'),
-                'banner' => 'banner-offline.png',
+                'banner' => 'banner-event-offline.jpeg',
                 'quota' => 200,
                 'time' => date('Y-m-d H:i:s', time()),
-                'location_link' => 'Hotel Test',
+                'location_link' => 'Jalan A. Yani No.29, Tanjungpura, Kec. Karawang Bar., Kabupaten Karawang, Jawa Barat 41315',
                 'price' => 100000,
                 'status' => 'open',
                 'type' => 'offline'
@@ -35,11 +35,11 @@ class EventTableSeeder extends Seeder
                 'user_id' => 2,
                 'slug' => Str::slug('Coba Event Online', '-'),
                 'description' => base64_encode('Ini Deskripsi'),
-                'banner' => 'banner-online.png',
+                'banner' => 'banner-event-online.jpeg',
                 'quota' => 400,
                 'time' => date('Y-m-d H:i:s', time()),
                 'location_link' => 'https://s.id/linkzoom',
-                'price' => 50000,
+                'price' => 0,
                 'type' => 'online',
                 'status' => 'open'
             ]

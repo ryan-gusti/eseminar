@@ -66,10 +66,9 @@
                         <p class="text-head pt-3 align-middle text-dark">Selamat Datang<br> di ESeminar</p>
                         <p>
                         <p class="h3 mt-2 mb-3">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quidem sint maiores amet omnis
-                            praesentium deleniti?
+                            ESeminar adalah platform berbasis website yang menyediakan tiket untuk event dengan praktis dan mudah!
                         </p>
-                        <a href="#" class="btn btn-primary btn-lg btn-block p-2 px-3">Get Started</a>
+                        <a href="{{ route('events') }}" class="btn btn-primary btn-lg btn-block p-2 px-3">Ayo Mulai!</a>
                         </p>
                     </div>
                 </div>

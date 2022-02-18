@@ -34,7 +34,7 @@
                                 <div class="col-lg-4 col-md-6 col-sm-12 mb-3">
                                     <div class="card h-100">
                                         <img class="card-img-top"
-                                            src="{{ asset('backend/app-assets/images/slider/01.jpg') }}"
+                                            src="{{ asset('storage/banner-event/'. $event->banner) }}" height="350"
                                             alt="Card image cap">
                                         <div class="card-body pb-0 text-center">
                                             <h3 class="card-title" style="height: 50px;">{{ $event->title }}</h3>
