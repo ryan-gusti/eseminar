@@ -64,8 +64,8 @@
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="{{ route('user.tickets') }}"><i
                                 data-feather="printer"></i><span>Tiket</span></a>
                     </li>
-                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="index.html"><i
-                                data-feather="credit-card"></i><span>Pembayaran</span></a>
+                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="{{ route('user.transactions') }}"><i
+                                data-feather="credit-card"></i><span>Transaksi</span></a>
                     </li>
                 </ul>
             </div>

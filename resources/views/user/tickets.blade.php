@@ -40,8 +40,8 @@
                                         <img src="{{ asset('storage/deleted-event.png') }}" alt="Meeting Pic" height="200"
                                             class="img-fluid" />
                                     @else
-                                        <img src="{{ asset('storage/' . $ticket->event->banner) }}" alt="Meeting Pic"
-                                            height="200" class="img-fluid" />
+                                        <img src="{{ asset('storage/banner-event/' . $ticket->event->banner) }}" alt="Meeting Pic"
+                                            height="200" />
                                     @endif
                                 </div>
                                 <div class="card-body">

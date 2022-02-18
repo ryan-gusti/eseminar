@@ -61,12 +61,6 @@
                     <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center"
                             href="{{ route('events') }}"><i data-feather="star"></i><span>Event</span></a>
                     </li>
-                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="index.html"><i
-                                data-feather="printer"></i><span>Tiket</span></a>
-                    </li>
-                    <li class="dropdown nav-item"><a class="nav-link d-flex align-items-center" href="index.html"><i
-                                data-feather="credit-card"></i><span>Pembayaran</span></a>
-                    </li>
                     <li class="dropdown nav-item" data-menu="dropdown"><a
                             class="dropdown-toggle nav-link d-flex align-items-center" href="#"
                             data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Partner</span></a>

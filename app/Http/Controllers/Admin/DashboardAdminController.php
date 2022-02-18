@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use App\Models\User;
+use App\Models\Transaction;
 
 class DashboardAdminController extends Controller
 {
@@ -26,15 +27,16 @@ class DashboardAdminController extends Controller
         $totalPartner = User::where('role', 'partner')->count();
         $totalAdmin = User::where('role', 'admin')->count();
         array_push($dataPengguna, $totalPengguna, $totalUser, $totalPartner, $totalAdmin);
-        // $totalTransaksi = Transaction::whereHas('event', function ($query) {
-        //     return $query->where('user_id', '=', Auth::user()->id);
-        // })->sum('item_price');
-        // $totalPeserta = Transaction::whereHas('event', function ($query) {
-        //     return $query->where('user_id', '=', Auth::user()->id);
-        // })->count();
+        // statistik transaksi
+        $dataTransaksi = [];
+        $totalTransaksi = Transaction::all()->count();
+        $totalPaid = Transaction::where('payment_status', 'paid')->count();
+        $totalWaiting = Transaction::where('payment_status', 'waiting')->count();
+        array_push($dataTransaksi, $totalTransaksi, $totalPaid, $totalWaiting);
         return view('admin.dashboard', [
             'dataEvent' => $dataEvent,
-            'dataPengguna' => $dataPengguna
+            'dataPengguna' => $dataPengguna,
+            'dataTransaksi' => $dataTransaksi
         ]);
     }
 }

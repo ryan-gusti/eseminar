@@ -1,14 +1,12 @@
 @extends('layouts.backend.main')
 
-@section('title', 'List Users')
+@section('title', 'List Event')
 
 @section('vendor-css')
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/fancybox.css') }}">
-    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/> --}}
 @endsection
 
 @section('content')
@@ -20,12 +18,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Kelola User</h2>
+                        <h2 class="content-header-title float-start mb-0">Kelola Event</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
+                                <li class="breadcrumb-item"><a href="index.html">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List User</a>
+                                <li class="breadcrumb-item"><a href="#">List Events</a>
                                 </li>
                             </ol>
                         </div>
@@ -43,11 +41,11 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Nama</th>
-                                        <th>No HP</th>
-                                        <th>Email</th>
-                                        <th>Verified</th>
-                                        <th>Role</th>
+                                        <th>Judul</th>
+                                        <th>Kouta</th>
+                                        <th>Tanggal</th>
+                                        <th>Partner</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -75,7 +73,6 @@
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 @endsection
 
 @section('js')
@@ -91,11 +88,11 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
-            { data: 'name', name: 'name'},
-            { data: 'phone', name: 'phone'},
-            { data: 'email', name: 'email'},
-            { data: 'email_verified_at', name: 'email_verified_at'},
-            { data: 'role', name: 'role'},
+            { data: 'title', name: 'title'},
+            { data: 'quota', name: 'quota'},
+            { data: 'time', name: 'time'},
+            { data: 'user_id', name: 'user_id'},
+            { data: 'status', name: 'status'},
             { 
                 data: 'action', 
                 name: 'action',
@@ -153,14 +150,14 @@
                 $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
                 }, 50);
             }
-            },
-            {
-            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Users',
+            }
+            {{-- {
+            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('admin.users.create') }}';
+                window.location = '{{ route('admin.events.create') }}';
             }     
-            }
+            } --}}
         ],
         responsive: {
             details: {
@@ -202,7 +199,7 @@
             }
         }
     });
-    $('div.head-label').html('<h6 class="mb-0">List Users</h6>');
+    $('div.head-label').html('<h6 class="mb-0">List Event</h6>');
 
     </script>
 @endsection

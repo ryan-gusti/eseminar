@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\ManageUsersController as AdminManageUsers;
 use App\Http\Controllers\Admin\ManageEventsController as AdminManageEvents;
 use App\Http\Controllers\Admin\ManageCategoriesController as AdminManageCategories;
 use App\Http\Controllers\Admin\ManageAnnouncementsController as AdminManageAnnouncements;
+use App\Http\Controllers\Admin\ManageTransactionsController as AdminManageTransactions;
 //PARTNER CONTROLLER
 use App\Http\Controllers\Partner\DashboardPartnerController;
 use App\Http\Controllers\Partner\ManageEventsController as PartnerManageEvents;
@@ -42,18 +43,25 @@ Route::get('/category/{slug}', [EventController::class, 'category'])->name('even
 Route::get('sign-in-google', [UserController::class,'google'])->name('user.login.google');
 Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
+// midtrans route
+Route::get('payment/success', [CheckoutController::class, 'midtransCallback']);
+Route::post('payment/success', [CheckoutController::class, 'midtransCallback']);
+
 Route::middleware(['auth', 'verified'])->group(function () {
     // Route::view('/user/home', 'user.dashboard')->name('user.dashboard');
     Route::get('/user/home', [DashboardUserController::class, 'index'])->name('user.dashboard');
     Route::view('/user/profile', 'pages.profile')->name('user.profile');
     Route::get('/user/ticket', [UserController::class, 'my_tickets'])->name('user.tickets');
     Route::get('/user/ticket/{event}/certificate', [UserController::class, 'my_certificate'])->name('user.certificate');
+    Route::get('/user/transactions', [UserController::class, 'my_transactions'])->name('user.transactions');
+    Route::get('/user/transactions/{transaction}', [UserController::class, 'delete_transaction'])->name('user.transaction.delete');
     Route::get('/profile/edit', [UserController::class, 'edit_profile'])->name('user.profile.edit');
     Route::put('/profile/update', [UserController::class, 'update_profile'])->name('user.profile.update');
     Route::get('/profile/password/edit', [UserController::class, 'edit_password'])->name('user.password.edit');
     Route::put('/profile/password/update', [UserController::class, 'update_password'])->name('user.password.update');
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
 });
 
 Route::middleware(['auth', 'verified', 'is_partner'])->name('partner.')->prefix('partner')->group(function () {
@@ -72,6 +80,7 @@ Route::middleware(['auth', 'verified', 'is_admin'])->name('admin.')->prefix('adm
     Route::get('/categories/checkSlug', [AdminManageCategories::class, 'checkSlug'])->name('checkslug');
     Route::resource('categories', AdminManageCategories::class);
     Route::resource('announcements', AdminManageAnnouncements::class);
+    Route::resource('transactions', AdminManageTransactions::class);
 });
 
 

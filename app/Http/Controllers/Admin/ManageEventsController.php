@@ -67,7 +67,7 @@ class ManageEventsController extends Controller
                                 ->make(true);
         }
 
-        return view('admin.list-events');
+        return view('admin.events.index');
     }
 
     /**
@@ -113,7 +113,7 @@ class ManageEventsController extends Controller
         // return $event->with('user')->first();
         // return $event->with('user');
         $decode = base64_decode($event->description);
-        return view('admin.edit-event', [
+        return view('admin.events.edit', [
             'event' => $event,
             'description' => $decode,
             'categories' => Category::all()

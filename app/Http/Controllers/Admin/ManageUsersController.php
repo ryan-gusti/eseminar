@@ -53,7 +53,7 @@ class ManageUsersController extends Controller
                                 ->make(true);
         }
 
-        return view('admin.list-users');
+        return view('admin.users.index');
     }
 
     /**
@@ -96,7 +96,7 @@ class ManageUsersController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.edit-user', [
+        return view('admin.users.edit', [
             'user' => $user
         ]);
     }

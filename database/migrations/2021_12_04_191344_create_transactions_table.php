@@ -17,8 +17,10 @@ class CreateTransactionsTable extends Migration
             $table->id();
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
-            $table->boolean('is_paid')->default(false);
             $table->bigInteger('item_price');
+            $table->string('payment_status', 100)->default('waiting');
+            $table->string('midtrans_url')->nullable();
+            $table->string('midtrans_booking_code')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

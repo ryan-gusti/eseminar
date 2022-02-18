@@ -14,8 +14,10 @@ class Transaction extends Model
     protected $fillable = [
         'event_id',
         'user_id',
-        'is_paid',
-        'item_price'
+        'item_price',
+        'payment_status',
+        'midtrans_url',
+        'midtrans_booking_code'
     ];
 
     public function event(): BelongsTo

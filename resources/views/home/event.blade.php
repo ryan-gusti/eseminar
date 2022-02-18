@@ -38,7 +38,7 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="card mb-1">
-                                <img src="{{ asset('storage/' . $event->banner) }}" class="mx-auto d-block img-non-fluid"
+                                <img src="{{ asset('storage/banner-event/' . $event->banner) }}" class="mx-auto d-block img-non-fluid"
                                     id="myimage" alt="Blog Detail Pic">
                                 <div class="card-header border-top text-center">
                                     <h4 class="card-title">

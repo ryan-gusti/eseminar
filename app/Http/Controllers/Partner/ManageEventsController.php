@@ -120,7 +120,10 @@ class ManageEventsController extends Controller
         $validatedData['price'] = $price;
         $validatedData['description'] = $decode;
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['banner'] = $request->file('banner')->store('banner-event');
+
+        $image = $request->file('banner');
+        $image->store('banner-event');
+        $validatedData['banner'] = $image->hashName();
 
         $event = Event::create($validatedData);
         $event->categories()->attach($validatedData['category_id']);
@@ -189,7 +192,9 @@ class ManageEventsController extends Controller
             if($event->banner) {
                 Storage::delete($event->banner);
             }
-            $data['banner'] = $request->file('banner')->store('banner-event');
+            $image = $request->file('banner');
+            $image->store('banner-event');
+            $data['banner'] = $image->hashName();
         }
         $event->update($data);
 

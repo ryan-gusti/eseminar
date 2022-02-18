@@ -21,18 +21,14 @@ class TransactionController extends Controller
         // $query = Transaction::query()->where('event_id', $event->id)->with('user')->get();
         // return $query;
         if($request->ajax()) {
-            $query = Transaction::query()->where('event_id', $event->id)->with('user');
+            $query = Transaction::query()->where('event_id', $event->id)->where('payment_status', 'paid')->with('user');
             return Datatables::of($query)
                                 ->addIndexColumn()
                                 ->editColumn('created_at', function($item){
-                                    return $time = date("d F Y H:i:s", strtotime($item->created_at));;
+                                    return date("d F Y H:i:s", strtotime($item->created_at));
                                 })
                                 ->editColumn('status', function($item){
-                                    if($item->is_paid == 1) {
                                         return '<span class="badge badge-glow bg-success">SUDAH BAYAR</span>';
-                                    } else {
-                                        return '<span class="badge badge-glow bg-danger">BELUM BAYAR</span>';
-                                    }
                                 })
                                 ->addColumn('action', function($item){
                                     return '

@@ -1,12 +1,14 @@
 @extends('layouts.backend.main')
 
-@section('title', 'List Event')
+@section('title', 'List Transaksi')
 
 @section('vendor-css')
 <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/dataTables.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/responsive.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/buttons.bootstrap5.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/app-assets/vendors/css/tables/datatable/rowGroup.bootstrap5.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('backend/assets/css/fancybox.css') }}">
+    {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/> --}}
 @endsection
 
 @section('content')
@@ -18,12 +20,12 @@
             <div class="content-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-start mb-0">Kelola Event</h2>
+                        <h2 class="content-header-title float-start mb-0">Kelola Transaksi</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="index.html">Home</a>
+                                <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">List Events</a>
+                                <li class="breadcrumb-item"><a href="#">List Transaksi</a>
                                 </li>
                             </ol>
                         </div>
@@ -41,11 +43,12 @@
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Judul</th>
-                                        <th>Kouta</th>
-                                        <th>Tanggal</th>
-                                        <th>Partner</th>
+                                        <th>No Invoice</th>
+                                        <th>Nama</th>
+                                        <th>Event</th>
+                                        <th>Total Bayar</th>
                                         <th>Status</th>
+                                        <th>Tanggal Transaksi</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -73,6 +76,7 @@
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
     <script src="{{ asset('backend/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
 @endsection
 
 @section('js')
@@ -88,11 +92,12 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
-            { data: 'title', name: 'title'},
-            { data: 'quota', name: 'quota'},
-            { data: 'time', name: 'time'},
-            { data: 'user_id', name: 'user_id'},
-            { data: 'status', name: 'status'},
+            { data: 'midtrans_booking_code', name: 'midtrans_booking_code'},
+            { data: 'user.name', name: 'user.name'},
+            { data: 'event.title', name: 'event.title'},
+            { data: 'item_price', name: 'item_price'},
+            { data: 'payment_status', name: 'payment_status'},
+            { data: 'created_at', name: 'created_at'},
             { 
                 data: 'action', 
                 name: 'action',
@@ -150,14 +155,14 @@
                 $(node).closest('.dt-buttons').removeClass('btn-group').addClass('d-inline-flex');
                 }, 50);
             }
-            },
-            {
-            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Event',
+            }
+            {{-- {
+            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Tambah Users',
             className: 'create-new btn btn-primary',
             action: function ( e, dt, button, config ) {
-                window.location = '{{ route('admin.events.create') }}';
+                window.location = '{{ route('admin.users.create') }}';
             }     
-            }
+            } --}}
         ],
         responsive: {
             details: {
@@ -199,7 +204,7 @@
             }
         }
     });
-    $('div.head-label').html('<h6 class="mb-0">List Event</h6>');
+    $('div.head-label').html('<h6 class="mb-0">List Transaksi</h6>');
 
     </script>
 @endsection
