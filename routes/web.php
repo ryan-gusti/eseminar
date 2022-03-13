@@ -31,7 +31,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::view('/success', 'user.success-checkout');
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [EventController::class, 'index'])->name('events');
@@ -43,9 +42,12 @@ Route::get('/category/{slug}', [EventController::class, 'category'])->name('even
 Route::get('sign-in-google', [UserController::class,'google'])->name('user.login.google');
 Route::get('auth/google/callback', [UserController::class, 'handleProviderCallback'])->name('user.google.callback');
 
-// midtrans route
+//midtrans route
 Route::get('payment/success', [CheckoutController::class, 'midtransCallback']);
 Route::post('payment/success', [CheckoutController::class, 'midtransCallback']);
+
+//link cek sertifikat
+Route::get('/certificate/{inv}', [UserController::class, 'check_certificate'])->name('check.certificate');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Route::view('/user/home', 'user.dashboard')->name('user.dashboard');

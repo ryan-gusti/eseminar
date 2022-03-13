@@ -63,7 +63,7 @@
                                         </div>
                                         <div class="content-body">
                                             <h6 class="mb-0">Order ID</h6>
-                                            <small>{{ $transaction->midtrans_booking_code }}</small>
+                                            <small>{{ $transaction->invoice }}</small>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-row meetings">

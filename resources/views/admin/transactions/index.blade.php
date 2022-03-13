@@ -92,7 +92,7 @@
         columns: [
             // { data: 'DT_RowIndex', name: 'DT_RowIndex',  searchable: false, orderable: true},
             { data: 'id', name: 'id'},
-            { data: 'midtrans_booking_code', name: 'midtrans_booking_code'},
+            { data: 'invoice', name: 'invoice'},
             { data: 'user.name', name: 'user.name'},
             { data: 'event.title', name: 'event.title'},
             { data: 'item_price', name: 'item_price'},

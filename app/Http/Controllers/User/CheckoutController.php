@@ -81,8 +81,8 @@ class CheckoutController extends Controller
             // merubah status menjadi paid
             $transaction->payment_status = 'paid';
             // membuat id transaksi
-            $orderId = 'INV-'.$transaction->id.'-'.Str::random(5);
-            $transaction->midtrans_booking_code = $orderId;
+            $orderId = 'INV-'.$transaction->id.'-'.Str::random(10);
+            $transaction->invoice = $orderId;
             $transaction->save();
             return view('user.success-checkout');
         }
@@ -92,9 +92,9 @@ class CheckoutController extends Controller
         // ]);
         // return redirect($paymentUrl);
 
-        $orderId = 'INV-'.$transaction->id.'-'.Str::random(5);
+        $orderId = 'INV-'.$transaction->id.'-'.Str::random(10);
         $price = $transaction->event->price;
-        $transaction->midtrans_booking_code = $orderId;
+        $transaction->invoice = $orderId;
 
         $transaction_details = [
             'order_id' => $orderId,

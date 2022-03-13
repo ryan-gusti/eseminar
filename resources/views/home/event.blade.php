@@ -2,6 +2,10 @@
 
 @section('title', $event->title)
 
+@section('page-css')
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/>
+@endsection
+
 @section('css')
     <style>
         .text-head {
@@ -38,8 +42,9 @@
                     <div class="row">
                         <div class="col-lg-8">
                             <div class="card mb-1">
-                                <img src="{{ asset('storage/banner-event/' . $event->banner) }}" class="mx-auto d-block img-non-fluid"
-                                    id="myimage" alt="Blog Detail Pic">
+                            <a data-fancybox="banner-preview" data-src="{{ asset('storage/banner-event/' . $event->banner) }}"><img src="{{ asset('storage/banner-event/' . $event->banner) }}" class="mx-auto d-block img-non-fluid" id="myimage"/></a>
+                                {{-- <img src="{{ asset('storage/banner-event/' . $event->banner) }}" class="mx-auto d-block img-non-fluid"
+                                    id="myimage" alt="Blog Detail Pic"> --}}
                                 <div class="card-header border-top text-center">
                                     <h4 class="card-title">
                                         <span class="fw-bold">{{ $event->title }}</span>
@@ -221,6 +226,10 @@
     </div>
 @endsection
 
+@section('page-js')
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+@endsection
+
 @section('js')
     <script type="text/javascript">
         $("#copyResult").click(function() {
@@ -236,6 +245,10 @@
             $temp.val($(element).val()).select();
             document.execCommand("copy");
             $temp.remove();
-        }
+        };
+
+        Fancybox.bind('[data-fancybox="banner-preview"]', {
+        groupAttr: false,
+        });
     </script>
 @endsection

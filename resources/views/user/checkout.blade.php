@@ -44,7 +44,7 @@
                     <div class="checkout-items">
                         <div class="card ecommerce-card">
                             <div class="item-img">
-                                <a href="app-ecommerce-details.html">
+                                <a href="#">
                                     <img src="{{ asset('storage/banner-event/' . $event->banner) }}" alt="img-placeholder" />
                                 </a>
                             </div>

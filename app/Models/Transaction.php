@@ -17,7 +17,7 @@ class Transaction extends Model
         'item_price',
         'payment_status',
         'midtrans_url',
-        'midtrans_booking_code'
+        'invoice'
     ];
 
     public function event(): BelongsTo

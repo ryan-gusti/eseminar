@@ -37,7 +37,7 @@
                         <!-- profile -->
                         <div class="card">
                             <div class="card-header border-bottom">
-                                <h4 class="card-title">Edit Transaksi {{ $transaction->midtrans_booking_code }}</h4>
+                                <h4 class="card-title">Edit Transaksi {{ $transaction->invoice }}</h4>
                             </div>
                             <div class="card-body">
                                 <!-- form -->

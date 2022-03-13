@@ -20,7 +20,7 @@ class CreateTransactionsTable extends Migration
             $table->bigInteger('item_price');
             $table->string('payment_status', 100)->default('waiting');
             $table->string('midtrans_url')->nullable();
-            $table->string('midtrans_booking_code')->nullable();
+            $table->string('invoice')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -7,6 +7,7 @@ use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use App\Models\Event;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
 use App\Models\Transaction;
 use Alert;
@@ -14,6 +15,8 @@ use Auth;
 use Illuminate\Support\Facades\Redis;
 use Image;
 use Illuminate\Support\Facades\Storage;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 
 class UserController extends Controller
 {
@@ -100,6 +103,8 @@ class UserController extends Controller
     {
         // cek apakah user tersebut benar sudah terdaftar di table transaksi
         $certificate = Transaction::with('event')->where('user_id', Auth::id())->where('event_id', $event->id)->first();
+        $barcode_body = explode('-', $certificate->invoice)[2];
+        $barcode = QrCode::format('png')->size(130)->style('round')->generate(url('/certificate').'/'.$barcode_body);
         if(!$certificate) {
             Alert::error('Gagal!', 'Anda tidak memiliki akses!');
             return redirect(route('user.tickets'));
@@ -115,7 +120,12 @@ class UserController extends Controller
             $font->align('center');
             $font->valign('top');
         });
-        return $img->response('jpg');
+        $img->response('jpg', 100);
+
+        return view('home.download-certificate', [
+            'certificate' => $img,
+            'barcode' => $barcode
+        ]);
     }
 
     public function my_transactions()
@@ -135,6 +145,35 @@ class UserController extends Controller
         $transaction->save();
         Alert::error('Dibatalkan!', 'Transaksi ini telah dibatalkan');
         return redirect(route('user.transactions'));
+    }
+
+    public function check_certificate($inv)
+    {
+        $data = Transaction::where('invoice', 'like', '%'.$inv.'%')->where('payment_status', 'paid')->with('event', 'user')->first();
+        // cek kondisi data
+        if (!$data) {
+            Alert::error('Gagal!', 'Sertifikat tidak ditemukan!');
+            return redirect(route('home'));
+        }
+        $barcode_body = explode('-', $data->invoice)[2];
+        $barcode = QrCode::format('png')->size(130)->style('round')->generate(url('/certificate').'/'.$barcode_body);
+        $imgCertificate = Event::with('certificate')->where('slug', $data->event->slug)->first();
+        $path = base_path('public/storage/certificate-event/');
+        $img = Image::make($path.$data->event->slug.'/'.$imgCertificate->certificate->sertifikat);
+        $img->text($data->user->name, 950, 450, function($font) {
+            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
+            $font->size(60);
+            $font->color('#000000');
+            $font->align('center');
+            $font->valign('top');
+        });
+        $img->response('jpg', 100);
+        // return $img->response('jpg');
+        return view('home.check-certificate', [
+            'barcode' => $barcode,
+            'certificate' => $img,
+            'data' => $data
+        ]);
     }
 
 }
