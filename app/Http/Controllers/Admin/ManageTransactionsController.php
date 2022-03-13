@@ -25,7 +25,7 @@ class ManageTransactionsController extends Controller
                                 return '
                                     <div class="btn-group" role="group" aria-label="Basic example">
                                         <a href="'.route('admin.transactions.edit', $item->id).'" class="btn btn-warning"><i class="far fa-edit"></i></a>
-                                        <form action="'.route('admin.users.destroy', $item->id).'" method="POST" class="btn-group">
+                                        <form action="'.route('admin.transactions.destroy', $item->id).'" method="POST" class="btn-group">
                                         '. method_field('delete'). csrf_field().'
                                         <button class="btn btn-danger" onclick="return confirm(\'Anda Yakin?\')"><i class="fas fa-trash"></i></button>
                                         </form>
@@ -141,6 +141,9 @@ class ManageTransactionsController extends Controller
      */
     public function destroy(Transaction $transaction)
     {
-        //
+        $transaction->delete();
+        // kirim alert dan redirect
+        Alert::success('Berhasil!', 'Transaksi telah dihapus!');
+        return redirect(route('admin.transactions.index'));
     }
 }
