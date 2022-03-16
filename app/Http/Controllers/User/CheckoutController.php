@@ -5,11 +5,13 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use App\Models\Event;
+use App\Mail\Checkout\Invoice;
 use Illuminate\Http\Request;
 use Midtrans;
 use Auth;
 use Alert;
 use Str;
+use Mail;
 use Exception;
 
 class CheckoutController extends Controller
@@ -84,6 +86,9 @@ class CheckoutController extends Controller
             $orderId = 'INV-'.$transaction->id.'-'.Str::random(10);
             $transaction->invoice = $orderId;
             $transaction->save();
+            // kirim email invoice
+            Mail::to(Auth::user()->email)->send(new Invoice($transaction));
+            // redirect view
             return view('user.success-checkout');
         }
 
@@ -234,6 +239,9 @@ class CheckoutController extends Controller
         }
 
         $transaction->save();
+        // kirim email invoice
+        Mail::to(Auth::user()->email)->send(new Invoice($transaction));
+        // redirect success
         return view('user.success-checkout');
         // $transaction = Transaction::find($transaction_id)->with('event')->get();
         // $title = $transaction[0]['event']['title']; 

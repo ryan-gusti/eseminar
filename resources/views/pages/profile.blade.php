@@ -132,8 +132,7 @@
                                     <div class="card-body">
                                         <h5 class="mb-75">QR Code:</h5>
                                         <p class="card-text">
-                                            <img src="https://v1.slashapi.com/solo/qr-code/7QtwLV8oHF?text={{ Auth::user()->email }}"
-                                                width="160" height="160">
+                                            {!! QrCode::style('round')->size(160)->generate(Auth::user()->email); !!}
                                         </p>
                                     </div>
                                 </div>
