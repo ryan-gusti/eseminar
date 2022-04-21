@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Laravel\Socialite\Facades\Socialite;
 use App\Models\User;
 use App\Models\Event;
+use App\Models\Certificate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Validation\ValidationException;
@@ -101,6 +102,8 @@ class UserController extends Controller
 
     public function my_certificate(Event $event)
     {
+        // get master certificate
+        $ms_certificate = Certificate::where('status', 'active')->first();
         // cek apakah user tersebut benar sudah terdaftar di table transaksi
         $certificate = Transaction::with('event')->where('user_id', Auth::id())->where('event_id', $event->id)->first();
         $barcode_body = explode('-', $certificate->invoice)[2];
@@ -113,10 +116,10 @@ class UserController extends Controller
         $imgCertificate = Event::with('certificate')->where('slug', $event->slug)->first();
         $path = base_path('public/storage/certificate-event/');
         $img = Image::make($path.$event->slug.'/'.$imgCertificate->certificate->sertifikat);
-        $img->text(Auth::user()->name, 950, 450, function($font) {
-            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
-            $font->size(60);
-            $font->color('#000000');
+        $img->text(Auth::user()->name, 950, 450, function($font) use ($ms_certificate) {
+            $font->file(base_path('public/storage/master-certificates/'.$ms_certificate->code.'/'.$ms_certificate->file_font[1]));
+            $font->size(80);
+            $font->color($ms_certificate->font_colour['number_name']);
             $font->align('center');
             $font->valign('top');
         });
@@ -149,6 +152,8 @@ class UserController extends Controller
 
     public function check_certificate($inv)
     {
+        // get master sertifikat
+        $ms_certificate = Certificate::where('status', 'active')->first();
         $data = Transaction::where('invoice', 'like', '%'.$inv.'%')->where('payment_status', 'paid')->with('event', 'user')->first();
         // cek kondisi data
         if (!$data) {
@@ -160,10 +165,10 @@ class UserController extends Controller
         $imgCertificate = Event::with('certificate')->where('slug', $data->event->slug)->first();
         $path = base_path('public/storage/certificate-event/');
         $img = Image::make($path.$data->event->slug.'/'.$imgCertificate->certificate->sertifikat);
-        $img->text($data->user->name, 950, 450, function($font) {
-            $font->file(base_path('public/storage/certificate-event/font/Montserrat-Regular.ttf'));
+        $img->text($data->user->name, 950, 450, function($font) use ($ms_certificate) {
+            $font->file(base_path('public/storage/master-certificates/'.$ms_certificate->code.'/'.$ms_certificate->file_font[1]));
             $font->size(60);
-            $font->color('#000000');
+            $font->color($ms_certificate->font_colour['number_name']);
             $font->align('center');
             $font->valign('top');
         });

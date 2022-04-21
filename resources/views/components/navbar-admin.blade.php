@@ -76,8 +76,8 @@
                             data-bs-toggle="dropdown"><i data-feather="pocket"></i><span>Manage Website</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
-                                    href="{{ route('partner.events.create') }}"><i data-feather="award"></i><span>Manage
-                                        Master Sertifikat</span></a>
+                                    href="{{ route('admin.certificates.index') }}"><i data-feather="award"></i><span>Manage
+                                        Sertifikat</span></a>
                             </li>
                             <li data-menu=""><a class="dropdown-item d-flex align-items-center"
                                     href="{{ route('admin.announcements.index') }}"><i

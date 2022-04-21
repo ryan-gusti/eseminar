@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\ManageEventsController as AdminManageEvents;
 use App\Http\Controllers\Admin\ManageCategoriesController as AdminManageCategories;
 use App\Http\Controllers\Admin\ManageAnnouncementsController as AdminManageAnnouncements;
 use App\Http\Controllers\Admin\ManageTransactionsController as AdminManageTransactions;
+use App\Http\Controllers\Admin\ManageCertificatesController as AdminManageCertificates;
 //PARTNER CONTROLLER
 use App\Http\Controllers\Partner\DashboardPartnerController;
 use App\Http\Controllers\Partner\ManageEventsController as PartnerManageEvents;
@@ -83,6 +84,7 @@ Route::middleware(['auth', 'verified', 'is_admin'])->name('admin.')->prefix('adm
     Route::resource('categories', AdminManageCategories::class);
     Route::resource('announcements', AdminManageAnnouncements::class);
     Route::resource('transactions', AdminManageTransactions::class);
+    Route::resource('certificates', AdminManageCertificates::class);
 });
 
 

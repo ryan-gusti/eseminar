@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Partner;
 
 use App\Http\Controllers\Controller;
 use App\Models\EventCertificate;
+use App\Models\Certificate;
 use Illuminate\Http\Request;
 use App\Models\Event;
 use Alert;
@@ -94,8 +95,11 @@ class ManageEventCertificateController extends Controller
      */
     public function store(Request $request, Event $event)
     {
+        //get master certificate
+        $certificate = Certificate::where('status', 'active')->first();
         $time = date("d F Y", strtotime($event->time));
         $cert = 'certificate-event/';
+        $path_cert = base_path('public/storage/master-certificates/');
         $path = base_path('public/storage/certificate-event/');
         //ttd width 362px height 150px  png
         //logo width 150px height 87px png
@@ -122,42 +126,42 @@ class ManageEventCertificateController extends Controller
         $logo->store($cert.$event->slug);
         $validatedData['logo'] = $logo->hashName();
 
-        $img = Image::make($path.'master.jpg');
+        $img = Image::make($path_cert.$certificate->code.'/'.$certificate->file_certificate);
         $img->insert($path.$event->slug.'/'.$validatedData['ttd_pelaksana'], 'center', -250, 380);
         $img->insert($path.$event->slug.'/'.$validatedData['ttd_pemateri'], 'center', 270, 380);
         $img->insert($path.$event->slug.'/'.$validatedData['logo'], 'center', 570, -500);
-        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(25);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['ketua_pemateri']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['pemateri'], 1250, 1115, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['pemateri'], 1250, 1115, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(25);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['ketua_pemateri']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('"'. $event->title .'"', 960, 700, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text('"'. $event->title .'"', 960, 700, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(40);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['title_time']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($time, 960, 800, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($time, 960, 800, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(30);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['title_time']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['no_certificate'], 960, 230, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['no_certificate'], 960, 230, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(30);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['number_name']);
             $font->align('center');
             $font->valign('top');
         });
@@ -210,11 +214,14 @@ class ManageEventCertificateController extends Controller
      */
     public function update(Request $request, EventCertificate $eventCertificate, $id)
     {
+        //get master certificate
+        $certificate = Certificate::where('status', 'active')->first();
         //inisialisasi varible certificate
         $eventCertificate = EventCertificate::where('id',$id)->with('event')->first();
         $slug = $eventCertificate->event->slug.'/';
         $cert = 'certificate-event/';
         $time = date("d F Y", strtotime($eventCertificate->event->time));
+        $path_cert = base_path('public/storage/master-certificates/');
         $path = base_path('public/storage/certificate-event/');
 
         //validasi rule
@@ -229,7 +236,7 @@ class ManageEventCertificateController extends Controller
 
         $validatedData = $request->validate($rules);
 
-        $img = Image::make($path.'master.jpg');
+        $img = Image::make($path_cert.$certificate->code.'/'.$certificate->file_certificate);
 
         // jika terdapat ada user upload pengganti gambar
         if($request->file('ttd_pelaksana')) {
@@ -260,38 +267,38 @@ class ManageEventCertificateController extends Controller
             $img->insert($path.$slug.$eventCertificate->logo, 'center', 570, -500);
         }
         
-        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['ketua_pelaksana'], 680, 1115, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(25);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['ketua_pemateri']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['pemateri'], 1250, 1115, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['pemateri'], 1250, 1115, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(25);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['ketua_pemateri']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text('"'.$eventCertificate->event->title .'"', 960, 700, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text('"'.$eventCertificate->event->title .'"', 960, 700, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(40);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['title_time']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($time, 960, 800, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($time, 960, 800, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(30);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['title_time']);
             $font->align('center');
             $font->valign('top');
         });
-        $img->text($validatedData['no_certificate'], 960, 230, function($font) use ($path) {
-            $font->file($path.'font/Montserrat-Regular.ttf');
+        $img->text($validatedData['no_certificate'], 960, 230, function($font) use ($path_cert, $certificate) {
+            $font->file($path_cert.$certificate->code.'/'.$certificate->file_font[0]);
             $font->size(30);
-            $font->color('#000000');
+            $font->color($certificate->font_colour['number_name']);
             $font->align('center');
             $font->valign('top');
         });

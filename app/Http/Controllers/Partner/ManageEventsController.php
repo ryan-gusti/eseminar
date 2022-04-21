@@ -58,8 +58,10 @@ class ManageEventsController extends Controller
                                         return '<span class="badge badge-glow bg-success">Open</span>';
                                     } elseif ($item->status == 'pending') {
                                         return '<span class="badge badge-glow bg-warning">Pending</span>';
+                                    } elseif ($item->status == 'rejected') {
+                                    return '<span class="badge badge-glow bg-danger">Rejected</span>';
                                     } else {
-                                        return '<span class="badge badge-glow bg-danger">Closed</span>';
+                                        return '<span class="badge badge-glow bg-secondary">Closed</span>';
                                     }
                                 })
                                 ->editColumn('price', function($item){
@@ -96,6 +98,7 @@ class ManageEventsController extends Controller
      */
     public function store(Request $request)
     {
+        return $request->all();
         // cek kondisi untuk harga gratis
         if ($request->price == null) {
             $price = 0;

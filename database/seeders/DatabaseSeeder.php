@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Certificate;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             EventTableSeeder::class,
             CategoryEventSeeder::class,
-            UserSeeder::class
+            UserSeeder::class,
+            CertificateSeeder::class
         ]);
         \App\Models\Event::factory(10)->create();
     }

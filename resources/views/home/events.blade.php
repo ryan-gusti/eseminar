@@ -51,7 +51,7 @@
                             @empty
                                 <div class="misc-inner p-2 p-sm-3 mt-0">
                                     <div class="w-100 text-center">
-                                        <h2>Event yang kamu cari ga ditemukan nih! 🕵🏻‍♀️</h2>
+                                        <h2>Belum ada eventnya nih! 🕵🏻‍♀️</h2>
                                         <img src="{{ asset('storage/not-found.png') }}" class="img-fluid"><br>
                                     </div>
                                 </div>
