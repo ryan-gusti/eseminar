@@ -14,6 +14,7 @@ class Transaction extends Model
     protected $fillable = [
         'event_id',
         'user_id',
+        'presence',
         'item_price',
         'payment_status',
         'midtrans_url',

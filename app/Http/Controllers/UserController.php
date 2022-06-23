@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Redis;
 use Image;
 use Illuminate\Support\Facades\Storage;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use App\Models\Announcement;
 
 
 class UserController extends Controller
@@ -95,6 +96,7 @@ class UserController extends Controller
     public function my_tickets()
     {
         $tickets = Transaction::with('event')->where('user_id', Auth::id())->where('payment_status', 'paid')->get();
+        // return $tickets;
         return view('user.tickets', [
             'tickets' => $tickets
         ]);
@@ -181,4 +183,27 @@ class UserController extends Controller
         ]);
     }
 
+    public function presence($code)
+    {
+        // cek apakah ada event tsb
+        $cek_event = Event::where('code_presence', $code)->first();
+        // cek apakah user terdaftar di event
+        $cek_peserta = Event::where('code_presence', $code)->with('transactions')->whereHas('transactions' , function ($query) {
+        return $query->where('user_id', '=', Auth::user()->id);
+        })->first();
+        return view('user.presence', [
+            'cek_event' => $cek_event,
+            'cek_peserta' => $cek_peserta,
+        ]);
+    }
+
+    public function presence_action($code, $user)
+    {
+        // update from not_present to present for user
+        Transaction::where('user_id', '=', $user)->with('event')->whereHas('event' , function ($query) use ($code) {
+        return $query->where('code_presence', '=', $code);
+        })->update(['presence'=>'present']);
+        Alert::success('Berhasil!', 'Anda telah mengisi kehadiran!');
+        return redirect()->route('user.dashboard');
+    }
 }

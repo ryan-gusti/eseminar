@@ -74,6 +74,10 @@
                                     href="{{ route('partner.events.index') }}"><i data-feather="list"></i><span>List
                                         Event</span></a>
                             </li>
+                            <li data-menu=""><a class="dropdown-item d-flex align-items-center"
+                                    href="{{ route('partner.qrcode') }}"><i data-feather="camera"></i><span>QRCode
+                                        Scanner</span></a>
+                            </li>
                         </ul>
                     </li>
                 </ul>

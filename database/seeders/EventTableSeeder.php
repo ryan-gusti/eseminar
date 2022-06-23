@@ -28,7 +28,8 @@ class EventTableSeeder extends Seeder
                 'location_link' => 'Jalan A. Yani No.29, Tanjungpura, Kec. Karawang Bar., Kabupaten Karawang, Jawa Barat 41315',
                 'price' => 100000,
                 'status' => 'open',
-                'type' => 'offline'
+                'type' => 'offline',
+                'code_presence' => 'w6y8g8c0r6'
             ],
             [
                 'title' => 'Coba Event Online',
@@ -41,7 +42,8 @@ class EventTableSeeder extends Seeder
                 'location_link' => 'https://s.id/linkzoom',
                 'price' => 0,
                 'type' => 'online',
-                'status' => 'open'
+                'status' => 'open',
+                'code_presence' => 'j4o0u6b2v7'
             ]
         ];
 

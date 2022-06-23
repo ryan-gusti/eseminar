@@ -23,6 +23,7 @@ class Event extends Model
         'quota',
         'time',
         'location_link',
+        'code_presence',
         'price',
         'type',
         'status'

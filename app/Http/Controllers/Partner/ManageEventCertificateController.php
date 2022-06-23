@@ -231,7 +231,8 @@ class ManageEventCertificateController extends Controller
             'pemateri' => 'required|string',
             'ttd_pemateri' => 'image|mimes:png|dimensions:max_width=362,max_height=150',
             'no_certificate' => 'required|string',
-            'logo' => 'image|mimes:png|dimensions:max_width=150,max_height=87'
+            #'logo' => 'image|mimes:png|dimensions:max_width=150,max_height=87'
+            'logo' => 'image|mimes:png'
         ];
 
         $validatedData = $request->validate($rules);
@@ -261,8 +262,14 @@ class ManageEventCertificateController extends Controller
             Storage::delete($cert.$slug.$eventCertificate->logo);
             $logo = $request->file('logo');
             $logo->store($cert.$slug);
+            $data = getimagesize($logo);
             $validatedData['logo'] = $logo->hashName();
-            $img->insert($path.$slug.$validatedData['logo'], 'center', 570, -500);
+            if ($data[0] >= 600) {
+                $logoresize = Image::make($path.$slug.$validatedData['logo'])->resize(600, null);
+                $img->insert($logoresize, 'center', 570, -500);
+            } else {
+                $img->insert($path.$slug.$validatedData['logo'], 'center', 570, -500);
+            }
         } else {
             $img->insert($path.$slug.$eventCertificate->logo, 'center', 570, -500);
         }
@@ -310,6 +317,9 @@ class ManageEventCertificateController extends Controller
         $validatedData['sertifikat'] = $sertifikat_name;
 
         //update database dan redirect
+        // $width = Image::make('public/foo.jpg')->width();
+        // $width = Image::make($path.$slug.$validatedData['logo'])->width();
+        // return $width;
         EventCertificate::where('id', $id)->update($validatedData);
         Alert::success('Berhasil!', 'Sukses mengubah certificate!');
         return redirect(route('partner.events.index'));

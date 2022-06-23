@@ -18,6 +18,7 @@ class CreateTransactionsTable extends Migration
             $table->foreignId('event_id')->constrained();
             $table->foreignId('user_id')->constrained();
             $table->bigInteger('item_price');
+            $table->enum('presence', ['present', 'not_present'])->default('not_present');
             $table->string('payment_status', 100)->default('waiting');
             $table->string('midtrans_url')->nullable();
             $table->string('invoice')->nullable();

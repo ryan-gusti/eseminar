@@ -30,6 +30,13 @@ class TransactionController extends Controller
                                 ->editColumn('status', function($item){
                                         return '<span class="badge badge-glow bg-success">SUDAH BAYAR</span>';
                                 })
+                                ->editColumn('presence', function($item){
+                                        if ($item->presence == 'present') {
+                                            return '<span class="badge badge-glow bg-success">HADIR</span>';
+                                        } else {
+                                            return '<span class="badge badge-glow bg-danger">TIDAK HADIR</span>';
+                                        }
+                                })
                                 ->addColumn('action', function($item){
                                     return '
                                             <form action="'.route('partner.transaction.destroy', $item->id).'" method="POST">
@@ -38,11 +45,13 @@ class TransactionController extends Controller
                                             </form>
                                         ';
                                 })
-                                ->rawColumns(['action', 'status'])
+                                ->rawColumns(['action', 'presence', 'status'])
                                 ->make(true);
         }
 
-        return view('partner.transaction.list-transaction');
+        return view('partner.transaction.list-transaction', [
+            'event' => $event
+        ]);
     }
 
     /**
@@ -116,5 +125,39 @@ class TransactionController extends Controller
         // kirim alert dan redirect
         Alert::success('Berhasil!', 'Peserta telah dihapus!');
         return redirect()->route('partner.events.transaction.index', $slug);
+    }
+
+    public function validationQrcode(Request $request)
+    {
+        //get data absen from db
+        $invoice = Transaction::where("invoice", $request->qr_code)->with('user', 'event')->first();
+        //jika data tidak ditemukan didalam db
+        if (!$invoice) {
+            $data = [
+            'status' => false,
+            'data' => NULL,
+            'message' => 'Event Tidak Ditemukan!'
+            ];
+            return $data;
+        }
+        //cek apakah event sesuai dengan id partner
+        if ($request->partner_id != $invoice->event->user_id) {
+            $data = [
+            'status' => false,
+            'data' => NULL,
+            'message' => 'Event Tidak Sesuai!'
+            ];
+            return $data;
+        }
+        //jika event sesuai dengan id partner update data kehadiran
+        $invoice->update(['presence' => 'present']);
+        $data = [
+            'status' => true,
+            'data' => [
+                'data' => $invoice, 
+                'register' => date('l d F Y H:m', strtotime($invoice->created_at))],
+            'message' => 'Berhasil!' 
+        ];
+        return $data;
     }
 }

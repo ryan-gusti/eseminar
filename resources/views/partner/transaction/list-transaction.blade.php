@@ -15,6 +15,13 @@
     {{-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.css"/> --}}
 @endsection
 
+@php
+    // get code absence from db
+    $code = $event->code_presence;
+    // $slug = $event->slug;
+    $url = url('absen/'.$code);
+@endphp
+
 @section('content')
     <div class="app-content content ">
         <div class="content-overlay"></div>
@@ -24,12 +31,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">List Transaksi</h2>
+                            <h2 class="content-header-title float-start mb-0">List Peserta Event</h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{ route('partner.dashboard') }}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">List Transaksi</a>
+                                    <li class="breadcrumb-item"><a href="#">List Peserta Event</a>
                                     </li>
                                 </ol>
                             </div>
@@ -38,6 +45,24 @@
                 </div>
             </div>
             <div class="content-body">
+            <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Link Absensi Peserta</h4>
+        </div>
+        <div class="card-body">
+          <p class="card-text">
+            Gunakan link dibawah ini untuk peserta dapat melakukan absensi secara mandiri, absensi otomatis dibuka ketika tanggal event dimulai.
+          </p>
+          <div class="row">
+            <div class="col-md-6 col-12 mb-1">
+              <div class="input-group">
+                <input type="text" class="form-control" value="{{ $url }}" aria-describedby="button-addon2" disabled>
+                <button class="btn btn-outline-primary waves-effect" id="button-addon2" type="button">Salin Link</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
                 <!-- Basic table -->
                 <section id="basic-datatable">
                     <div class="row">
@@ -52,6 +77,7 @@
                                             <th>No HP</th>
                                             <th>Waktu Daftar</th>
                                             <th>Status</th>
+                                            <th>Kehadiran</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -122,6 +148,12 @@
                 {
                     data: 'status',
                     name: 'status',
+                    orderable: false,
+                    searchable: false,
+                },
+                {
+                    data: 'presence',
+                    name: 'presence',
                     orderable: false,
                     searchable: false,
                 },

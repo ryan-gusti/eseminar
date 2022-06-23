@@ -98,7 +98,8 @@ class ManageEventsController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+        // FIXME: add code presence
+        // return $request->all();
         // cek kondisi untuk harga gratis
         if ($request->price == null) {
             $price = 0;

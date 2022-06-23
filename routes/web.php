@@ -65,11 +65,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/checkout/{event:slug}', [CheckoutController::class, 'create'])->name('checkout.create');
     Route::post('/checkout/{event}', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/checkout/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    // untuk absensi peserta
+    Route::get('/absen/{code}', [UserController::class, 'presence'])->name('presence');
+    Route::get('/absen/{code}/{user}', [UserController::class, 'presence_action'])->name('presence.action');
 });
 
 Route::middleware(['auth', 'verified', 'is_partner'])->name('partner.')->prefix('partner')->group(function () {
     Route::get('/home', [DashboardPartnerController::class, 'index'])->name('dashboard');
     Route::get('/events/checkSlug', [PartnerManageEvents::class, 'checkSlug'])->name('checkslug');
+    Route::view('/events/qrcode', 'partner.qrcode')->name('qrcode');
+    Route::post('/events/qrcode/validasi', [TransactionController::class, 'validationQrcode'])->name('qrcode.valid');
     Route::resource('events', PartnerManageEvents::class);
     Route::resource('events.certificate', PartnerManageCertificate::class)->shallow();
     Route::resource('events.transaction', TransactionController::class)->shallow();

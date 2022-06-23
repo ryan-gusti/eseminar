@@ -27,10 +27,11 @@
                 </div>
             </div>
             <div class="content-body">
+                @foreach($tickets as $ticket)
+                @endforeach
                 <!-- Card Advance -->
                 <div class="row match-height">
                     @forelse ($tickets as $ticket)
-                        {{-- {{ dd($ticket->event->certificate->sertifikat) }} --}}
                         <!-- Developer Meetup Card -->
                         <div class="col-lg-4 col-md-6 col-12">
                             <div class="card card-developer-meetup">
@@ -104,14 +105,96 @@
                                             </div>
                                         @endif
                                     @else
-                                        <div class="d-grid col-lg-12 col-md-12 mb-1 mt-1 mb-lg-0">
-                                            <a href="#" class="btn btn-block btn-secondary" data-bs-toggle="tooltip"
+                                        <div class="btn-group col-12 mt-1" role="group" aria-label="Basic example">
+                                            <a href="#" class="btn btn-secondary" data-bs-toggle="tooltip"
                                                 data-bs-placement="top" title="Event Belum Berakhir">
                                                 <i data-feather="award" class="me-25"></i>
                                                 <span>E-Sertifikat</span>
                                             </a>
+                                            <a href="#" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#qrcodeModal-{{ $ticket->id }}">
+                                                <i data-feather="eye" class="me-25"></i><span>QR Code</span>
+                                            </a>
                                         </div>
+                                        {{-- Modal --}}
+                                        <div class="modal fade" id="qrcodeModal-{{ $ticket->id }}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ $ticket->event->title }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p class="text-center">
+                                                        {!! QrCode::style('round')->size(240)->generate($ticket->invoice); !!}
+                                                    </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        
+                                        {{-- <div class="btn-group col-lg-12 col-md-12 mb-1 mb-lg-0 mt-1" role="group" aria-label="Basic example">
+                                            <a href="#" class="btn btn-secondary" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Event Belum Berakhir">
+                                                <i data-feather="award" class="me-25"></i>
+                                                <span>E-Sertifikat</span>
+                                            </a>
+                                            <a href="#" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#qrcodeModal-{{ $ticket->id }}">
+                                                QR Code
+                                            </a>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="qrcodeModal-{{ $ticket->id }}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ $ticket->event->title }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p class="text-center">
+                                                        {!! QrCode::style('round')->size(240)->generate($ticket->invoice); !!}
+                                                    </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
+                                        {{-- <div class="col-lg-6 col-md-12 mb-1 mt-1 mb-lg-0">
+                                            <a href="#" class="btn btn-secondary" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="Event Belum Berakhir">
+                                                <i data-feather="award" class="me-25"></i>
+                                                <span>E-Sertifikat</span>
+                                            </a>
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#qrcodeModal-{{ $ticket->id }}">
+                                                QR Code
+                                            </button>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="qrcodeModal-{{ $ticket->id }}" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalCenterTitle">{{ $ticket->event->title }}</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                    <p class="text-center">
+                                                        {!! QrCode::style('round')->size(240)->generate($ticket->invoice); !!}
+                                                    </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Tutup</button>
+                                                    </div>
+                                                </div>
+                                                </div>
+                                            </div>
+                                        </div> --}}
                                     @endif
+
                                 </div>
                             </div>
                         </div>
@@ -128,7 +211,6 @@
                         </div>
                     @endforelse
                 </div>
-
                 <!--/ Card Advance -->
 
             </div>

@@ -26,6 +26,7 @@ class CreateEventsTable extends Migration
             $table->unsignedInteger('price');
             $table->enum('type', ['offline', 'online']);
             $table->enum('status', ['open','pending','rejected', 'close'])->default('pending');
+            $table->string('code_presence');
             $table->timestamp('published_at')->nullable();
             $table->timestamps();
             $table->softDeletes();

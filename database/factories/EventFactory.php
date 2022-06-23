@@ -23,6 +23,7 @@ class EventFactory extends Factory
         'time' => $this->faker->dateTimeBetween('+2 day', '+1 week'),
         'location_link' => $this->faker->url(),
         'price' => $this->faker->randomNumber(5, true),
+        'code_presence' => $this->faker->bothify('?#?#?#?#?#'),
         'type' => 'online',
         'status' => 'open'
         ];
